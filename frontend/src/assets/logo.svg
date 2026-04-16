@@ -1,0 +1,62 @@
+/* E-Désigne Logo - SVG Version */
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150" width="400" height="150">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4B6CB7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#19232D;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4B6CB7;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#6B8DD6;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#4B6CB7;stop-opacity:0.8" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="150" fill="transparent"/>
+
+  <!-- Icon - Abstract E with digital elements -->
+  <g transform="translate(30, 35)" filter="url(#glow)">
+    <!-- Main E shape - modern geometric -->
+    <path d="M20 0 L70 0 L70 15 L35 15 L35 35 L65 35 L65 50 L35 50 L35 75 L70 75 L70 90 L20 90 Z" 
+          fill="url(#blueGradient)"/>
+    
+    <!-- Digital accent lines -->
+    <rect x="5" y="10" width="3" height="70" fill="#4B6CB7" opacity="0.6"/>
+    <rect x="10" y="5" width="2" height="15" fill="#4B6CB7" opacity="0.4"/>
+    <rect x="10" y="80" width="2" height="15" fill="#4B6CB7" opacity="0.4"/>
+    
+    <!-- Tech circuit lines -->
+    <path d="M75 25 L85 25 L85 35 L95 35" stroke="#4B6CB7" stroke-width="2" fill="none" opacity="0.5"/>
+    <path d="M75 55 L88 55 L88 65 L100 65" stroke="#4B6CB7" stroke-width="2" fill="none" opacity="0.5"/>
+    
+    <!-- AI neural dots -->
+    <circle cx="90" cy="20" r="3" fill="#4B6CB7"/>
+    <circle cx="105" cy="30" r="2" fill="#4B6CB7" opacity="0.7"/>
+    <circle cx="95" cy="45" r="2.5" fill="#4B6CB7" opacity="0.8"/>
+  </g>
+
+  <!-- Text - E-Désigne -->
+  <g transform="translate(145, 75)">
+    <!-- E -->
+    <text font-family="'Montserrat', 'Inter', sans-serif" font-size="52" font-weight="700" fill="#19232D">E</text>
+    
+    <!-- Désigne with accent -->
+    <text x="35" font-family="'Montserrat', 'Inter', sans-serif" font-size="52" font-weight="300" fill="#19232D">-</text>
+    <text x="55" font-family="'Montserrat', 'Inter', sans-serif" font-size="52" font-weight="600" fill="#19232D">Désigne</text>
+    
+    <!-- Tagline -->
+    <text x="55" y="25" font-family="'Montserrat', 'Inter', sans-serif" font-size="11" font-weight="400" fill="#4B6CB7" letter-spacing="3">AI-POWERED DESIGN</text>
+  </g>
+
+  <!-- Decorative line -->
+  <rect x="145" y="115" width="200" height="2" fill="url(#glowGradient)" rx="1"/>
+</svg>

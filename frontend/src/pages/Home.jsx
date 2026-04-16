@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import axios from 'axios'
+import logo from '../assets/logo.svg'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -54,8 +55,10 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
         >
-          <h1>Découvrez la Mode avec l'IA</h1>
+          <img src={logo} alt="E-Désigne" style={{ height: '80px', marginBottom: '1.5rem' }} />
+          <h1>DÉCOUVREZ LA MODE AVEC L'IA</h1>
           <p>Trouvez le vêtement parfait grâce à notre assistant intelligent</p>
           
           <form className="search-box" onSubmit={handleSearch}>
