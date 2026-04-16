@@ -1,9 +1,10 @@
 {
-  "github": {
-    "silent": true
-  },
+  "github": { "silent": true },
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.js" }
+  ]
 }
