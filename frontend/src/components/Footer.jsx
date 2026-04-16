@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <h3>Stylhub</h3>
+            <h3>E-Designe</h3>
             <p>Votre boutique de mode en ligne avec IA.</p>
           </div>
           <div>
@@ -16,6 +16,13 @@ export default function Footer() {
             <Link to="/account">Mon Compte</Link>
           </div>
           <div>
+            <h3>Catégories</h3>
+            <Link to="/fournisseurs/homme">Homme</Link>
+            <Link to="/fournisseurs/femme">Femme</Link>
+            <Link to="/fournisseurs/enfants">Enfants</Link>
+            <Link to="/fournisseurs/cosmetiques">Cosmétiques</Link>
+          </div>
+          <div>
             <h3>Aide</h3>
             <Link to="#">FAQ</Link>
             <Link to="#">Livraison</Link>
@@ -23,12 +30,12 @@ export default function Footer() {
           </div>
           <div>
             <h3>Contact</h3>
-            <p>support@stylhub.com</p>
+            <p>support@e-designe.com</p>
             <p>+33 1 23 45 67 89</p>
           </div>
         </div>
         <div style={{ textAlign: 'center', marginTop: '2rem', opacity: 0.7 }}>
-          <p>© 2024 Stylhub. Tous droits réservés.</p>
+          <p>© 2024 E-Designe By ELECTRON. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

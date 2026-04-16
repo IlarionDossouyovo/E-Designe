@@ -10,13 +10,17 @@ export default function Header({ cartCount, user }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            Stylhub
+            E-Designe
           </motion.span>
         </Link>
         
         <nav className="nav">
           <Link to="/">Accueil</Link>
           <Link to="/products">Boutique</Link>
+          <Link to="/fournisseurs/homme">Homme</Link>
+          <Link to="/fournisseurs/femme">Femme</Link>
+          <Link to="/fournisseurs/enfants">Enfants</Link>
+          <Link to="/fournisseurs/cosmetiques">Cosmétiques</Link>
         </nav>
 
         <div className="header-actions">

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ChatWidget from './components/ChatWidget'
@@ -12,6 +12,7 @@ import Checkout from './pages/Checkout'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Account from './pages/Account'
+import Suppliers from './pages/Suppliers'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -64,16 +65,22 @@ export default function App() {
     <div className="app">
       <Header cartCount={cartCount} user={user} />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetail addToCart={addToCart} />} />
-          <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />} />
-          <Route path="/checkout" element={<Checkout cart={cart} cartTotal={cartTotal} user={user} setCart={setCart} />} />
-          <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/register" element={<Register setUser={setUser} />} />
-          <Route path="/account" element={<Account user={user} setUser={setUser} />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductDetail addToCart={addToCart} />} />
+            <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />} />
+            <Route path="/checkout" element={<Checkout cart={cart} cartTotal={cartTotal} user={user} setCart={setCart} />} />
+            <Route path="/login" element={<Login setUser={setUser} />} />
+            <Route path="/register" element={<Register setUser={setUser} />} />
+            <Route path="/account" element={<Account user={user} setUser={setUser} />} />
+            <Route path="/fournisseurs/homme" element={<Suppliers category="Homme" />} />
+            <Route path="/fournisseurs/femme" element={<Suppliers category="Femme" />} />
+            <Route path="/fournisseurs/enfants" element={<Suppliers category="Enfants" />} />
+            <Route path="/fournisseurs/cosmetiques" element={<Suppliers category="Cosmétiques" />} />
+          </Routes>
+        </AnimatePresence>
       </main>
       <Footer />
       <ChatWidget />
