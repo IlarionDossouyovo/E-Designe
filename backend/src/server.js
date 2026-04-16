@@ -46,6 +46,7 @@ const products = [
 
 const users = [];
 const orders = [];
+const wishlists = new Map(); // userId -> array of productIds
 
 // Routes
 app.get('/api/health', (req, res) => {
@@ -213,7 +214,7 @@ app.post('/api/payment/paypal/create-order', async (req, res) => {
 
 // Orders
 app.post('/api/orders', (req, res) => {
-  const { userId, items, total, paymentMethod } = req.body;
+  const { userId, items, total, paymentMethod, shipping } = req.body;
   
   const order = {
     id: 'ORD-' + Date.now(),
@@ -221,6 +222,7 @@ app.post('/api/orders', (req, res) => {
     items,
     total,
     paymentMethod,
+    shipping: shipping || {},
     status: 'pending',
     createdAt: new Date().toISOString()
   };
@@ -232,6 +234,69 @@ app.post('/api/orders', (req, res) => {
 app.get('/api/orders/:userId', (req, res) => {
   const userOrders = orders.filter(o => o.userId === req.params.userId);
   res.json(userOrders);
+});
+
+// Wishlist
+app.post('/api/wishlist/:userId', (req, res) => {
+  const { productId } = req.body;
+  const userId = req.params.userId;
+  
+  if (!wishlists.has(userId)) {
+    wishlists.set(userId, []);
+  }
+  
+  const list = wishlists.get(userId);
+  if (!list.includes(productId)) {
+    list.push(productId);
+  }
+  
+  res.json({ wishlist: list });
+});
+
+app.delete('/api/wishlist/:userId/:productId', (req, res) => {
+  const userId = req.params.userId;
+  const productId = parseInt(req.params.productId);
+  
+  if (wishlists.has(userId)) {
+    const list = wishlists.get(userId).filter(id => id !== productId);
+    wishlists.set(userId, list);
+  }
+  
+  res.json({ success: true });
+});
+
+app.get('/api/wishlist/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const list = wishlists.get(userId) || [];
+  
+  // Get full product details
+  const wishlistProducts = products.filter(p => list.includes(p.id));
+  res.json(wishlistProducts);
+});
+
+// Reviews
+const reviews = [];
+
+app.post('/api/reviews', (req, res) => {
+  const { productId, userId, userName, rating, comment } = req.body;
+  
+  const review = {
+    id: 'REV-' + Date.now(),
+    productId,
+    userId,
+    userName,
+    rating,
+    comment,
+    createdAt: new Date().toISOString()
+  };
+  
+  reviews.push(review);
+  res.json(review);
+});
+
+app.get('/api/reviews/:productId', (req, res) => {
+  const productReviews = reviews.filter(r => r.productId === req.params.productId);
+  res.json(productReviews);
 });
 
 // Users (simplified)

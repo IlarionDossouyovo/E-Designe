@@ -34,6 +34,9 @@ export default function Header({ cartCount, user }) {
               Connexion
             </Link>
           )}
+          <Link to="/wishlist" className="wishlist-btn" title="Wishlist">
+            ❤️
+          </Link>
           <Link to="/cart" className="cart-btn">
             🛒
             {cartCount > 0 && <span className="cart-count">{cartCount}</span>}

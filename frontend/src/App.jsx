@@ -16,6 +16,8 @@ import Suppliers from './pages/Suppliers'
 import Blog from './pages/Blog'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import Wishlist from './pages/Wishlist'
+import OrderTracking from './pages/OrderTracking'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -85,6 +87,8 @@ export default function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/wishlist" element={<Wishlist user={user} addToCart={addToCart} />} />
+            <Route path="/order-tracking" element={<OrderTracking />} />
           </Routes>
         </AnimatePresence>
       </main>

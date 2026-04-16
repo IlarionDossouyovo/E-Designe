@@ -127,6 +127,17 @@ input, select, textarea {
   background: #3a5a9e;
 }
 
+.wishlist-btn {
+  background: transparent;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  transition: var(--transition);
+}
+
+.wishlist-btn:hover {
+  transform: scale(1.1);
+}
+
 .cart-count {
   position: absolute;
   top: -8px;
