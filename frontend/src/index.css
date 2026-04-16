@@ -263,6 +263,49 @@ input, select, textarea {
   opacity: 1;
 }
 
+/* Product Badges */
+.product-badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-new {
+  background: var(--color-bleu);
+  color: white;
+}
+
+.badge-sale {
+  background: #E53E3E;
+  color: white;
+}
+
+/* Product Price */
+.product-price-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-old-price {
+  text-decoration: line-through;
+  color: #A0AEC0;
+  font-size: 0.9rem;
+}
+
 /* Forms */
 .form-group {
   margin-bottom: 1.5rem;

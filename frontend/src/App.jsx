@@ -13,6 +13,9 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Account from './pages/Account'
 import Suppliers from './pages/Suppliers'
+import Blog from './pages/Blog'
+import About from './pages/About'
+import Contact from './pages/Contact'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -79,6 +82,9 @@ export default function App() {
             <Route path="/fournisseurs/femme" element={<Suppliers category="Femme" />} />
             <Route path="/fournisseurs/enfants" element={<Suppliers category="Enfants" />} />
             <Route path="/fournisseurs/cosmetiques" element={<Suppliers category="Cosmétiques" />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </AnimatePresence>
       </main>

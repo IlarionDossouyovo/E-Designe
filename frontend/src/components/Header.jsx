@@ -17,6 +17,7 @@ export default function Header({ cartCount, user }) {
         <nav className="nav">
           <Link to="/">Accueil</Link>
           <Link to="/products">Boutique</Link>
+          <Link to="/blog">Blog</Link>
           <Link to="/fournisseurs/homme">Homme</Link>
           <Link to="/fournisseurs/femme">Femme</Link>
           <Link to="/fournisseurs/enfants">Enfants</Link>
