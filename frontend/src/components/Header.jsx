@@ -24,6 +24,7 @@ export default function Header({ cartCount, user }) {
           <Link to="/fournisseurs/femme">Femme</Link>
           <Link to="/fournisseurs/enfants">Enfants</Link>
           <Link to="/fournisseurs/cosmetiques">Cosmétiques</Link>
+          <Link to="/africain" style={{ color: '#4B6CB7', fontWeight: 600 }}>Africain 🌴</Link>
         </nav>
 
         <div className="header-actions">

@@ -18,6 +18,7 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Wishlist from './pages/Wishlist'
 import OrderTracking from './pages/OrderTracking'
+import African from './pages/African'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -89,6 +90,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/wishlist" element={<Wishlist user={user} addToCart={addToCart} />} />
             <Route path="/order-tracking" element={<OrderTracking />} />
+            <Route path="/africain" element={<African />} />
           </Routes>
         </AnimatePresence>
       </main>
