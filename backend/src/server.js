@@ -1,0 +1,269 @@
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Middleware
+app.use(helmet());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true
+}));
+app.use(express.json());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100
+});
+app.use('/api/', limiter);
+
+// In-memory data store (would be replaced by Firebase in production)
+const products = [
+  { id: 1, name: 'Robe Élégante Noire', price: 89.99, category: 'robes', color: 'noir', size: ['S', 'M', 'L', 'XL'], image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400', description: 'Robe élégante pour soirée' },
+  { id: 2, name: 'Chemise Blanche Classique', price: 49.99, category: 'chemises', color: 'blanc', size: ['S', 'M', 'L', 'XL'], image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400', description: 'Chemise blanche en coton' },
+  { id: 3, name: 'Pantalon Chino Beige', price: 59.99, category: 'pantalons', color: 'beige', size: ['28', '30', '32', '34'], image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400', description: 'Pantalon chino comodidad' },
+  { id: 4, name: 'Veste en Jean Bleu', price: 79.99, category: 'vestes', color: 'bleu', size: ['S', 'M', 'L', 'XL'], image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=400', description: 'Veste en denim bleu' },
+  { id: 5, name: 'Robe Rouge Soirée', price: 129.99, category: 'robes', color: 'rouge', size: ['S', 'M', 'L'], image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400', description: 'Robe rouge parfaite pour soirée' },
+  { id: 6, name: 'Pullovers Gris', price: 39.99, category: 'pullovers', color: 'gris', size: ['S', 'M', 'L', 'XL'], image: 'https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=400', description: 'Pullovers doux en laine' },
+  { id: 7, name: 'Jupe Noire Mini', price: 45.99, category: 'jupes', color: 'noir', size: ['S', 'M', 'L'], image: 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=400', description: 'Jupe noire élégante' },
+  { id: 8, name: 'T-Shirt Blanc Basic', price: 19.99, category: 't-shirts', color: 'blanc', size: ['S', 'M', 'L', 'XL'], image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400', description: 'T-shirt blanc basics' }
+];
+
+const users = [];
+const orders = [];
+
+// Routes
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Products
+app.get('/api/products', (req, res) => {
+  const { category, color, minPrice, maxPrice, search } = req.query;
+  let filtered = [...products];
+  
+  if (category) filtered = filtered.filter(p => p.category === category);
+  if (color) filtered = filtered.filter(p => p.color === color);
+  if (minPrice) filtered = filtered.filter(p => p.price >= parseFloat(minPrice));
+  if (maxPrice) filtered = filtered.filter(p => p.price <= parseFloat(maxPrice));
+  if (search) {
+    const searchLower = search.toLowerCase();
+    filtered = filtered.filter(p => 
+      p.name.toLowerCase().includes(searchLower) || 
+      p.description.toLowerCase().includes(searchLower)
+    );
+  }
+  
+  res.json(filtered);
+});
+
+app.get('/api/products/:id', (req, res) => {
+  const product = products.find(p => p.id === parseInt(req.params.id));
+  if (!product) return res.status(404).json({ error: 'Produit non trouvé' });
+  res.json(product);
+});
+
+// Categories
+app.get('/api/categories', (req, res) => {
+  const categories = [...new Set(products.map(p => p.category))];
+  res.json(categories);
+});
+
+// AI Search
+app.post('/api/ai/search', async (req, res) => {
+  const { query } = req.body;
+  
+  if (!query) return res.status(400).json({ error: 'Requête requise' });
+  
+  // Parse intelligent search
+  const queryLower = query.toLowerCase();
+  const filters = {
+    color: null,
+    category: null,
+    size: null,
+    price: null
+  };
+  
+  // Extract colors
+  const colors = ['noir', 'blanc', 'rouge', 'bleu', 'beige', 'gris'];
+  for (const color of colors) {
+    if (queryLower.includes(color)) filters.color = color;
+  }
+  
+  // Extract categories
+  const categories = ['robe', 'chemise', 'pantalon', 'veste', 'jupe', 'pullover', 't-shirt'];
+  for (const cat of categories) {
+    if (queryLower.includes(cat)) filters.category = cat;
+  }
+  
+  // Extract sizes
+  const sizes = ['S', 'M', 'L', 'XL', 'XS'];
+  for (const size of sizes) {
+    if (queryLower.includes(size)) filters.size = size;
+  }
+  
+  // Apply filters
+  let results = [...products];
+  if (filters.color) results = results.filter(p => p.color === filters.color);
+  if (filters.category) results = results.filter(p => p.category === filters.category);
+  if (filters.size) results = results.filter(p => p.size.includes(filters.size));
+  
+  // If no matches, return all products
+  if (results.length === 0) results = products;
+  
+  res.json({
+    results,
+    filters: filters,
+    originalQuery: query
+  });
+});
+
+// AI Recommendations
+app.post('/api/ai/recommend', (req, res) => {
+  const { userId, viewedProducts = [] } = req.body;
+  
+  // Simple recommendation based on viewed products
+  let recommendations = [...products];
+  
+  if (viewedProducts.length > 0) {
+    const viewedCategories = products
+      .filter(p => viewedProducts.includes(p.id))
+      .map(p => p.category);
+    
+    recommendations = products
+      .filter(p => viewedCategories.includes(p.category))
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 4);
+  }
+  
+  res.json(recommendations);
+});
+
+// Chatbot
+app.post('/api/ai/chat', (req, res) => {
+  const { message, context = {} } = req.body;
+  
+  const messageLower = message.toLowerCase();
+  let response = '';
+  
+  if (messageLower.includes('commande') || messageLower.includes('suivi')) {
+    response = 'Pour suivre votre commande, rendez-vous dans la section "Mon Compte" > "Mes Commandes". Vous trouverez votre numéro de suivi ahí.';
+  } else if (messageLower.includes('retour') || messageLower.includes('échange')) {
+    response = 'Nous acceptons les retours sous 30 jours. Veuillez contacter notre service client pour initier un retour.';
+  } else if (messageLower.includes('paiement') || messageLower.includes('payer')) {
+    response = 'Nous acceptons les paiements par carte bancaire (Stripe) et PayPal. Tous les paiements sont sécurisés.';
+  } else if (messageLower.includes('taille') || messageLower.includes('guide')) {
+    response = 'Consultez notre guide des tailles sur chaque page produit. Nous proposons les tailles XS à XL.';
+  } else if (messageLower.includes('contact') || messageLower.includes('aide')) {
+    response = 'Vous pouvez nous contacter par email à support@stylhub.com ou via le chat en direct.';
+  } else {
+    response = 'Je suis votre assistant Stylhub. Je peux vous aider avec les commandes, les tailles, les paiements ou les retours. Que souhaitez-vous savoir?';
+  }
+  
+  res.json({ response, timestamp: new Date().toISOString() });
+});
+
+// Stripe Payment
+app.post('/api/payment/stripe/create-intent', async (req, res) => {
+  const { amount, currency = 'eur' } = req.body;
+  
+  // In production, use actual Stripe API
+  // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+  
+  const paymentIntent = {
+    id: 'pi_' + Math.random().toString(36).substr(2, 9),
+    amount: Math.round(amount * 100),
+    currency,
+    status: 'requires_payment_method'
+  };
+  
+  res.json({
+    clientSecret: paymentIntent.id + '_secret_' + Math.random().toString(36).substr(2, 9),
+    paymentIntentId: paymentIntent.id
+  });
+});
+
+// PayPal Payment
+app.post('/api/payment/paypal/create-order', async (req, res) => {
+  const { amount, currency = 'USD' } = req.body;
+  
+  const order = {
+    id: 'PAY-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+    status: 'CREATED',
+    amount: { currency_code: currency.toUpperCase(), value: amount.toFixed(2) }
+  };
+  
+  res.json(order);
+});
+
+// Orders
+app.post('/api/orders', (req, res) => {
+  const { userId, items, total, paymentMethod } = req.body;
+  
+  const order = {
+    id: 'ORD-' + Date.now(),
+    userId: userId || 'guest',
+    items,
+    total,
+    paymentMethod,
+    status: 'pending',
+    createdAt: new Date().toISOString()
+  };
+  
+  orders.push(order);
+  res.json(order);
+});
+
+app.get('/api/orders/:userId', (req, res) => {
+  const userOrders = orders.filter(o => o.userId === req.params.userId);
+  res.json(userOrders);
+});
+
+// Users (simplified)
+app.post('/api/users/register', (req, res) => {
+  const { email, password, name } = req.body;
+  
+  if (users.find(u => u.email === email)) {
+    return res.status(400).json({ error: 'Email déjà utilisé' });
+  }
+  
+  const user = {
+    id: 'user_' + Date.now(),
+    email,
+    name,
+    createdAt: new Date().toISOString()
+  };
+  
+  users.push(user);
+  res.json({ user, token: 'jwt-token-placeholder' });
+});
+
+app.post('/api/users/login', (req, res) => {
+  const { email, password } = req.body;
+  
+  const user = users.find(u => u.email === email);
+  if (!user) {
+    return res.status(401).json({ error: 'Identifiants invalides' });
+  }
+  
+  res.json({ user, token: 'jwt-token-placeholder' });
+});
+
+// Webhook endpoint (placeholder)
+app.post('/api/webhooks/stripe', (req, res) => {
+  console.log('Stripe webhook received:', req.body.type);
+  res.json({ received: true });
+});
+
+app.listen(PORT, () => {
+  console.log(`🚀 Stylhub API running on port ${PORT}`);
+});
+
+export default app;
