@@ -88,16 +88,45 @@ export default function handler(req, res) {
     return res.json([...products].sort(() => 0.5 - Math.random()).slice(0, 4));
   }
 
-  // POST /api/ai/chatbot
+  // Chatbot IA - Support 24/7
   if (path === '/api/ai/chatbot' && method === 'POST') {
-    const { message } = body || '';
+    const { message, userId } = body || '';
     const lower = message.toLowerCase();
-    let response = "Je suis votre assistant E-Désigne.";
-    if (lower.includes('livraison')) response = "Livraison gratuite dès 50€.";
-    else if (lower.includes('retour')) response = "30 jours pour retourner.";
-    else if (lower.includes('taille')) response = "Guide des tailles disponible.";
-    else if (lower.includes('paiement')) response = "Stripe, PayPal acceptés.";
-    return res.json({ response });
+    let response = "Je suis votre assistant E-Désigne. Je peux vous aider avec:\n\n• Suivi de commande\n• Informations livraison\n• Politique retour\n• Guide des tailles\n• Paiements\n• Promotion en cours";
+    
+    if (lower.includes('commande')) {
+      const userOrders = orders.filter(o => o.userId === userId || o.userId === 'guest');
+      if (userOrders.length > 0) {
+        const lastOrder = userOrders[userOrders.length - 1];
+        response = `Votre commande #${lastOrder.id}: ${lastOrder.status}`;
+      } else {
+        response = "Aucune commande trouvée. Souhaitez-vous commander?";
+      }
+    } else if (lower.includes('livraison')) {
+      response = "🚚 LIVRAISON:\n• France: 5.90€ (gratuit dès 50€)\n• Europe: 12.90€\n• 3-5 jours";
+    } else if (lower.includes('retour')) {
+      response = "↩️ RETOUR: 30 jours gratuit, remboursement sous 14 jours";
+    } else if (lower.includes('taille')) {
+      response = "📏 TAILLES: XS, S, M, L, XL, XXL";
+    } else if (lower.includes('paiement')) {
+      response = "💳 Stripe, PayPal, 4x sans frais";
+    } else if (lower.includes('contact') || lower.includes('service')) {
+      response = "📞 support@e-designe.com | Lun-Ven 9h-18h";
+    } else if (lower.includes('promo') || lower.includes('sale')) {
+      response = "🔥 -30%-africain | CODE: BIENVENUE10";
+    }
+    
+    return res.json({ response, userId });
+  }
+
+  // Analytics prédictions
+  if (path === '/api/analytics/predictions' && method === 'GET') {
+    const totalProducts = products.length;
+    const avgPrice = products.reduce((sum, p) => sum + p.price, 0) / totalProducts;
+    return res.json({
+      kpis: { conversionRate: 2.3, avgCartValue: avgPrice.toFixed(2), returnRate: 8.5, satisfaction: 4.2 },
+      forecast: { nextOrders: 120, nextRevenue: 8500 }
+    });
   }
 
   // POST /api/payment/stripe/create-payment-intent

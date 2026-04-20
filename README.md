@@ -1,91 +1,100 @@
-# E-Designe By ELECTRON 🛍️
+# 🛍️ E-DÉSIGNE - Plateforme E-Commerce avec IA
 
-Plateforme e-commerce internationale avec Intelligence Artificielle intégrée.
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black)](https://e-designe.vercel.app)
+[![React](https://img.shields.io/badge/React-18-blue)](https://react.dev)
+[![Node.js](https://img.shields.io/badge/Node.js-18-green)](https://nodejs.org)
 
-![React](https://img.shields.io/badge/React-18-blue)
-![Vite](https://img.shields.io/badge/Vite-5-yellow)
-![Node.js](https://img.shields.io/badge/Node.js-Express-green)
-![License](https://img.shields.io/badge/License-MIT-purple)
-
-## ✨ Fonctionnalités
-
-- 🛒 **E-commerce complet** - Panier, checkout, paiement (Stripe + PayPal)
-- 🤖 **Intelligence Artificielle** - Recherche intelligente, recommandations, chatbot
-- 📱 **Responsive Design** - Adapté mobile, tablette et desktop
-- ✨ **Animations premium** - Transitions fluides avec Framer Motion
-- 👥 **Authentification** - Inscription/connexion utilisateur
-- 📦 **Catalogue produits** - Filtres, catégories, recherche IA
-- 📝 **Blog intégré** - Articles mode, beauté, conseils
-- 👨‍👩‍👧‍👦 **Fournisseurs** - Pages dédiées Homme, Femme, Enfants, Cosmétiques
-
-## 🚀 Installation
-
-```bash
-# Cloner le projet
-git clone https://github.com/IlarionDossouyovo/E-Designe.git
-cd E-Designe
-
-# Installer les dépendances frontend
-cd frontend
-npm install
-
-# Installer les dépendances backend
-cd ../backend
-npm install
-```
-
-## ▶️ Lancement
-
-```bash
-# Terminal 1 - Backend
-cd backend
-npm run dev
-
-# Terminal 2 - Frontend
-cd frontend
-npm run dev
-```
-
-- **Frontend:** http://localhost:5173
-- **Backend API:** http://localhost:3001
-
-## 🌐 Déploiement Vercel
-
-1. Aller sur [Vercel.com](https://vercel.com)
-2. Importer le repository GitHub
-3. Vercel détecte automatiquement Vite
-4. Variable d'environnement: `VITE_API_URL`
-
-## 📁 Structure
-
-```
-E-Designe/
-├── frontend/           # React + Vite
-│   ├── src/
-│   │   ├── components/ # Header, Footer, ChatWidget, ProductCard
-│   │   ├── pages/      # Home, Products, Cart, Checkout, Blog, etc.
-│   │   ├── services/   # API service
-│   │   └── index.css   # Styles globaux
-│   ├── vercel.json     # Config Vercel
-│   └── package.json
-├── backend/            # Express API
-│   ├── src/server.js   # API principale
-│   └── package.json
-└── README.md
-```
-
-## 🔧 Technologies
-
-- **Frontend:** React 18, Vite, Framer Motion, React Router
-- **Backend:** Node.js, Express
-- **Paiements:** Stripe, PayPal
-- **IA:** OpenAI (extensible)
-- **Hébergement:** Vercel, Firebase (optionnel)
-
-## 📄 License
-
-MIT License - See [LICENSE](LICENSE)
+Plateforme e-commerce premium pour mode occidentale et africaine avec intelligence artificielle intégrée.
 
 ---
 
-Créé avec ❤️ par E-Designe By ELECTRON
+## 🚀 Fonctionnalités
+
+### Commerce
+- Catalogue 30+ produits
+- Panier persistent
+- Paiement Stripe + PayPal
+- Suivi commande
+- Wishlist utilisateur
+- Avis et notes
+
+### Pages (16)
+- Home, Produits, Produit détail
+- Africain (8 produits)
+- Bébé (6 produits)  
+- Revendeurs (affiliation)
+- Blog, About, Contact
+- Account, Login, Register
+- Cart, Checkout
+- Wishlist, OrderTracking
+- Suppliers
+
+### IA
+- Chatbot 24/7
+- Recherche intelligente
+- Recommandations produits
+- Analytics prédictions
+
+---
+
+## 🏗️ Architecture
+
+```
+E-Designe/
+├── api/index.js         ← API Serverless Vercel
+├── frontend/           ← React + Vite
+│   ├── src/pages/      ← 16 pages
+│   ├── components/    ← Composants
+│   └── assets/        ← Logos
+├── vercel.json        ← Config
+└── README.md
+```
+
+---
+
+## 🌐 URLs
+
+| Service | URL |
+|---------|-----|
+| Site | `https://e-designe.vercel.app` |
+| API | `https://e-designe.vercel.app/api/*` |
+
+---
+
+## 📡 API Endpoints
+
+### Produits
+- `GET /api/products` - Liste produits
+- `GET /api/products/:id` - Produit détail
+- `GET /api/products?category=X` - Filtre
+
+### IA
+- `POST /api/ai/chatbot` - Chat 24/7
+- `POST /api/ai/search` - Recherche IA
+- `GET /api/ai/recommendations` - Recommandés
+- `GET /api/analytics/predictions` - KPIs
+
+### Paiement
+- `POST /api/payment/stripe/create-payment-intent`
+- `POST /api/payment/paypal/create-order`
+
+---
+
+## 🛠️ Installation
+
+```bash
+git clone https://github.com/IlarionDossouyovo/E-Designe.git
+cd E-Designe
+
+# Frontend
+cd frontend && npm install && npm run dev
+
+# API (autre terminal)  
+cd ../api && node index.js
+```
+
+---
+
+## 📝 Licence
+
+MIT - 2026 E-Désigne
