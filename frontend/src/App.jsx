@@ -21,6 +21,8 @@ import OrderTracking from './pages/OrderTracking'
 import African from './pages/African'
 import Babies from './pages/Babies'
 import Resellers from './pages/Resellers'
+import TextileSuppliers from './pages/TextileSuppliers'
+import TextileBlog from './pages/TextileBlog'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -95,6 +97,8 @@ export default function App() {
             <Route path="/africain" element={<African />} />
             <Route path="/bebe" element={<Babies />} />
             <Route path="/revendeurs" element={<Resellers />} />
+            <Route path="/fournisseurs-textile" element={<TextileSuppliers />} />
+            <Route path="/blog-textile" element={<TextileBlog />} />
           </Routes>
         </AnimatePresence>
       </main>
