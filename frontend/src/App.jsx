@@ -24,6 +24,7 @@ import Resellers from './pages/Resellers'
 import TextileSuppliers from './pages/TextileSuppliers'
 import TextileBlog from './pages/TextileBlog'
 import Admin from './pages/Admin'
+import AISearch from './pages/AISearch'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -101,6 +102,7 @@ export default function App() {
             <Route path="/fournisseurs-textile" element={<TextileSuppliers />} />
             <Route path="/blog-textile" element={<TextileBlog />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/recherche-ia" element={<AISearch />} />
           </Routes>
         </AnimatePresence>
       </main>
