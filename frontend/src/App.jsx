@@ -23,6 +23,7 @@ import Babies from './pages/Babies'
 import Resellers from './pages/Resellers'
 import TextileSuppliers from './pages/TextileSuppliers'
 import TextileBlog from './pages/TextileBlog'
+import Admin from './pages/Admin'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -99,6 +100,7 @@ export default function App() {
             <Route path="/revendeurs" element={<Resellers />} />
             <Route path="/fournisseurs-textile" element={<TextileSuppliers />} />
             <Route path="/blog-textile" element={<TextileBlog />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </AnimatePresence>
       </main>
