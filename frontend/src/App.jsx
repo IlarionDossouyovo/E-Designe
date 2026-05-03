@@ -25,6 +25,8 @@ import TextileSuppliers from './pages/TextileSuppliers'
 import TextileBlog from './pages/TextileBlog'
 import Admin from './pages/Admin'
 import AISearch from './pages/AISearch'
+import BrandsDirectory from './pages/BrandsDirectory'
+import Affiliate from './pages/Affiliate'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -103,6 +105,8 @@ export default function App() {
             <Route path="/blog-textile" element={<TextileBlog />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/recherche-ia" element={<AISearch />} />
+            <Route path="/marques" element={<BrandsDirectory />} />
+            <Route path="/partenaire" element={<Affiliate />} />
           </Routes>
         </AnimatePresence>
       </main>

@@ -1,0 +1,80 @@
+/* =====================================================
+ * E-DÉSIGNE - LOGO BRAND IDENTITY
+ * Vector Logo / Icon / Brand Mark
+ * ===================================================== */
+
+/* ========== LOGO CONTAINER ========== */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: var(--text-xl);
+  letter-spacing: -0.02em;
+}
+
+.logo-text-light {
+  color: var(--white);
+}
+
+.logo-text-dark {
+  color: var(--gray-900);
+}
+
+/* ========== LOGO ICONS ========== */
+
+/* Dark Version (for light backgrounds) */
+.logo-mark-dark {
+  width: 100%;
+  height: 100%;
+}
+
+/* Light Version (for dark backgrounds) */
+.logo-mark-light {
+  width: 100%;
+  height: 100%;
+}
+
+/* App Icon (Square, for favicons/app stores) */
+.logo-app {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius);
+}
+
+/* ========== RESPONSIVE LOGO ========== */
+@media (max-width: 640px) {
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .logo-text {
+    font-size: var(--text-lg);
+  }
+}
+
+/* ========== LOGO ANIMATIONS ========== */
+.logo:hover .logo-mark-dark,
+.logo:hover .logo-mark-light {
+  transition: var(--transition);
+}
+
+.logo:hover .logo-mark-dark {
+  filter: drop-shadow(0 0 8px rgba(75, 108, 183, 0.5));
+}
+
+.logo:hover .logo-mark-light {
+  filter: drop-shadow(0 0 8px rgba(107, 141, 214, 0.5));
+}
