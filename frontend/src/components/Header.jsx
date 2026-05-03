@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import logo from '../assets/logo.svg'
+import logo from '../assets/logo-e-designe-dark.svg'
 
 export default function Header({ cartCount, user }) {
   return (
