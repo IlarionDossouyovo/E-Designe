@@ -1,17 +1,7 @@
 {
-  "github": { "silent": true },
-  "builds": [
-    { "src": "frontend/dist/**", "use": "@vercel/static" },
-    { "src": "api/index.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index.js" },
-    { "src": "/assets/(.*)", "dest": "/frontend/dist/assets/$1" },
-    { "src": "/", "dest": "/frontend/dist/index.html" },
-    { "src": "/(.*)", "dest": "/frontend/dist/index.html" }
-  ],
-  "public": true,
-  "headers": [
-    { "source": "/api/(.*)", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }
-  ]
+  "framework": "vite",
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install"
 }
