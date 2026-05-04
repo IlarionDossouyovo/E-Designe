@@ -17,6 +17,7 @@ import BlogPost from './pages/BlogPost'
 import Homme from './pages/Homme'
 import Femme from './pages/Femme'
 import Enfants from './pages/Enfants'
+import Cosmetiques from './pages/Cosmetiques'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Wishlist from './pages/Wishlist'
@@ -74,6 +75,7 @@ export default function App() {
             <Route path="/homme" element={<Homme />} />
             <Route path="/femme" element={<Femme />} />
             <Route path="/enfants" element={<Enfants />} />
+            <Route path="/cosmetiques" element={<Cosmetiques />} />
             <Route path="/africain" element={<African />} />
             <Route path="/bebe" element={<Babies />} />
             <Route path="/about" element={<About />} />
