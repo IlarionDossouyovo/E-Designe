@@ -4,10 +4,18 @@ import { motion } from 'framer-motion'
 import axios from 'axios'
 import logo from '../assets/logo-e-designe-dark.svg'
 
+const fallbackProducts = [
+  { id: 1, name: 'Robe Africaine', price: 45, category: 'Africain', image: 'https://placehold.co/300x300/e2e8f0/1e293b?text=Robe' },
+  { id: 2, name: 'Complet Homme', price: 89, category: 'Homme', image: 'https://placehold.co/300x300/e2e8f0/1e293b?text=Complet' },
+  { id: 3, name: 'Robe Femme', price: 65, category: 'Femme', image: 'https://placehold.co/300x300/e2e8f0/1e293b?text=Robe+Femme' },
+  { id: 4, name: 'Ensemble Bébé', price: 29, category: 'Bébé', image: 'https://placehold.co/300x300/e2e8f0/1e293b?text=Bébé' }
+]
+
 export default function Home() {
   const [products, setProducts] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [recommendations, setRecommendations] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     loadProducts()
@@ -19,7 +27,11 @@ export default function Home() {
       setProducts(data)
       setRecommendations(data.slice(0, 4))
     } catch (error) {
-      console.error('Erreur chargement produits:', error)
+      console.log('API non disponible, utilisation des données locales')
+      setProducts(fallbackProducts)
+      setRecommendations(fallbackProducts)
+    } finally {
+      setLoading(false)
     }
   }
 
