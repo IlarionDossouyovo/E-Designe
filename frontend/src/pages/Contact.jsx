@@ -12,8 +12,9 @@ export default function Contact() {
 
   const contactInfo = [
     { icon: '📧', title: 'Email', value: 'support@e-designe.com', desc: 'Réponse sous 24h' },
-    { icon: '📞', title: 'Téléphone', value: '+33 1 23 45 67 89', desc: 'Lun-Ven: 9h-18h' },
-    { icon: '📍', title: 'Adresse', value: 'Paris, France', desc: 'Boutique flagship' },
+    { icon: '📞', title: 'Téléphone', value: '+229 01 97 700 347', desc: 'Lun-Ven: 9h-18h' },
+    { icon: '📱', title: 'WhatsApp', value: '+229 01 49 80 220', desc: '24h/24' },
+    { icon: '📍', title: 'Adresse', value: 'Cotonou, Bénin', desc: 'Boutique flagship' },
     { icon: '💬', title: 'Chat', value: 'Disponible 24/7', desc: 'Assistant IA + Support' }
   ]
 
@@ -184,7 +185,7 @@ export default function Contact() {
           textAlign: 'center' 
         }}>
           <h2 style={{ marginBottom: '1rem' }}>Venez nous rendre visite</h2>
-          <p style={{ color: '#718096' }}>Notre boutique flagship à Paris</p>
+          <p style={{ color: '#718096' }}>Notre boutique flagship à Cotonou</p>
           <a 
             href="https://maps.google.com" 
             target="_blank" 

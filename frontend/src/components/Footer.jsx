@@ -39,8 +39,8 @@ export default function Footer() {
           <div>
             <h3>Contact</h3>
             <p>support@e-designe.com</p>
-            <p>+33 1 23 45 67 89</p>
-            <p>Paris, France</p>
+            <p>+229 01 97 700 347</p>
+            <p>Cotonou, Bénin</p>
           </div>
         </div>
         <div style={{ textAlign: 'center', marginTop: '2rem', opacity: 0.7, borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
