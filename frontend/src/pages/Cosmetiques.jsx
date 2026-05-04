@@ -39,7 +39,7 @@ export default function Cosmetiques() {
   const getColor = (q) => qualityTiers.find(t => t.id === q)?.color || '#ec4899'
 
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
       {/* Hero Banner */}
       <div style={{ 
         background: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)', 

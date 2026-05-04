@@ -30,7 +30,7 @@ export default function TextileBlog() {
   const filtered = filterCat === 'Tous' ? articles : articles.filter(a => a.category === filterCat)
 
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
       {/* Hero Banner - Purple theme for Textile */}
       <div style={{ 
         background: 'linear-gradient(135deg, #8b5cf6 0%, #4c1d95 100%)', 

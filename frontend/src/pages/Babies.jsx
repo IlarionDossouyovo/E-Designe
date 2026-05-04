@@ -19,7 +19,7 @@ export default function Babies() {
   const getColor = (q) => qualityTiers.find(t => t.id === q)?.color || '#ff9f43'
 
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
       {/* Hero Banner */}
       <div style={{ 
         background: 'linear-gradient(135deg, #ff9f43 0%, #ee5a24 100%)', 

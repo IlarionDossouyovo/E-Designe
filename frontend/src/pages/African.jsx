@@ -19,7 +19,7 @@ export default function African() {
   const getColor = (q) => qualityTiers.find(t => t.id === q)?.color || '#d4af37'
 
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
       {/* Hero Banner */}
       <div style={{ 
         background: 'linear-gradient(135deg, #d4af37 0%, #b8860b 100%)', 

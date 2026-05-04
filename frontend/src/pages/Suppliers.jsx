@@ -25,7 +25,7 @@ export default function Suppliers() {
   })
 
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
       {/* Hero Banner */}
       <div style={{ 
         background: 'linear-gradient(135deg, #6b7280 0%, #374151 100%)', 
