@@ -20,51 +20,51 @@ export default function About() {
       {/* Mission */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '4rem' }}>
         <div>
-          <h2 style={{ marginBottom: '1rem' }}>Notre Mission</h2>
-          <p style={{ color: '#666', lineHeight: 1.8, fontSize: '1.1rem' }}>
+          <h2 style={{ marginBottom: '1rem', color: '#fff' }}>Notre Mission</h2>
+          <p style={{ color: '#9ca3af', lineHeight: 1.8, fontSize: '1.1rem' }}>
             E-Designe revolutionne l'experience d'achat de vetements en combinant mode et technologie. 
-            Situee a Cotonou, Benin, nous proposerons des vetements de qualite en Premium, Moyenne et Basic 
+            Situee a Cotonou, Benin, nous proposons des vetements de qualite en Premium, Moyenne et Basic 
             avec des recommandations personnalisees grace a notre IA.
           </p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-          <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', textAlign: 'center' }}>
-            <p style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>48+</p>
-            <p style={{ fontWeight: 'bold' }}>Produits</p>
+          <div style={{ background: '#16161f', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', border: '1px solid #2a2a35', textAlign: 'center' }}>
+            <p style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#4B6CB7' }}>52+</p>
+            <p style={{ fontWeight: 'bold', color: '#fff' }}>Produits</p>
           </div>
-          <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', textAlign: 'center' }}>
-            <p style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>4</p>
-            <p style={{ fontWeight: 'bold' }}>Categories</p>
+          <div style={{ background: '#16161f', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', border: '1px solid #2a2a35', textAlign: 'center' }}>
+            <p style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#4B6CB7' }}>13</p>
+            <p style={{ fontWeight: 'bold', color: '#fff' }}>Categories</p>
           </div>
-          <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', textAlign: 'center' }}>
-            <p style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>3</p>
-            <p style={{ fontWeight: 'bold' }}>Qualites</p>
+          <div style={{ background: '#16161f', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', border: '1px solid #2a2a35', textAlign: 'center' }}>
+            <p style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#4B6CB7' }}>3</p>
+            <p style={{ fontWeight: 'bold', color: '#fff' }}>Qualites</p>
           </div>
-          <div style={{ background: '#fff', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', textAlign: 'center' }}>
+          <div style={{ background: '#16161f', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', border: '1px solid #2a2a35', textAlign: 'center' }}>
             <p style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🤖</p>
-            <p style={{ fontWeight: 'bold' }}>AI</p>
+            <p style={{ fontWeight: 'bold', color: '#fff' }}>AI</p>
           </div>
         </div>
       </div>
 
       {/* Values */}
       <div>
-        <h2 style={{ marginBottom: '2rem' }}>Nos valeurs</h2>
+        <h2 style={{ marginBottom: '2rem', color: '#fff' }}>Nos valeurs</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
-          <div style={{ background: '#fff', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+          <div style={{ background: '#16161f', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', border: '1px solid #2a2a35' }}>
             <p style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎯</p>
-            <h3 style={{ marginBottom: '0.5rem' }}>Qualite</h3>
-            <p style={{ color: '#666' }}>Des vetements choisit avec soin pour votre satisfaction.</p>
+            <h3 style={{ marginBottom: '0.5rem', color: '#fff' }}>Qualite</h3>
+            <p style={{ color: '#9ca3af' }}>Des vetements choisit avec soin pour votre satisfaction.</p>
           </div>
-          <div style={{ background: '#fff', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+          <div style={{ background: '#16161f', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', border: '1px solid #2a2a35' }}>
             <p style={{ fontSize: '3rem', marginBottom: '1rem' }}>💎</p>
-            <h3 style={{ marginBottom: '0.5rem' }}>Service</h3>
-            <p style={{ color: '#666' }}>Un support client reactif et personnalise.</p>
+            <h3 style={{ marginBottom: '0.5rem', color: '#fff' }}>Service</h3>
+            <p style={{ color: '#9ca3af' }}>Un support client reactif et personnalise.</p>
           </div>
-          <div style={{ background: '#fff', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+          <div style={{ background: '#16161f', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', border: '1px solid #2a2a35' }}>
             <p style={{ fontSize: '3rem', marginBottom: '1rem' }}>🌍</p>
-            <h3 style={{ marginBottom: '0.5rem' }}>Local</h3>
-            <p style={{ color: '#666' }}>Produits africains authentique.</p>
+            <h3 style={{ marginBottom: '0.5rem', color: '#fff' }}>Local</h3>
+            <p style={{ color: '#9ca3af' }}>Produits africains authentique.</p>
           </div>
         </div>
       </div>
