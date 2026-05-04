@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import logo from '../assets/logo-e-designe-dark.svg'
+import Logo from './Logo'
 
 export default function Header({ cartCount, user }) {
   return (
@@ -12,7 +12,7 @@ export default function Header({ cartCount, user }) {
             animate={{ opacity: 1 }}
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
           >
-            <img src={logo} alt="E-Désigne" style={{ height: '35px' }} />
+            <Logo variant="monogram" size="md" animated={false} />
           </motion.div>
         </Link>
         

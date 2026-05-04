@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- 
+    E-DÉSIGNE - MONOGRAM ICON (E only)
+    Minimalist Future Design
+  -->
+  
+  <!-- Background (optional) -->
+  <rect width="120" height="120" rx="24" fill="#19232D"/>
+  
+  <!-- Main "E" Symbol -->
+  <g transform="translate(28, 24)">
+    <!-- Outer E - Geometric -->
+    <path 
+      d="M8 8H52C56.4183 8 60 11.5817 60 16V24C60 28.4183 56.4183 32 52 32H24V44H52C56.4183 44 60 47.5817 60 52V60C60 64.4183 56.4183 68 52 68H8V8Z" 
+      fill="url(#gradientEMono)"
+    />
+    
+    <!-- AI Neural Accent Lines -->
+    <path d="M16 24L24 28L16 32" stroke="#7BA3E8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+    <path d="M16 52L24 56L16 60" stroke="#7BA3E8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+    
+    <!-- Gold Neural Dots -->
+    <circle cx="42" cy="18" r="2" fill="#FFD700" opacity="0.85"/>
+    <circle cx="42" cy="58" r="2" fill="#FFD700" opacity="0.85"/>
+    
+    <!-- Subtle Electron Ring -->
+    <circle cx="12" cy="38" r="1.5" fill="#4B6CB7" opacity="0.5"/>
+    <circle cx="52" cy="38" r="1.5" fill="#4B6CB7" opacity="0.5"/>
+    
+    <!-- Gradient -->
+    <defs>
+      <linearGradient id="gradientEMono" x1="8" y1="8" x2="60" y2="68" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#4B6CB7"/>
+        <stop offset="100%" stop-color="#6B8DD6"/>
+      </linearGradient>
+    </defs>
+  </g>
+</svg>

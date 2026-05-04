@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- 
+    E-DÉSIGNE - SQUARE APP ICON
+    Premium AI-Powered Design Platform
+  -->
+  
+  <!-- Background -->
+  <rect width="200" height="200" rx="40" fill="#0a0a0f"/>
+  
+  <!-- Main "E" Symbol with Electron Effect -->
+  <g transform="translate(50, 50)">
+    <!-- Outer E - Geometric Bold -->
+    <path 
+      d="M12 6H60C66.6274 6 72 11.3726 72 18V30C72 36.6274 66.6274 42 60 42H30V54H60C66.6274 54 72 59.3726 72 66V78C72 84.6274 66.6274 90 60 90H12V6Z" 
+      fill="url(#gradientE)"
+    />
+    
+    <!-- Electron Orbit Ring -->
+    <ellipse cx="42" cy="48" rx="36" ry="36" 
+      stroke="#4B6CB7" stroke-width="2" fill="none" opacity="0.5"/>
+    
+    <!-- Electron Dots with Animation -->
+    <circle cx="42" cy="12" r="3" fill="#4B6CB7">
+      <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="78" cy="48" r="3" fill="#6B8DD6">
+      <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="42" cy="84" r="3" fill="#4B6CB7">
+      <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- AI Neural Lines -->
+    <path d="M24 36L36 42L24 48" stroke="#A0B8E8" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+    <path d="M24 66L36 72L24 78" stroke="#A0B8E8" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+    
+    <!-- Neural Dots - Gold Accents -->
+    <circle cx="54" cy="27" r="2" fill="#FFD700" opacity="0.9">
+      <animate attributeName="opacity" values="0.9;0.4;0.9" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="54" cy="69" r="2" fill="#FFD700" opacity="0.9">
+      <animate attributeName="opacity" values="0.4;0.9;0.4" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Energy Glow Effect -->
+    <circle cx="12" cy="48" r="1" fill="#4B6CB7" opacity="0.6">
+      <animate attributeName="r" values="1;3;1" dur="1s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="72" cy="48" r="1" fill="#4B6CB7" opacity="0.6">
+      <animate attributeName="r" values="1;3;1" dur="1s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Gradient Definition -->
+    <defs>
+      <linearGradient id="gradientE" x1="12" y1="6" x2="72" y2="90" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#4B6CB7"/>
+        <stop offset="100%" stop-color="#7BA3E8"/>
+      </linearGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+  </g>
+  
+  <!-- Outer Ring Accent -->
+  <rect x="4" y="4" width="192" height="192" rx="36" 
+    stroke="#4B6CB7" stroke-width="1" fill="none" opacity="0.3"/>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80" fill="none">
+  <!-- 
+    E-DÉSIGNE - HORIZONTAL LOGO (Dark Background)
+    Premium AI-Powered Design Platform
+    By ELECTRON
+  -->
+  
+  <!-- Background -->
+  <rect width="400" height="80" rx="16" fill="#0a0a0f"/>
+  
+  <!-- Main "E" Symbol with Electron Orbit -->
+  <g transform="translate(24, 16)">
+    <!-- Outer E - Geometric Bold -->
+    <path 
+      d="M8 4H40C44.4183 4 48 7.58172 48 12V20C48 24.4183 44.4183 28 40 28H20V36H40C44.4183 36 48 39.5817 48 44V52C48 56.4183 44.4183 60 40 60H8V4Z" 
+      fill="url(#gradientE)"
+    />
+    
+    <!-- Electron Orbit Ring -->
+    <ellipse cx="28" cy="32" rx="24" ry="24" 
+      stroke="#4B6CB7" stroke-width="1.5" fill="none" opacity="0.6"/>
+    
+    <!-- Electron Dots on Orbit -->
+    <circle cx="28" cy="8" r="2.5" fill="#4B6CB7">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="52" cy="32" r="2.5" fill="#6B8DD6">
+      <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="28" cy="56" r="2.5" fill="#4B6CB7">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- AI Neural Lines -->
+    <path d="M16 24L24 28L16 32" stroke="#A0B8E8" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <path d="M16 44L24 48L16 52" stroke="#A0B8E8" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    
+    <!-- Neural Dots -->
+    <circle cx="36" cy="18" r="1.5" fill="#FFD700" opacity="0.9"/>
+    <circle cx="36" cy="46" r="1.5" fill="#FFD700" opacity="0.9"/>
+    
+    <!-- Gradient Definition -->
+    <defs>
+      <linearGradient id="gradientE" x1="8" y1="4" x2="48" y2="60" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#4B6CB7"/>
+        <stop offset="100%" stop-color="#6B8DD6"/>
+      </linearGradient>
+    </defs>
+  </g>
+  
+  <!-- Text: "E-Designe" -->
+  <text x="90" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF" letter-spacing="1">
+    E-Designe
+  </text>
+  
+  <!-- Text: "By ELECTRON" -->
+  <text x="90" y="56" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="#6B8DD6" letter-spacing="3">
+    BY ELECTRON
+  </text>
+  
+  <!-- Accent Line -->
+  <rect x="88" y="62" width="120" height="2" rx="1" fill="#4B6CB7" opacity="0.5"/>
+</svg>
