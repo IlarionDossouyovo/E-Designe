@@ -79,7 +79,7 @@ export default function App() {
     <div className="app">
       <Header cartCount={cartCount} user={user} />
       <main>
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
