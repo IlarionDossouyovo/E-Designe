@@ -85,7 +85,7 @@ export default function Blog() {
         </p>
       </div>
 
-      {/* Category Filter Pills */}
+      {/* Category Filter Pills - Dark */}
       <div style={{ display: 'flex', gap: '12px', marginBottom: '40px', flexWrap: 'wrap' }}>
         {cats.map(cat => (
           <button 
@@ -94,9 +94,10 @@ export default function Blog() {
             style={{ 
               padding: '10px 24px', 
               borderRadius: '25px', 
-              border: 'none', 
-              background: filter === cat ? getCatColor(cat) : '#f0f0f0', 
-              color: filter === cat ? '#fff' : '#333', 
+              border: '1px solid',
+              borderColor: filter === cat ? getCatColor(cat) : '#2a2a35',
+              background: filter === cat ? getCatColor(cat) : 'transparent', 
+              color: filter === cat ? '#fff' : '#9ca3af', 
               cursor: 'pointer',
               fontWeight: filter === cat ? 'bold' : 'normal',
               transition: 'all 0.2s ease',
@@ -108,16 +109,17 @@ export default function Blog() {
         ))}
       </div>
 
-      {/* Posts Grid */}
+      {/* Posts Grid - Dark */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '32px' }}>
         {filteredPosts.map(post => (
           <article 
             key={post.id} 
             style={{ 
-              background: '#fff', 
+              background: '#16161f', 
               borderRadius: '16px', 
               overflow: 'hidden', 
-              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+              border: '1px solid #2a2a35',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease'
             }}
           >
@@ -135,7 +137,7 @@ export default function Blog() {
               <div 
                 style={{ 
                   height: '100%', 
-                  background: 'linear-gradient(135deg, #4B6CB7 0%, #6B8DD6 100%)', 
+                  background: `linear-gradient(135deg, ${getCatColor(post.category)} 0%, #1e293b 100%)`, 
                   display: 'none', 
                   alignItems: 'center', 
                   justifyContent: 'center', 
@@ -162,21 +164,22 @@ export default function Blog() {
               </span>
             </div>
             
-            {/* Content */}
+            {/* Content - Dark */}
             <div style={{ padding: '24px' }}>
               <h3 
                 style={{ 
                   marginBottom: '12px', 
                   fontSize: '1.3rem',
                   fontWeight: '600',
-                  lineHeight: '1.4'
+                  lineHeight: '1.4',
+                  color: '#fff'
                 }}
               >
                 {post.title}
               </h3>
               <p 
                 style={{ 
-                  color: '#666', 
+                  color: '#9ca3af', 
                   marginBottom: '16px', 
                   lineHeight: '1.6', 
                   fontSize: '14px',
@@ -186,11 +189,11 @@ export default function Blog() {
                 {post.excerpt}
               </p>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '13px', color: '#999' }}>{post.date}</span>
+                <span style={{ fontSize: '13px', color: '#6b7280' }}>{post.date}</span>
                 <Link 
                   to={`/blog/${post.id}`} 
                   style={{ 
-                    color: '#4B6CB7', 
+                    color: getCatColor(post.category), 
                     fontWeight: '600',
                     textDecoration: 'none',
                     fontSize: '14px'

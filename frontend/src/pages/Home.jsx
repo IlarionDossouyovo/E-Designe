@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../components/Logo'
+import Logo, { LogoMono } from '../components/Logo'
 import { products, categories, qualityTiers } from '../data/products'
 
 // Flatten products for featured display from ALL categories
@@ -54,12 +54,44 @@ export default function Home() {
         }} />
         
         {/* Content */}
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px' }}>
-          <Logo variant="monogram" size="xl" animated={false} style={{ marginBottom: '1.5rem' }} />
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: '1rem', background: 'linear-gradient(135deg, #fff 0%, #6B8DD6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            DECOUVREZ LA MODE AVEC L'IA
-          </h1>
-          <p style={{ fontSize: '1.2rem', opacity: 0.85, marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem' }}>
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px' }}>
+          {/* Animated Logo Section */}
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            gap: '1rem',
+            marginBottom: '1rem',
+            flexWrap: 'wrap'
+          }}>
+            <LogoMono size="lg" animated={true} />
+            <div style={{ textAlign: 'left' }}>
+              <h1 style={{ 
+                fontSize: 'clamp(2rem, 6vw, 4rem)', 
+                fontWeight: '800',
+                background: 'linear-gradient(135deg, #fff 0%, #FFD700 50%, #4B6CB7 100%)', 
+                WebkitBackgroundClip: 'text', 
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '-1px',
+                margin: 0,
+                lineHeight: 1.1
+              }}>
+                E-DESIGNE
+              </h1>
+              <p style={{ 
+                fontSize: '1rem', 
+                color: '#4B6CB7', 
+                fontWeight: '600',
+                letterSpacing: '4px',
+                textTransform: 'uppercase',
+                margin: '4px 0 0'
+              }}>
+                By ELECTRON
+              </p>
+            </div>
+          </div>
+          
+          <p style={{ fontSize: '1.2rem', opacity: 0.85, marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem', textAlign: 'center' }}>
             Trouvez le vetement parfait grace a notre assistant intelligent
           </p>
           <form style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', maxWidth: '500px', margin: '0 auto', flexWrap: 'wrap' }}>
