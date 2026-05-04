@@ -1,128 +1,46 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import axios from 'axios'
-import Reviews from '../components/Reviews'
 
-export default function ProductDetail({ addToCart }) {
+const products = {
+  1: { id: 1, name: 'Robe Africaine', price: 45, category: 'Africain', description: 'Magnifique robe traditionnelleafricaine en cotton de qualité.' },
+  2: { id: 2, name: 'Complet Homme', price: 89, category: 'Homme', description: 'Complet homme élégant pour toutes occasions.' },
+  3: { id: 3, name: 'Robe Femme', price: 65, category: 'Femme', description: 'Robe femme moderne et élégante.' },
+  4: { id: 4, name: 'Ensemble Bébé', price: 29, category: 'Bébé', description: 'Ensemble doux pour bébé.' }
+}
+
+export default function ProductDetail() {
   const { id } = useParams()
-  const [product, setProduct] = useState(null)
-  const [selectedSize, setSelectedSize] = useState('')
-  const [loading, setLoading] = useState(true)
+  const [size, setSize] = useState('M')
 
-  useEffect(() => {
-    loadProduct()
-  }, [id])
-
-  const loadProduct = async () => {
-    try {
-      const { data } = await axios.get(`/api/products/${id}`)
-      setProduct(data)
-      if (data.size?.length) setSelectedSize(data.size[0])
-    } catch (error) {
-      console.error('Erreur:', error)
-    }
-    setLoading(false)
-  }
-
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      alert('Veuillez sélectionner une taille')
-      return
-    }
-    addToCart(product, selectedSize)
-    alert('Produit ajouté au panier!')
-  }
-
-  if (loading) {
-    return <div className="loading"><div className="spinner"></div></div>
-  }
-
-  if (!product) {
-    return <div className="container" style={{ padding: '4rem' }}>Produit non trouvé</div>
-  }
+  const product = products[id] || products[1]
 
   return (
-    <div className="container" style={{ padding: '3rem 20px' }}>
-      <Link to="/products" style={{ color: '#4B6CB7', marginBottom: '1rem', display: 'block' }}>
-        ← Retour à la boutique
-      </Link>
+    <div style={{ padding: '2rem 20px', maxWidth: '1000px', margin: '0 auto' }}>
+      <Link to="/products" style={{ color: '#4B6CB7', marginBottom: '1rem', display: 'inline-block' }}>← Retour</Link>
       
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem' }}>
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          <img 
-            src={product.image} 
-            alt={product.name} 
-            style={{ width: '100%', borderRadius: '12px' }}
-          />
-        </motion.div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '1rem' }}>
+        <div style={{ background: '#f5f6fa', borderRadius: '12px', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6rem' }}>👗</div>
         
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          <span className="product-category" style={{ marginBottom: '0.5rem' }}>{product.category}</span>
-          <h1 style={{ marginBottom: '1rem', color: '#19232D' }}>{product.name}</h1>
-          <div className="product-price-wrapper" style={{ marginBottom: '1.5rem' }}>
-            <span className="product-price" style={{ fontSize: '2rem' }}>
-              {product.price.toFixed(2)} €
-            </span>
-            {product.oldPrice && (
-              <span className="product-old-price" style={{ fontSize: '1.25rem' }}>
-                {product.oldPrice.toFixed(2)} €
-              </span>
-            )}
+        <div>
+          <p style={{ color: '#4B6CB7', marginBottom: '0.5rem' }}>{product.category}</p>
+          <h1 style={{ marginBottom: '1rem' }}>{product.name}</h1>
+          <p style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>{product.price} €</p>
+          <p style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>{product.description}</p>
+          
+          <div style={{ marginBottom: '1.5rem' }}>
+            <p style={{ marginBottom: '0.5rem', fontWeight: 'bold' }}>Taille:</p>
+            {['XS', 'S', 'M', 'L', 'XL'].map(s => (
+              <button key={s} onClick={() => setSize(s)} style={{ padding: '8px 16px', marginRight: '8px', borderRadius: '4px', border: size === s ? 'none' : '1px solid #ddd', background: size === s ? '#4B6CB7' : '#fff', color: size === s ? '#fff' : '#333', cursor: 'pointer' }}>
+                {s}
+              </button>
+            ))}
           </div>
           
-          <p style={{ color: '#718096', marginBottom: '2rem' }}>{product.description}</p>
-          
-          <div style={{ marginBottom: '2rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
-              Taille:
-            </label>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {product.size?.map(size => (
-                <button
-                  key={size}
-                  onClick={() => setSelectedSize(size)}
-                  style={{
-                    padding: '0.75rem 1.5rem',
-                    border: selectedSize === size ? '2px solid #4B6CB7' : '2px solid #E2E8F0',
-                    background: selectedSize === size ? 'rgba(75, 108, 183, 0.1)' : 'white',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    fontWeight: selectedSize === size ? 600 : 400
-                  }}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
-          </div>
-          
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-            <button onClick={handleAddToCart} className="btn btn-primary" style={{ flex: 1 }}>
-              Ajouter au panier
-            </button>
-            <button className="btn btn-secondary" style={{ padding: '0.75rem' }}>
-              ❤️
-            </button>
-          </div>
-          
-          <div style={{ padding: '1rem', background: '#F5F6FA', borderRadius: '8px' }}>
-            <p style={{ fontSize: '0.875rem', marginBottom: '0.5rem' }}>🚚 Livraison gratuite dès 50€</p>
-            <p style={{ fontSize: '0.875rem', marginBottom: '0.5rem' }}>↩️ Retour sous 30 jours</p>
-            <p style={{ fontSize: '0.875rem' }}>🔒 Paiement sécurisé</p>
-          </div>
-        </motion.div>
+          <button style={{ padding: '14px 28px', background: '#4B6CB7', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '1rem', cursor: 'pointer' }}>
+            Ajouter au panier 🛒
+          </button>
+        </div>
       </div>
-
-      {/* Reviews Section */}
-      <Reviews productId={id} />
     </div>
   )
 }

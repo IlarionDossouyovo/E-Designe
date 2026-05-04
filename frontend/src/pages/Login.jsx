@@ -1,68 +1,29 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export default function Login({ setUser }) {
-  const navigate = useNavigate()
-  const [formData, setFormData] = useState({ email: '', password: '' })
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    setLoading(true)
-    setError('')
-
-    try {
-      const { data } = await axios.post('/api/users/login', formData)
-      setUser(data.user)
-      localStorage.setItem('e-designe-user', JSON.stringify(data.user))
-      navigate('/account')
-    } catch (err) {
-      setError(err.response?.data?.error || 'Erreur de connexion')
+    // Simple local auth
+    if (email && password) {
+      setUser({ email, name: email.split('@')[0] })
     }
-    setLoading(false)
   }
 
   return (
-    <div className="container" style={{ padding: '4rem 20px', maxWidth: '400px' }}>
-      <div className="card" style={{ padding: '2rem' }}>
-        <h2 style={{ marginBottom: '2rem', textAlign: 'center' }}>Connexion</h2>
-        
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Email</label>
-            <input 
-              type="email" 
-              className="form-control"
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              required
-            />
-          </div>
-          
-          <div className="form-group">
-            <label>Mot de passe</label>
-            <input 
-              type="password" 
-              className="form-control"
-              value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
-              required
-            />
-          </div>
-          
-          {error && <div style={{ color: '#E53E3E', marginBottom: '1rem' }}>{error}</div>}
-          
-          <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
-            {loading ? 'Connexion...' : 'Se connecter'}
-          </button>
-        </form>
-        
-        <p style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-          Pas de compte? <Link to="/register" style={{ color: '#4B6CB7' }}>Créer un compte</Link>
-        </p>
-      </div>
+    <div style={{ padding: '2rem 20px', maxWidth: '400px', margin: '0 auto' }}>
+      <h1 style={{ marginBottom: '2rem', textAlign: 'center' }}>Connexion</h1>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd' }} />
+        <input type="password" placeholder="Mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd' }} />
+        <button type="submit" style={{ padding: '14px', background: '#4B6CB7', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>Se connecter</button>
+      </form>
+      <p style={{ marginTop: '1rem', textAlign: 'center' }}>
+        Pas de compte? <Link to="/register" style={{ color: '#4B6CB7' }}>Créer un compte</Link>
+      </p>
     </div>
   )
 }
