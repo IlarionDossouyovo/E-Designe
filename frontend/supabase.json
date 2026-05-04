@@ -1,9 +1,9 @@
 {
   "env": {
-    "SUPABASE_URL": "https://your-project.supabase.co",
-    "SUPABASE_ANON_KEY": "your-anon-key"
+    "SUPABASE_URL": "https://lmjasjoyqqanphrkbjop.supabase.co",
+    "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJpYXQiOjE2MzUyNjgxMDB9.wPWoudH_UYxjl6KpyysxmA_J5HaUEj"
   },
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "framework": "nextjs"
+  "framework": "react"
 }
