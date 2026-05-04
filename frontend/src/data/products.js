@@ -10,7 +10,7 @@ export const products = {
     chemises: [
       { id: 'h4', name: 'Chemise Soie Italienne', price: 120, quality: 'Premium', image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400', category: 'Homme', sub: 'Chemises' },
       { id: 'h5', name: 'Chemise Coton Egyptien', price: 65, quality: 'Moyenne', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c3fb03d?w=400', category: 'Homme', sub: 'Chemises' },
-      { id: 'h6', name: 'Chemise Standard', price: 25, quality: 'Basic', image: 'https://images.unsplash.com/photo-1602810318388-7bf7c122对小伙?w=400', category: 'Homme', sub: 'Chemises' }
+      { id: 'h6', name: 'Chemise Standard', price: 25, quality: 'Basic', image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400', category: 'Homme', sub: 'Chemises' }
     ],
     pantalons: [
       { id: 'h7', name: 'Pantalon Wool Premium', price: 150, quality: 'Premium', image: 'https://images.unsplash.com/photo-1624378439575d870b5a4b76e47d5de?w=400', category: 'Homme', sub: 'Pantalons' },
@@ -20,7 +20,7 @@ export const products = {
     vestes: [
       { id: 'h10', name: 'Veste Cuir Premium', price: 320, quality: 'Premium', image: 'https://images.unsplash.com/photo-1551028719-00167f22ec93?w=400', category: 'Homme', sub: 'Vestes' },
       { id: 'h11', name: 'Veste Denim', price: 90, quality: 'Moyenne', image: 'https://images.unsplash.com/photo-1576995853122-5a3e342f91c4?w=400', category: 'Homme', sub: 'Vestes' },
-      { id: 'h12', name: 'Veste S妙ette Basic', price: 45, quality: 'Basic', image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400', category: 'Homme', sub: 'Vestes' }
+      { id: 'h12', name: 'Veste Sweatette Basic', price: 45, quality: 'Basic', image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400', category: 'Homme', sub: 'Vestes' }
     ]
   },
   // FEMME Category
