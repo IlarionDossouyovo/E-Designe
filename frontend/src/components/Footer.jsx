@@ -17,24 +17,24 @@ export default function Footer() {
           <div>
             <h3>Boutique</h3>
             <Link to="/products">Tous les produits</Link>
-            <Link to="/fournisseurs/homme">Homme</Link>
-            <Link to="/fournisseurs/femme">Femme</Link>
-            <Link to="/fournisseurs/enfants">Enfants</Link>
-            <Link to="/fournisseurs/cosmetiques">Cosmétiques</Link>
+            <Link to="/homme">Homme</Link>
+            <Link to="/femme">Femme</Link>
+            <Link to="/enfants">Enfants</Link>
+            <Link to="/cosmetiques">Cosmétiques</Link>
           </div>
           <div>
             <h3>Informations</h3>
             <Link to="/blog">Blog</Link>
             <Link to="/about">À propos</Link>
             <Link to="/contact">Contact</Link>
-            <Link to="#">FAQ</Link>
+            <Link to="/contact">FAQ</Link>
           </div>
           <div>
             <h3>Aide</h3>
-            <Link to="#">Livraison</Link>
-            <Link to="#">Retours</Link>
-            <Link to="#">Conditions générales</Link>
-            <Link to="#">Politique confidentialité</Link>
+            <Link to="/contact">Livraison</Link>
+            <Link to="/contact">Retours</Link>
+            <Link to="/contact">Conditions générales</Link>
+            <Link to="/contact">Politique confidentialité</Link>
           </div>
           <div>
             <h3>Contact</h3>
