@@ -11,16 +11,36 @@ const manufacturers = [
   { id: 6, name: 'Texhong Textile', country: 'Chine', specialty: 'Tissus coton mode + fils', category: 'mode,coton,fils', website: 'texhong.com', rating: 4.5, moq: '200m', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
   { id: 7, name: 'Fabric Wholesale Direct', country: 'USA', specialty: '+850 tissus, parfait e-commerce', category: 'e-commerce,multi', website: 'fabricwholesaledirect.com', rating: 4.8, moq: '10m', image: 'https://images.unsplash.com/photo-1620799140408-ed5341cd2431?w=800&q=80' },
   { id: 8, name: 'Sungil Tex', country: 'Hong Kong', specialty: 'Tissus + doublures + textile durable', category: 'durable, doublures', website: 'sungiltex.com', rating: 4.6, moq: '50m', image: 'https://images.unsplash.com/photo-1606761568499-6d2451b23abc?w=800&q=80' },
-  { id: 9, name: 'Shaoxing Textile Hub', country: 'Chine', specialty: 'Plus grand marché textile mondial', category: 'marketplace,Volume', website: 'shaoxing.com', rating: 4.4, moq: '20m', image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80' },
-  { id: 10, name: 'Sunflag Nigeria', country: 'Nigeria', specialty: 'Production textile complète Afrique de Ouest', category: 'afrique,local', website: 'sunflag.com.ng', rating: 4.7, moq: '100m', image: 'https://images.unsplash.com/photo-1613909207039-6b173b1dc79f?w=800&q=80' }
+  { id: 9, name: 'Shaoxing Textile Hub', country: 'Chine', specialty: 'Plus grand marché textile mondial', category: 'marketplace,volume', website: 'shaoxing.com', rating: 4.4, moq: '20m', image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80' },
+  { id: 10, name: 'Sunflag Nigeria', country: 'Nigeria', specialty: 'Production textile complète Afrique de Ouest', category: 'afrique,local', website: 'sunflag.com.ng', rating: 4.7, moq: '100m', image: 'https://images.unsplash.com/photo-1613909207039-6b173b1dc79f?w=800&q=80' },
+  // Premium Fabric Houses
+  { id: 11, name: 'Tessuti Firenze', country: 'Italie', specialty: 'Tissus luxeitalien, matières nobles', category: 'luxe,couture,it', website: 'tessutifirenze.it', rating: 4.9, moq: '30m', image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800' },
+  { id: 12, name: 'Loro Piana', country: 'Italie', specialty: 'Cashmere & laine premium', category: 'luxe,cashmere', website: 'loropiana.com', rating: 5.0, moq: '50m', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a488a786?w=800' },
+  { id: 13, name: 'Zegna', country: 'Italie', specialty: 'Tissus costume haut de gamme', category: 'luxe,mens', website: 'zegna.com', rating: 4.9, moq: '30m', image: 'https://images.unsplash.com/photo-1594938387913-a6e549019a2f?w=800' },
+  { id: 14, name: 'Vitale Barberis', country: 'Italie', specialty: 'Laine mérinos premium depuis 1663', category: 'luxe,laine', website: 'vitalebarberis.com', rating: 4.9, moq: '25m', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800' },
+  { id: 15, name: 'Holland & Sherry', country: 'UK', specialty: 'Tissus costume anglais premium', category: 'luxe,sartorial', website: 'hollandandsherry.com', rating: 4.8, moq: '20m', image: 'https://images.unsplash.com/photo-1620799140408-ed5341cd2431?w=800' },
+  { id: 16, name: 'Harris Tweed', country: 'UK', specialty: 'Tweed authentique écosse', category: 'heritage,luxe', website: 'harristweed.org', rating: 4.7, moq: '10m', image: 'https://images.unsplash.com/photo-1606761568499-6d2451b23abc?w=800' },
+  { id: 17, name: 'Scabal', country: 'UK', specialty: 'Tissus super 150s, luxe', category: 'luxe,sartorial', website: 'scabal.com', rating: 4.9, moq: '25m', image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800' },
+  { id: 18, name: 'Dormeuil', country: 'France', specialty: 'Tissus français luxe', category: 'luxe,french', website: 'dormeuil.com', rating: 4.8, moq: '30m', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a488a786?w=800' },
+  { id: 19, name: 'Cerruti 1881', country: 'Italie', specialty: 'Tissus moda homme', category: 'luxe,mens,fashion', website: 'cerruti1881.com', rating: 4.8, moq: '30m', image: 'https://images.unsplash.com/photo-1594938387913-a6e549019a2f?w=800' },
+  { id: 20, name: 'REDA', country: 'Italie', specialty: 'Laine écologique premium', category: 'luxe,eco,sustainable', website: 'redausa.com', rating: 4.8, moq: '40m', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800' },
+  // African Fabrics
+  { id: 21, name: 'Anglomani', country: 'Nigeria', specialty: 'Tissus wax véritable', category: 'african,wax', website: 'anglomani.com', rating: 4.8, moq: '50m', image: 'https://images.unsplash.com/photo-1613909207039-6b173b1dc79f?w=800' },
+  { id: 22, name: 'Nigeria Textiles', country: 'Nigeria', specialty: 'Production locale nigeriane', category: 'afrique,local', website: 'nigeriatex.com', rating: 4.5, moq: '100m', image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800' },
+  { id: 23, name: 'Vlisco', country: 'Belgique', specialty: 'Tissus wax luxe export', category: 'african,wax', website: 'vlisco.com', rating: 4.7, moq: '50m', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a488a786?w=800' },
+  { id: 24, name: 'Uniwax', country: 'Côte dIvoire', specialty: 'Wax africain qualité', category: 'african,wax', website: 'uniwax.ci', rating: 4.6, moq: '60m', image: 'https://images.unsplash.com/photo-1594938387913-a6e549019a2f?w=800' },
+  // Technical & Performance
+  { id: 25, name: 'SympaTex', country: 'Allemagne', specialty: 'Tissus respirants techniques', category: 'tech,performance', website: 'sympatex.com', rating: 4.7, moq: '100m', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800' },
+  { id: 26, name: 'Cordura', country: 'USA', specialty: 'Tissus resistants usage intensif', category: 'tech,durable', website: 'cordura.com', rating: 4.8, moq: '50m', image: 'https://images.unsplash.com/photo-1620799140408-ed5341cd2431?w=800' }
 ]
 
 const fabricCategories = [
   { name: 'Mode & Habillement', icon: '👔', items: ['Coton', 'Denim', 'Soie', 'Satin', 'Cire africaine', 'Jersey', 'Polyester extensible'] },
-  { name: 'Luxe & Haute Couture', icon: '👗', items: ['Soie naturelle', 'Organza', 'Velours', 'Broderie premium'] },
+  { name: 'Luxe & Haute Couture', icon: '👗', items: ['Soie naturelle', 'Organza', 'Velours', 'Broderie premium', 'Cashmere', 'Laine mérinos'] },
   { name: 'Maison Textile', icon: '🏠', items: ['Rideaux', 'Ameublement', 'Matelas', 'Siestes'] },
-  { name: 'Technique', icon: '⚙️', items: ['Etanche', 'Anti-feu', 'Vêtements sport', 'Textile médical'] },
-  { name: 'Éco-responsable', icon: '🌱', items: ['Coton bio', 'Fibres recyclées', 'Lin naturel', 'Bambou'] }
+  { name: 'Technique', icon: '⚙️', items: ['Étanche', 'Anti-feu', 'Vêtements sport', 'Textile médical', 'Respirant'] },
+  { name: 'Éco-responsable', icon: '🌱', items: ['Coton bio', 'Fibres recyclées', 'Lin naturel', 'Bambou', 'Tissus recyclés'] },
+  { name: 'Tissus Africains', icon: '🌍', items: ['Wax', 'Ankara', 'Kente', 'Indigo', 'Boganire'] }
 ]
 
 const countries = ['Tous', 'USA', 'Japon', 'Inde', 'Chine', 'Nigeria', 'Hong Kong']
