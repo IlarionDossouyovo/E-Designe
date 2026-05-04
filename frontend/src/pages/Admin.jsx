@@ -29,40 +29,40 @@ export default function Admin() {
   const [period, setPeriod] = useState('week')
 
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ margin: 0 }}>⚙️ Administration</h1>
+        <h1 style={{ margin: 0, color: '#fff' }}>⚙️ Administration</h1>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <button onClick={() => setPeriod('week')} style={{ padding: '8px 16px', background: period === 'week' ? '#4B6CB7' : '#fff', color: period === 'week' ? '#fff' : '#333', border: '1px solid #ddd', borderRadius: '8px', cursor: 'pointer' }}>Cette semaine</button>
-          <button onClick={() => setPeriod('month')} style={{ padding: '8px 16px', background: period === 'month' ? '#4B6CB7' : '#fff', color: period === 'month' ? '#fff' : '#333', border: '1px solid #ddd', borderRadius: '8px', cursor: 'pointer' }}>Ce mois</button>
+          <button onClick={() => setPeriod('week')} style={{ padding: '8px 16px', background: period === 'week' ? '#4B6CB7' : '#16161f', color: period === 'week' ? '#fff' : '#9ca3af', border: '1px solid #2a2a35', borderRadius: '8px', cursor: 'pointer' }}>Cette semaine</button>
+          <button onClick={() => setPeriod('month')} style={{ padding: '8px 16px', background: period === 'month' ? '#4B6CB7' : '#16161f', color: period === 'month' ? '#fff' : '#9ca3af', border: '1px solid #2a2a35', borderRadius: '8px', cursor: 'pointer' }}>Ce mois</button>
         </div>
       </div>
 
-      {/* Stats Grid */}
+      {/* Stats Grid - Dark */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '40px' }}>
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-          <p style={{ fontSize: '12px', color: '#666', margin: '0 0 8px' }}>Commandes</p>
+        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.3)', border: '1px solid #2a2a35' }}>
+          <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }}>Commandes</p>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#4B6CB7', margin: 0 }}>{stats.totalOrders}</p>
         </div>
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-          <p style={{ fontSize: '12px', color: '#666', margin: '0 0 8px' }}>Revenus</p>
+        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.3)', border: '1px solid #2a2a35' }}>
+          <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }}>Revenus</p>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#22c55e', margin: 0 }}>{stats.totalRevenue}€</p>
         </div>
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-          <p style={{ fontSize: '12px', color: '#666', margin: '0 0 8px' }}>Produits</p>
+        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.3)', border: '1px solid #2a2a35' }}>
+          <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }}>Produits</p>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#f59e0b', margin: 0 }}>{stats.totalProducts}</p>
         </div>
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-          <p style={{ fontSize: '12px', color: '#666', margin: '0 0 8px' }}>Utilisateurs</p>
+        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.3)', border: '1px solid #2a2a35' }}>
+          <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0 0 8px' }}>Utilisateurs</p>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#8b5cf6', margin: 0 }}>{stats.totalUsers}</p>
         </div>
       </div>
 
-      {/* Charts */}
+      {/* Charts - Dark */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', marginBottom: '40px' }}>
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-          <h3 style={{ margin: '0 0 20px' }}>Commandes (7 derniers jours)</h3>
+        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.3)', border: '1px solid #2a2a35' }}>
+          <h3 style={{ margin: '0 0 20px', color: '#fff' }}>Commandes (7 derniers jours)</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={ordersData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -73,8 +73,8 @@ export default function Admin() {
             </LineChart>
           </ResponsiveContainer>
         </div>
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-          <h3 style={{ margin: '0 0 20px' }}>Produits par categorie</h3>
+        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.3)', border: '1px solid #2a2a35' }}>
+          <h3 style={{ margin: '0 0 20px', color: '#fff' }}>Produits par categorie</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={productsData}>
               <CartesianGrid strokeDasharray="3 3" />

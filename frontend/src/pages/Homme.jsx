@@ -19,10 +19,10 @@ export default function Homme() {
   const getColor = (q) => qualityTiers.find(t => t.id === q)?.color || '#ccc'
 
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
       {/* Hero Banner */}
       <div style={{ 
-        background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%)', 
+        background: 'linear-gradient(135deg, #1e3a5f 0%, #4B6CB7 100%)', 
         borderRadius: '20px', 
         padding: '60px 40px',
         marginBottom: '40px',
@@ -36,40 +36,40 @@ export default function Homme() {
             Elegance et raffinement pour l'homme moderne. Costumes, chemises et accessories de qualite Premium.
           </p>
           <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-            <Link to="/products?cat=Homme&qual=Premium" style={{ padding: '12px 24px', background: '#fff', color: '#1e3a5f', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' }}>Premium</Link>
+            <Link to="/products?cat=Homme&qual=Premium" style={{ padding: '12px 24px', background: '#fff', color: '#4B6CB7', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' }}>Premium</Link>
             <Link to="/products?cat=Homme" style={{ padding: '12px 24px', background: 'rgba(255,255,255,0.2)', color: '#fff', borderRadius: '8px', textDecoration: 'none' }}>Voir tout</Link>
           </div>
         </div>
         <div style={{ position: 'absolute', right: '50px', top: '50%', transform: 'translateY(-50%)', fontSize: '120px', opacity: 0.15 }}>👔</div>
       </div>
       
-      {/* Filters */}
+      {/* Filters - Dark */}
       <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap', alignItems: 'center' }}>
-        <select value={filterQual} onChange={(e) => setFilterQual(e.target.value)} style={{ padding: '12px 20px', borderRadius: '8px', border: '1px solid #ddd', fontSize: '14px', minWidth: '150px' }}>
+        <select value={filterQual} onChange={(e) => setFilterQual(e.target.value)} style={{ padding: '12px 20px', borderRadius: '8px', border: '1px solid #2a2a35', fontSize: '14px', minWidth: '150px', background: '#16161f', color: '#fff' }}>
           <option value="Tous">Toutes qualites</option>
           {qualityTiers.map(q => <option key={q.id} value={q.id}>{q.name} ({q.desc})</option>)}
         </select>
-        <select value={filterSub} onChange={(e) => setFilterSub(e.target.value)} style={{ padding: '12px 20px', borderRadius: '8px', border: '1px solid #ddd', fontSize: '14px', minWidth: '150px' }}>
+        <select value={filterSub} onChange={(e) => setFilterSub(e.target.value)} style={{ padding: '12px 20px', borderRadius: '8px', border: '1px solid #2a2a35', fontSize: '14px', minWidth: '150px', background: '#16161f', color: '#fff' }}>
           <option value="Tous">Tous types</option>
           {subCats.filter(s => s !== 'Tous').map(s => <option key={s} value={s}>{s}</option>)}
         </select>
-        <span style={{ color: '#666', marginLeft: 'auto' }}>{filtered.length} produits</span>
+        <span style={{ color: '#6b7280', marginLeft: 'auto' }}>{filtered.length} produits</span>
       </div>
 
-      {/* Products Grid */}
+      {/* Products Grid - Dark */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
         {filtered.map(product => (
           <Link key={product.id} to={`/products/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', transition: 'transform 0.3s, box-shadow 0.3s', height: '100%' }} className="product-card">
+            <div style={{ background: '#16161f', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.3)', transition: 'transform 0.3s, box-shadow 0.3s', height: '100%', border: '1px solid #2a2a35' }} className="product-card">
               <div style={{ height: '280px', overflow: 'hidden', position: 'relative' }}>
                 <img src={product.image} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex' }} />
-                <div style={{ height: '100%', background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%)', display: 'none', alignItems: 'center', justifyContent: 'center', fontSize: '4rem' }}>👔</div>
+                <div style={{ height: '100%', background: 'linear-gradient(135deg, #1e3a5f 0%, #4B6CB7 100%)', display: 'none', alignItems: 'center', justifyContent: 'center', fontSize: '4rem' }}>👔</div>
                 <span style={{ position: 'absolute', top: '12px', left: '12px', background: getColor(product.quality), color: '#fff', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold' }}>{product.quality}</span>
               </div>
               <div style={{ padding: '16px' }}>
                 <p style={{ fontSize: '12px', color: '#4B6CB7', marginBottom: '4px' }}>{product.sub}</p>
-                <h3 style={{ margin: '0 0 8px', fontSize: '1.1rem', fontWeight: '600' }}>{product.name}</h3>
-                <p style={{ fontSize: '1.4rem', fontWeight: 'bold', color: '#1e3a5f' }}>{product.price} €</p>
+                <h3 style={{ margin: '0 0 8px', fontSize: '1.1rem', fontWeight: '600', color: '#fff' }}>{product.name}</h3>
+                <p style={{ fontSize: '1.4rem', fontWeight: 'bold', color: '#4B6CB7' }}>{product.price} €</p>
               </div>
             </div>
           </Link>

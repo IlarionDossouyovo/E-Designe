@@ -26,7 +26,7 @@ export default function Enfants() {
         borderRadius: '20px', 
         padding: '60px 40px',
         marginBottom: '40px',
-        color: '#fff',
+        color: '#16161f',
         position: 'relative',
         overflow: 'hidden'
       }}>
@@ -36,8 +36,8 @@ export default function Enfants() {
             Confort et tendresse pour vos enfants. Vetements doux et ludique.
           </p>
           <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-            <Link to="/products?cat=Bebe&qual=Premium" style={{ padding: '12px 24px', background: '#fff', color: '#ff6b6b', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' }}>Premium</Link>
-            <Link to="/products?cat=Bebe" style={{ padding: '12px 24px', background: 'rgba(255,255,255,0.2)', color: '#fff', borderRadius: '8px', textDecoration: 'none' }}>Voir tout</Link>
+            <Link to="/products?cat=Bebe&qual=Premium" style={{ padding: '12px 24px', background: '#16161f', color: '#ff6b6b', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' }}>Premium</Link>
+            <Link to="/products?cat=Bebe" style={{ padding: '12px 24px', background: 'rgba(255,255,255,0.2)', color: '#16161f', borderRadius: '8px', textDecoration: 'none' }}>Voir tout</Link>
           </div>
         </div>
         <div style={{ position: 'absolute', right: '50px', top: '50%', transform: 'translateY(-50%)', fontSize: '120px', opacity: 0.15 }}>👶</div>
@@ -53,18 +53,18 @@ export default function Enfants() {
           <option value="Tous">Tous types</option>
           {subCats.filter(s => s !== 'Tous').map(s => <option key={s} value={s}>{s}</option>)}
         </select>
-        <span style={{ color: '#666', marginLeft: 'auto' }}>{filtered.length} produits</span>
+        <span style={{ color: '#9ca3af', marginLeft: 'auto' }}>{filtered.length} produits</span>
       </div>
 
       {/* Products Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
         {filtered.map(product => (
           <Link key={product.id} to={`/products/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div style={{ background: '#fff', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', transition: 'transform 0.3s, box-shadow 0.3s', height: '100%' }} className="product-card">
+            <div style={{ background: '#16161f', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', transition: 'transform 0.3s, box-shadow 0.3s', height: '100%' }} className="product-card">
               <div style={{ height: '280px', overflow: 'hidden', position: 'relative' }}>
                 <img src={product.image} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex' }} />
                 <div style={{ height: '100%', background: 'linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%)', display: 'none', alignItems: 'center', justifyContent: 'center', fontSize: '4rem' }}>👶</div>
-                <span style={{ position: 'absolute', top: '12px', left: '12px', background: getColor(product.quality), color: '#fff', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold' }}>{product.quality}</span>
+                <span style={{ position: 'absolute', top: '12px', left: '12px', background: getColor(product.quality), color: '#16161f', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: 'bold' }}>{product.quality}</span>
               </div>
               <div style={{ padding: '16px' }}>
                 <p style={{ fontSize: '12px', color: '#ff6b6b', marginBottom: '4px' }}>{product.sub}</p>
