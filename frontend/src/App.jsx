@@ -13,6 +13,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Account from './pages/Account'
 import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 import Homme from './pages/Homme'
 import Femme from './pages/Femme'
 import Enfants from './pages/Enfants'
@@ -69,6 +70,7 @@ export default function App() {
             <Route path="/register" element={<Register setUser={setUser} />} />
             <Route path="/account" element={<Account user={user} setUser={setUser} />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/homme" element={<Homme />} />
             <Route path="/femme" element={<Femme />} />
             <Route path="/enfants" element={<Enfants />} />
