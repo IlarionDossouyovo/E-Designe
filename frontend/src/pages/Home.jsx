@@ -22,14 +22,18 @@ export default function Home() {
   }, [])
 
   const loadProducts = async () => {
+    // Show fallback immediately while loading
+    setProducts(fallbackProducts)
+    setRecommendations(fallbackProducts)
+    
     try {
       const { data } = await axios.get('/api/products')
-      setProducts(data)
-      setRecommendations(data.slice(0, 4))
+      if (data && data.length > 0) {
+        setProducts(data)
+        setRecommendations(data.slice(0, 4))
+      }
     } catch (error) {
-      console.log('API non disponible, utilisation des données locales')
-      setProducts(fallbackProducts)
-      setRecommendations(fallbackProducts)
+      console.log('API unavailable, using local data')
     } finally {
       setLoading(false)
     }
@@ -53,6 +57,14 @@ export default function Home() {
       opacity: 1,
       transition: { staggerChildren: 0.1 }
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="container" style={{ padding: '4rem 20px', textAlign: 'center' }}>
+        <p>Chargement...</p>
+      </div>
+    )
   }
 
   const item = {
