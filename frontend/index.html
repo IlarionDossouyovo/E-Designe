@@ -9,7 +9,15 @@
     <title>E-Désigne | AI-Powered Fashion Platform</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0a0a0f;color:#fff;font-family:system-ui;">
+        <div style="text-align:center;">
+          <p style="font-size:1.5rem;margin-bottom:1rem;">E-Désigne</p>
+          <div style="width:200px;height:4px;background:#333;border-radius:2px;overflow:hidden;margin:0 auto;"><div style="width:30%;height:100%;background:#4B6CB7;animation:loading 1s infinite linear;"></div></div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
+    <style>@keyframes loading{0%{transform:translateX(-100%)}100%{transform:translateX(400%)}}</style>
   </body>
 </html>
