@@ -13,7 +13,7 @@ export default function Wishlist({ user, addToCart }) {
 
   const loadWishlist = async () => {
     if (!user?.id) {
-      const saved = localStorage.getItem('stylhub-wishlist')
+      const saved = localStorage.getItem('e-designe-wishlist')
       if (saved) {
         try {
           const { data } = await axios.get('/api/products')
@@ -44,9 +44,9 @@ export default function Wishlist({ user, addToCart }) {
         console.error(e)
       }
     } else {
-      const saved = JSON.parse(localStorage.getItem('stylhub-wishlist') || '[]')
+      const saved = JSON.parse(localStorage.getItem('e-designe-wishlist') || '[]')
       const updated = saved.filter(id => id !== productId)
-      localStorage.setItem('stylhub-wishlist', JSON.stringify(updated))
+      localStorage.setItem('e-designe-wishlist', JSON.stringify(updated))
     }
     setWishlist(wishlist.filter(p => p.id !== productId))
   }

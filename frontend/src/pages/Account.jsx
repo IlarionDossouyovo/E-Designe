@@ -22,7 +22,7 @@ export default function Account({ user, setUser }) {
 
   const handleLogout = () => {
     setUser(null)
-    localStorage.removeItem('stylhub-user')
+    localStorage.removeItem('e-designe-user')
   }
 
   if (!user) {

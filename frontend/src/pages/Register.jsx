@@ -16,7 +16,7 @@ export default function Register({ setUser }) {
     try {
       const { data } = await axios.post('/api/users/register', formData)
       setUser(data.user)
-      localStorage.setItem('stylhub-user', JSON.stringify(data.user))
+      localStorage.setItem('e-designe-user', JSON.stringify(data.user))
       navigate('/account')
     } catch (err) {
       setError(err.response?.data?.error || 'Erreur d\'inscription')

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import axios from 'axios'
-import logo from '../assets/logo.svg'
+import logo from '../assets/logo-e-designe-dark.svg'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -120,7 +120,7 @@ export default function Home() {
 
       <section style={{ background: '#F5F6FA', padding: '3rem 0' }}>
         <div className="container">
-          <h2 style={{ marginBottom: '2rem', textAlign: 'center' }}>Pourquoi Stylhub?</h2>
+          <h2 style={{ marginBottom: '2rem', textAlign: 'center', color: '#fff' }}>Pourquoi E-Designe?</h2>
           <div className="grid grid-products">
             <div className="card" style={{ padding: '2rem', textAlign: 'center' }}>
               <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🤖</div>

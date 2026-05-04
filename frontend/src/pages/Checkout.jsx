@@ -49,7 +49,7 @@ export default function Checkout({ cart, cartTotal, user, setCart }) {
       
       // Clear cart and redirect
       setCart([])
-      localStorage.removeItem('stylhub-cart')
+      localStorage.removeItem('e-designe-cart')
       navigate('/account')
       
     } catch (err) {

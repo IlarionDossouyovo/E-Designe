@@ -33,14 +33,14 @@ export default function App() {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const savedCart = localStorage.getItem('stylhub-cart')
+    const savedCart = localStorage.getItem('e-designe-cart')
     if (savedCart) setCart(JSON.parse(savedCart))
-    const savedUser = localStorage.getItem('stylhub-user')
+    const savedUser = localStorage.getItem('e-designe-user')
     if (savedUser) setUser(JSON.parse(savedUser))
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('stylhub-cart', JSON.stringify(cart))
+    localStorage.setItem('e-designe-cart', JSON.stringify(cart))
   }, [cart])
 
   const addToCart = (product, size) => {
