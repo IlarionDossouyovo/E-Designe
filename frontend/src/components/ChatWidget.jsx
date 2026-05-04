@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { chatWithAI } from '../services/ai'
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
@@ -6,27 +7,31 @@ export default function ChatWidget() {
     { role: 'assistant', content: 'Bonjour! Je suis votre assistant E-Designe. Comment puis-je vous aider?' }
   ])
   const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const sendMessage = () => {
-    if (!input.trim()) return
+  const sendMessage = async () => {
+    if (!input.trim() || loading) return
 
     const userMsg = { role: 'user', content: input }
     setMessages(prev => [...prev, userMsg])
-    
-    // Simple mock response
-    setTimeout(() => {
+    setInput('')
+    setLoading(true)
+
+    try {
+      // Use AI service (automatically falls back to mock if no AI available)
+      const response = await chatWithAI(input)
+      setMessages(prev => [...prev, { role: 'assistant', content: response }])
+    } catch (error) {
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: 'Merci pour votre message! Notre equipe vous repondra bientot. Pour des produits, voyez la page Boutique.' 
+        content: 'Merci pour votre message! Notre equipe vous repondra bientot.' 
       }])
-    }, 1000)
-    
-    setInput('')
+    }
+    setLoading(false)
   }
 
   return (
     <>
-      {/* Chat Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
         style={{
@@ -48,7 +53,6 @@ export default function ChatWidget() {
         {isOpen ? '✕' : '💬'}
       </button>
 
-      {/* Chat Window */}
       {isOpen && (
         <div style={{
           position: 'fixed',
@@ -63,7 +67,6 @@ export default function ChatWidget() {
           flexDirection: 'column',
           zIndex: 1000
         }}>
-          {/* Header */}
           <div style={{
             padding: '16px',
             background: '#19232D',
@@ -74,8 +77,8 @@ export default function ChatWidget() {
             alignItems: 'center'
           }}>
             <div>
-              <strong>E-Designe Assistant</strong>
-              <p style={{ fontSize: '12px', opacity: 0.8, margin: 0 }}>En ligne</p>
+              <strong>E-Designe Assistant IA</strong>
+              <p style={{ fontSize: '12px', opacity: 0.8, margin: 0 }}>{loading ? 'En train decrire...' : 'En ligne'}</p>
             </div>
             <button 
               onClick={() => setIsOpen(false)}
@@ -85,7 +88,6 @@ export default function ChatWidget() {
             </button>
           </div>
 
-          {/* Messages */}
           <div style={{ flex: 1, overflow: 'auto', padding: '16px' }}>
             {messages.map((msg, i) => (
               <div key={i} style={{
@@ -106,7 +108,6 @@ export default function ChatWidget() {
             ))}
           </div>
 
-          {/* Input */}
           <div style={{ padding: '12px', borderTop: '1px solid #E2E8F0', display: 'flex', gap: '8px' }}>
             <input
               type="text"
@@ -118,7 +119,8 @@ export default function ChatWidget() {
             />
             <button 
               onClick={sendMessage}
-              style={{ padding: '10px 16px', background: '#4B6CB7', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }}
+              disabled={loading}
+              style={{ padding: '10px 16px', background: '#4B6CB7', color: '#fff', border: 'none', borderRadius: '8px', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.6 : 1 }}
             >
               ➤
             </button>

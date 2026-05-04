@@ -12,8 +12,10 @@ import Checkout from './pages/Checkout'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Account from './pages/Account'
-import Suppliers from './pages/Suppliers'
 import Blog from './pages/Blog'
+import Homme from './pages/Homme'
+import Femme from './pages/Femme'
+import Enfants from './pages/Enfants'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Wishlist from './pages/Wishlist'
@@ -32,54 +34,31 @@ export default function App() {
   const [cart, setCart] = useState([])
   const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    const savedCart = localStorage.getItem('e-designe-cart')
-    if (savedCart) setCart(JSON.parse(savedCart))
-    const savedUser = localStorage.getItem('e-designe-user')
-    if (savedUser) setUser(JSON.parse(savedUser))
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('e-designe-cart', JSON.stringify(cart))
-  }, [cart])
-
-  const addToCart = (product, size) => {
-    const existing = cart.find(item => item.id === product.id && item.size === size)
-    if (existing) {
-      setCart(cart.map(item => 
-        item.id === product.id && item.size === size 
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      ))
-    } else {
-      setCart([...cart, { ...product, size, quantity: 1 }])
-    }
+  const addToCart = (product) => {
+    setCart(prev => {
+      const exists = prev.find(item => item.id === product.id)
+      if (exists) {
+        return prev.map(item => item.id === product.id ? { ...item, quantity: (item.quantity || 1) + 1 } : item)
+      }
+      return [...prev, { ...product, quantity: 1 }]
+    })
   }
 
-  const removeFromCart = (id, size) => {
-    setCart(cart.filter(item => !(item.id === id && item.size === size)))
+  const removeFromCart = (index) => {
+    setCart(prev => prev.filter((_, i) => i !== index))
   }
 
-  const updateQuantity = (id, size, quantity) => {
-    if (quantity <= 0) {
-      removeFromCart(id, size)
-    } else {
-      setCart(cart.map(item => 
-        item.id === id && item.size === size 
-          ? { ...item, quantity }
-          : item
-      ))
-    }
+  const updateQuantity = (index, qty) => {
+    setCart(prev => prev.map((item, i) => i === index ? { ...item, quantity: qty } : item))
   }
 
-  const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0)
+  const cartTotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0)
 
   return (
     <div className="app">
-      <Header cartCount={cartCount} user={user} />
-      <main>
-        <AnimatePresence>
+      <Header user={user} cartCount={cart.length} />
+      <main style={{ minHeight: '80vh', paddingTop: '70px' }}>
+        <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
@@ -89,17 +68,16 @@ export default function App() {
             <Route path="/login" element={<Login setUser={setUser} />} />
             <Route path="/register" element={<Register setUser={setUser} />} />
             <Route path="/account" element={<Account user={user} setUser={setUser} />} />
-            <Route path="/fournisseurs/homme" element={<Suppliers category="Homme" />} />
-            <Route path="/fournisseurs/femme" element={<Suppliers category="Femme" />} />
-            <Route path="/fournisseurs/enfants" element={<Suppliers category="Enfants" />} />
-            <Route path="/fournisseurs/cosmetiques" element={<Suppliers category="Cosmétiques" />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/homme" element={<Homme />} />
+            <Route path="/femme" element={<Femme />} />
+            <Route path="/enfants" element={<Enfants />} />
+            <Route path="/africain" element={<African />} />
+            <Route path="/bebe" element={<Babies />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/wishlist" element={<Wishlist user={user} addToCart={addToCart} />} />
             <Route path="/order-tracking" element={<OrderTracking />} />
-            <Route path="/africain" element={<African />} />
-            <Route path="/bebe" element={<Babies />} />
             <Route path="/revendeurs" element={<Resellers />} />
             <Route path="/fournisseurs-textile" element={<TextileSuppliers />} />
             <Route path="/blog-textile" element={<TextileBlog />} />
