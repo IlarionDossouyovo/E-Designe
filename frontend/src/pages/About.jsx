@@ -13,7 +13,7 @@ export default function About() {
       }}>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>A propos d'E-Designe</h1>
         <p style={{ fontSize: '1.2rem', opacity: 0.9 }}>
-          Votre boutique de mode en ligne avec Intelligence Artificielle.
+          Votre plateforme e-commerce dropshipping et affiliation avec Intelligence Artificielle.
         </p>
       </div>
 
