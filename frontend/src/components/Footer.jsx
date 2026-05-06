@@ -39,8 +39,9 @@ export default function Footer() {
           </div>
           <div>
             <h3>Contact</h3>
-            <p>support@e-designe.com</p>
+            <p>electronbusiness07@gmail.com</p>
             <p>+229 01 97 700 347</p>
+            <p>+229 01 49 80 2202</p>
             <p>Cotonou, Bénin</p>
           </div>
         </div>
