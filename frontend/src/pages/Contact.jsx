@@ -34,14 +34,15 @@ export default function Contact() {
               <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: '#4B6CB7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>📧</div>
               <div>
                 <p style={{ fontWeight: 'bold', marginBottom: '4px', color: '#fff' }}>Email</p>
-                <p style={{ color: '#6B8DD6' }}>support@e-designe.com</p>
+                <p style={{ color: '#6B8DD6' }}>electronbusiness07@gmail.com</p>
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
               <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: '#4B6CB7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>📱</div>
               <div>
                 <p style={{ fontWeight: 'bold', marginBottom: '4px', color: '#fff' }}>Telephone</p>
-                <p style={{ color: '#6B8DD6' }}>+229 97 700 347</p>
+                <p style={{ color: '#6B8DD6' }}>+229 01 97 700 347</p>
+                <p style={{ color: '#6B8DD6' }}>+229 01 49 80 2202</p>
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
