@@ -68,6 +68,25 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      {/* Team */}
+      <div style={{ marginTop: '4rem' }}>
+        <h2 style={{ marginBottom: '2rem', color: '#fff' }}>Notre Equipe</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem' }}>
+          <div style={{ background: '#16161f', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', border: '1px solid #2a2a35', textAlign: 'center' }}>
+            <p style={{ fontSize: '4rem', marginBottom: '1rem' }}>👨‍💼</p>
+            <h3 style={{ marginBottom: '0.5rem', color: '#fff' }}>DOSSOU-YOVO ATTIOGBE Y.A. Ilarion</h3>
+            <p style={{ color: '#4B6CB7', fontWeight: 'bold' }}>Fondateur & CEO</p>
+            <p style={{ color: '#9ca3af', marginTop: '0.5rem' }}>Expert en commerce electronique et stratégies numériques.</p>
+          </div>
+          <div style={{ background: '#16161f', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', border: '1px solid #2a2a35', textAlign: 'center' }}>
+            <p style={{ fontSize: '4rem', marginBottom: '1rem' }}>📞</p>
+            <h3 style={{ marginBottom: '0.5rem', color: '#fff' }}>Service Client</h3>
+            <p style={{ color: '#4B6CB7', fontWeight: 'bold' }}>Assistance client</p>
+            <p style={{ color: '#9ca3af', marginTop: '0.5rem' }}>Nous sommes disponibles 24/7 pour vous aider.</p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
