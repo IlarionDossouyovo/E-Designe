@@ -29,7 +29,7 @@ export async function chatWithAI(message, context = {}) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: OLLAMA_MODEL,
-        prompt: `Tu es un assistant commercial pour E-Designe, une boutique de mode. 
+        prompt: `Tu es un assistant commercial pour E-Designe, une plateforme e-commerce dropshipping. 
 Reponds de maniere concise et aimable.
 Contexte: ${JSON.stringify(context)}
 Question: ${message}`,
@@ -57,7 +57,7 @@ Question: ${message}`,
         body: JSON.stringify({
           model: 'gpt-3.5-turbo',
           messages: [
-            { role: 'system', content: 'Tu es un assistant commercial pour E-Designe, une boutique de mode au Benin.' },
+            { role: 'system', content: 'Tu es un assistant commercial pour E-Designe, une plateforme e-commerce dropshipping au Benin.' },
             { role: 'user', content: message }
           ]
         })
