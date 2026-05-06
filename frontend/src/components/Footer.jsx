@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <h3>E-Designe</h3>
-            <p>Votre boutique de mode en ligne avec IA.</p>
+            <p>Votre plateforme e-commerce dropshipping et affiliation.</p>
             <div style={{ marginTop: '1rem', display: 'flex', gap: '1rem' }}>
               <a href="#" style={{ fontSize: '1.5rem' }}>📘</a>
               <a href="#" style={{ fontSize: '1.5rem' }}>📸</a>
