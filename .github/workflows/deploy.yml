@@ -7,7 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: cd frontend && npm install --legacy-peer-deps
+      - run: cd frontend && npm run build
       - run: npm install -g vercel@latest
-      - run: vercel --yes --prod
+      - run: vercel --yes --prod --prebuilt
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
