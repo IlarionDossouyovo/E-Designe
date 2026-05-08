@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom'
 
 const textileSuppliers = [
   { id: 1, name: 'EuroTissus France', country: 'France', specialties: ['Coton', 'Lin', 'Soie'], leadTime: '7 jours', minOrder: 50, rating: 4.8, certification: 'Oeko-Tex', dropship: true },
-  { id: 2, name: 'China Silk Co', country: 'Échine', specialties: ['Soie', 'Satin'], leadTime: '21 jours', minOrder: 200, certification: 'ISO 9001', dropship: true },
-  { id: 3, name: 'Usines de coton Inde', country: 'Inde', specialties: ['Coton bio', 'Museline'], leadTime: '14 jours', minOrder: 100, certification: 'GOTS', dropship: true },
-  { id: 4, name: 'Textiles de Turquie', country: 'Turquie', specialties: ['Coton', 'Polyester'], leadTime: '10 jours', minOrder: 75, certification: 'ISO 9001', dropship: true },
-  { id: 5, name: 'Tissus du Pakistan', country: 'Pakistan', specialties: ['Coton', 'Lin'], leadTime: '18 jours', minOrder: 150, certification: 'Oeko-Tex', dropship: true },
-  { id: 6, name: 'Textiles du Bangladesh', country: 'Bangladesh', specialties: ['Coton', 'Jeans'], leadTime: '15 jours', minOrder: 200, certification: 'SA8000', dropship: true },
+  { id: 2, name: 'China Silk Co', country: 'Chine', specialties: ['Soie', 'Satin'], leadTime: '21 jours', minOrder: 200, certification: 'ISO 9001', dropship: true },
+  { id: 3, name: 'Inde Cotton Mills', country: 'Inde', specialties: ['Coton bio', 'Museline'], leadTime: '14 jours', minOrder: 100, certification: 'GOTS', dropship: true },
+  { id: 4, name: 'Turquie Textiles', country: 'Turquie', specialties: ['Coton', 'Polyster'], leadTime: '10 jours', minOrder: 75, certification: 'ISO 9001', dropship: true },
+  { id: 5, name: 'Pakistan Fabrics', country: 'Pakistan', specialties: ['Coton', 'Lin'], leadTime: '18 jours', minOrder: 150, certification: 'Oeko-Tex', dropship: true },
+  { id: 6, name: 'Bangladesh Textiles', country: 'Bangladesh', specialties: ['Coton', 'Jeans'], leadTime: '15 jours', minOrder: 200, certification: 'SA8000', dropship: false },
   { id: 7, name: 'Portugal Tecidos', country: 'Portugal', specialties: ['Coton', 'Laine'], leadTime: '5 jours', minOrder: 30, certification: 'Oeko-Tex', dropship: true },
-  { id: 8, name: 'Route de la Soie italienne', country: 'Italie', specialties: ['Soie', 'Cachemire'], leadTime: '12 jours', minOrder: 25, certification: 'Fabriqué en Italie', dropship: true },
+  { id: 8, name: 'Italy Silk Road', country: 'Italie', specialties: ['Soie', 'Cachemire'], leadTime: '12 jours', minOrder: 25, certification: 'Made in Italy', dropship: true },
 ]
 
-const categories = ['Tous', 'Coton', 'Soie', 'Lin', 'Polyester', 'Laine', 'Cachemire']
-const countries = ['Tous', 'France', 'Échine', 'Inde', 'Turquie', 'Pakistan', 'Bangladesh', 'Portugal', 'Italie']
+const categories = ['Tous', 'Coton', 'Soie', 'Lin', 'Polyster', 'Laine']
+const countries = ['Tous', 'France', 'Chine', 'Inde', 'Turquie', 'Pakistan', 'Bangladesh', 'Portugal', 'Italie']
 
 export default function TextileSuppliers() {
   const [filterCountry, setFilterCountry] = useState('Tous')
@@ -80,10 +80,7 @@ export default function TextileSuppliers() {
                   <h3 style={{ margin: 0, fontSize: '1.3rem', color: '#fff' }}>{supplier.name}</h3>
                   <p style={{ margin: '4px 0 0', fontSize: '0.9rem', color: '#9ca3af' }}>{supplier.country}</p>
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                  <span style={{ background: '#22c55e', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold', display: 'block', marginBottom: '4px' }}>{supplier.certification}</span>
-                  {supplier.dropship && <span style={{ background: '#4B6CB7', color: '#fff', padding: '2px 8px', borderRadius: '20px', fontSize: '10px' }}>Dropship</span>}
-                </div>
+                <span style={{ background: '#22c55e', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold' }}>{supplier.certification}</span>
               </div>
               
               <div style={{ marginBottom: '16px' }}>
@@ -115,6 +112,9 @@ export default function TextileSuppliers() {
                 </button>}
               </div>
             </div>
+          </div>
+        ))}
+      </div>
 
       {/* CTA */}
       <div style={{ background: 'linear-gradient(135deg, #4B6CB7 0%, #1e3a5f 100%)', borderRadius: '20px', padding: '60px 40px', marginTop: '60px', color: '#fff', textAlign: 'center' }}>
