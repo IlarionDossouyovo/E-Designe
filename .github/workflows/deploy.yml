@@ -7,15 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: Fresh install
+          node-version: 20
+      - name: Clean install
         run: |
-          rm -rf frontend/node_modules
-          cd frontend && npm ci --legacy-peer-deps --no-cache
+          cd frontend && rm -rf node_modules package-lock.json
+          npm install --legacy-peer-deps
       - name: Build
         run: cd frontend && npm run build
       - name: Deploy
