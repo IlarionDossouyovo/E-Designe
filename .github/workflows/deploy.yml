@@ -1,15 +1,15 @@
-name: Deploy to Vercel
+name: Auto Deploy
 on:
   push:
     branches: [master]
-  workflow_dispatch:
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm install -g vercel@latest
-      - run: vercel --yes --prod
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      - uses: amondnet/vercel-action@v25
+        with:
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}
+          vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel_args: '--prod'
