@@ -15,4 +15,4 @@ jobs:
       - run: npm install -g vercel@latest
       - run: cd frontend && npm install --legacy-peer-deps
       - run: cd frontend && npm run build
-      - run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - run: vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
