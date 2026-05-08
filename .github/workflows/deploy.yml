@@ -10,13 +10,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: false
-      - name: Clean and install
-        run: |
-          rm -rf frontend/node_modules frontend/package-lock.json
-          cd frontend && npm cache clean --force && npm install --legacy-peer-deps --no-cache
+      - run: cd frontend && npm install --legacy-peer-deps
       - run: cd frontend && npm run build
       - run: npm install -g vercel@latest
-      - run: vercel --yes --prod --prebuilt
+      - run: vercel --yes --prod
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
