@@ -1,4 +1,4 @@
 {
-  "framework": "static",
+  "framework": "vite",
   "outputDirectory": "frontend/dist"
 }
