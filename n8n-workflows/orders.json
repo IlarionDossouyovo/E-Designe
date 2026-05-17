@@ -1,0 +1,116 @@
+{
+  "name": "ED - Traitement Commandes",
+  
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "When Order Received",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e-designe-order",
+        "responseMode": "onReceived",
+        "options": {}
+      }
+    },
+    {
+      "id": "ollama",
+      "name": "Validate Order with AI",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [450, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "operation": "generate",
+        "model": "llama2",
+        "prompt": "Tu es un assistant de gestion E-Désigne. Analyse cette commande: {{ $json.items }}. Réponds en JSON avec: valid (true/false), message (confirmation ou problème), priority (basse/moyenne/haute).JSON ONLY!",
+        "options": {}
+      }
+    },
+    {
+      "id": "condition",
+      "name": "Order Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300],
+      "parameters": {
+        "value1": "={{ $json.valid }}",
+        "operation": "equal",
+        "value2": "true",
+        "options": {}
+      }
+    },
+    {
+      "id": "confirm",
+      "name": "Send Confirmation",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 4,
+      "position": [850, 250],
+      "parameters": {
+        "from": "orders@e-designe.com",
+        "to": "={{ $json.customerEmail }}",
+        "subject": "Commande confirmée #{{ $json.orderId }}",
+        "body": "Bonjour {{ $json.customerName }},\n\nVotre commande #{{ $json.orderId }} a été confirmée!\n\nDétails: {{ $json.items }}\nTotal: {{ $json.total }}€\n\nMerci pour votre confiance!\n\nL'équipe E-Désigne"
+      }
+    },
+    {
+      "id": "alert",
+      "name": "Alert Admin",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 4,
+      "position": [850, 400],
+      "parameters": {
+        "from": "orders@e-designe.com",
+        "to": "admin@e-designe.com",
+        "subject": "⚠ Commande à vérifier #{{ $json.orderId }}",
+        "body": "Commande #{{ $json.orderId }} nécessite une vérification humaine.\n\nRaison: {{ $json.message }}"
+      }
+    },
+    {
+      "id": "store",
+      "name": "Store to API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1050, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/orders",
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": []
+        }
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 300],
+      "parameters": {
+        "respondWith": "allEntries",
+        "options": {}
+      }
+    }
+  ],
+  
+  "connections": {
+    "When Order Received": {
+      "main": [[{"node": "Validate Order with AI", "type": "main"}]]
+    },
+    "Validate Order with AI": {
+      "main": [[{"node": "Order Valid?", "type": "main"}]]
+    },
+    "Order Valid?": {
+      "true": [[{"node": "Send Confirmation", "type": "main"}, {"node": "Store to API", "type": "main"}]],
+      "false": [[{"node": "Alert Admin", "type": "main"}, {"node": "Store to API", "type": "main"}]]
+    }
+  },
+  
+  "staticData": {},
+  "tags": ["e-designe", "orders", "automation"],
+  "updatedAt": "2026-05-17T12:00:00.000Z"
+}

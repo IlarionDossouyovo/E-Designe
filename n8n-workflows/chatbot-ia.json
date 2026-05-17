@@ -1,0 +1,90 @@
+{
+  "name": "E-Désigne Chatbot IA",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "http://localhost:11434",
+        "operation": "generate",
+        "model": "llama2",
+        "prompt": "={{ $json.prompt }}",
+        "options": {}
+      },
+      "id": "ollama1",
+      "name": "Ollama AI",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/ai/chatbot",
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "id": "webhook1",
+      "name": "Receive Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 300],
+      "webhookId": "e-designe-chatbot"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/ai/chatbot",
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "id": "respond1",
+      "name": "Respond to Customer",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [600, 300]
+    }
+  ],
+  "connections": {
+    "Receive Webhook": {
+      "main": [[
+        {
+          "node": "Ollama AI",
+          "type": "main"
+        }
+      ]]
+    },
+    "Ollama AI": {
+      "main": [[
+        {
+          "node": "Respond to Customer",
+          "type": "main"
+        }
+      ]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": ["e-designe", "chatbot", "ollama"],
+  "trigger": [
+    "webhook1"
+  ],
+  "updatedAt": "2026-05-17T12:00:00.000Z",
+  "versionId": "1"
+}

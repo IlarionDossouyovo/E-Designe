@@ -1,0 +1,101 @@
+{
+  "name": "E-Designe Analytics Hebdo",
+  "nodes": [
+    {
+      "id": "schedule",
+      "name": "Weekly Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [250, 300],
+      "parameters": {
+        "rule": {
+          "interval": [{"field": "weeks", "hours": 1}]
+        }
+      }
+    },
+
+    {
+      "id": "fetch1",
+      "name": "Get Orders",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 200],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/orders"
+      }
+    },
+
+    {
+      "id": "fetch2",
+      "name": "Get Analytics",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 300],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/ai/analytics/dashboard"
+      }
+    },
+
+    {
+      "id": "fetch3",
+      "name": "Get Reviews",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 400],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/reviews"
+      }
+    },
+
+    {
+      "id": "ai1",
+      "name": "AI Analysis",
+      "type": "ollamaAi",
+      "position": [650, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Tu es un analyste business. Analyse ces données E-Désigne et fournis un rapport en JSON:\n\nCommandes: {{ $json.orders }}\n\nMétriques: {{ $json.analytics }}\n\nAvis: {{ $json.reviews }}\n\nJSON output avec: totalSales, topProducts [], atRiskProducts [], recommendations []"
+      }
+    },
+
+    {
+      "id": "email",
+      "name": "Email Report",
+      "type": "n8n-nodes-base.gmail",
+      "position": [850, 300],
+      "parameters": {
+        "to": "admin@e-designe.com,
+        "subject": "📊 Rapport hebdomadaire E-Désigne",
+        "body": "Bonjour!\n\nVoici le rapport automatique de la semaine:\n\n💰 Ventes: {{ $json.totalSales }}\n\n🏆 Top produits: {{ $json.topProducts }}\n\n⚠️ À风险的: {{ $json.atRiskProducts }}\n\n💡 Recommandations:\n{{ $json.recommendations }}\n\nCordialement,\nLe Bot E-Désigne"
+      }
+    },
+
+    {
+      "id": "slack",
+      "name": "Slack Notification",
+      "type": "n8n-nodes-base.slack",
+      "position": [850, 450],
+      "parameters": {
+        "channel": "#ventes",
+        "text": "📊 Rapport E-Désigne: {{ $json.totalSales }}€ cette semaine!"
+      }
+    }
+  ],
+
+  "connections": {
+    "Weekly Trigger": {
+      "main": [
+        [{"node": "Get Orders"}, {"node": "Get Analytics"}, {"node": "Get Reviews"}]
+      ]
+    },
+    "Get Orders": { "main": [[{"node": "AI Analysis"}]] },
+    "Get Analytics": { "main": [[{"node": "AI Analysis"}]] },
+    "Get Reviews": { "main": [[{"node": "AI Analysis"}]] },
+    "AI Analysis": {
+      "main": [[{"node": "Email Report"}, {"node": "Slack Notification"}]]
+    }
+  },
+
+  "tags": ["e-designe", "analytics", "report"],
+  "updatedAt": "2026-05-17T12:00:00.000Z"
+}

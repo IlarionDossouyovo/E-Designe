@@ -1,0 +1,69 @@
+{
+  "name": "E-Designe Product Recommendations",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "When Customer Browses",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ed-recommend"
+      }
+    },
+
+    {
+      "id": "history",
+      "name": "Get Customer History",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 300],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/orders/={{ $json.customerId }}"
+      }
+    },
+
+    {
+      "id": "products",
+      "name": "Get All Products",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 450],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products"
+      }
+    },
+
+    {
+      "id": "ollama",
+      "name": "AI Recommender",
+      "type": "ollamaAi",
+      "position": [650, 350],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Tu es un conseiller commercial expert. Voici l'historique d'achat d'un client: {{ $json.history }}. Voici les produits disponibles: {{ $json.products }}. 推荐4个最适合该客户的产品，基于他们的购买历史和偏好。以JSON格式返回: { recommendations: [{ id, name, reason }]}"
+      }
+    },
+
+    {
+      "id": "respond",
+      "name": "Send Recommendations",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [850, 350],
+      "parameters": {}
+    }
+  ],
+
+  "connections": {
+    "When Customer Browses": {
+      "main": [[{"node": "Get Customer History"}, {"node": "Get All Products"}]]
+    },
+    "Get Customer History": { "main": [[{"node": "AI Recommender"}]] },
+    "Get All Products": { "main": [[{"node": "AI Recommender"}]] },
+    "AI Recommender": { "main": [[{"node": "Send Recommendations"}]] }
+  },
+
+  "tags": ["e-designe", "recommendations", "ai"],
+  "updatedAt": "2026-05-17T12:00:00.000Z"
+}

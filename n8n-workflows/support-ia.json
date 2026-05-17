@@ -1,0 +1,104 @@
+{
+  "name": "E-Designe Support IA",
+  "nodes": [
+    {
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ed-support"
+      }
+    },
+    {
+      "id": "ollama",
+      "name": "AI Support",
+      "type": "ollamaAi",
+      "position": [450, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2"
+      }
+    },
+    {
+      "id": "classify",
+      "name": "Classify Issue",
+      "type": "n8n-nodes-base.switch",
+      "position": [650, 300],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.category }}",
+        "rules": {
+          "cases": [
+            {"operation": "contains", "value2": "livraison"},
+            {"operation": "contains", "value2": "retour"},
+            {"operation": "contains", "value2": "paiement"}
+          ]
+        },
+        "options": {}
+      }
+    },
+
+    {
+      "id": "email1",
+      "name": "Email Delivery",
+      "type": "n8n-nodes-base.gmail",
+      "position": [850, 200],
+      "parameters": {
+        "operation": "send",
+        "to": "={{ $json.email }}",
+        "subject": "Suivi livraison - E-Désigne",
+        "body": "Bonjour! Votre commande est en cours de livraison..."
+      }
+    },
+    {
+      "id": "email2",
+      "name": "Email Return",
+      "type": "n8n-nodes-base.gmail",
+      "position": [850, 350],
+      "parameters": {
+        "operation": "send",
+        "to": "={{ $json.email }}",
+        "subject": "Processus retour - E-Désigne",
+        "body": "Bonjour! Voici la procédure pour retourner..."
+      }
+    },
+    {
+      "id": "email3",
+      "name": "Email Payment",
+      "type": "n8n-nodes-base.gmail",
+      "position": [850, 500],
+      "parameters": {
+        "operation": "send",
+        "to": "={{ $json.email }}",
+        "subject": "Paiement - E-Désigne",
+        "body": "Bonjour! Concerning votre paiement..."
+      }
+    },
+
+    {
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [1100, 300],
+      "parameters": {}
+    }
+  ],
+
+  "connections": {
+    "Webhook": { "main": [[{"node": "AI Support"}]] },
+    "AI Support": { "main": [[{"node": "Classify Issue"}]] },
+    "Classify Issue": {
+      "0": [[{"node": "Email Delivery"}]],
+      "1": [[{"node": "Email Return"}]],
+      "2": [[{"node": "Email Payment"}]]
+    },
+    "Email Delivery": { "main": [[{"node": "Respond"}]] },
+    "Email Return": { "main": [[{"node": "Respond"}]] },
+    "Email Payment": { "main": [[{"node": "Respond"}]] }
+  },
+
+  "tags": ["e-designe", "support", "automation"],
+  "updatedAt": "2026-05-17T12:00:00.000Z"
+}
