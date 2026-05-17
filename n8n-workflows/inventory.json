@@ -1,0 +1,66 @@
+{
+  "name": "ELECTRON Inventory Alert",
+  "nodes": [
+    {
+      "id": "schedule",
+      "name": "Daily Check",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [250, 300],
+      "parameters": { "rule": {"interval": [{"field": "hours", "hours": 1}]} }
+    },
+    {
+      "id": "fetch",
+      "name": "Get Products",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 300],
+      "parameters": { "method": "GET", "url": "http://localhost:3000/api/products" }
+    },
+    {
+      "id": "filter",
+      "name": "Low Stock",
+      "type": "n8n-nodes-base.filter",
+      "position": [650, 300],
+      "parameters": { "operation": "smaller", "value1": "={{ $json.stock }}", "value2": 10 }
+    },
+    {
+      "id": "ollama",
+      "name": "AI Reorder Suggestion",
+      "type": "ollamaAi",
+      "position": [850, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Produits en rupture: {{ $json.lowStock }}. Suggestions de reorder: 1) Quantité 2) Priorité (haute/moyenne/basse) 3) Fournisseur. JSON: { suggestions: [{ product, quantity, priority, supplier }] }"
+      }
+    },
+    {
+      "id": "slack",
+      "name": "Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "position": [1050, 300],
+      "parameters": {
+        "channel": "#inventory",
+        "text": "⚠️ Alerte stock bas:\n{{ $json.lowStock }}\n\nSuggested reorder:\n{{ $json.suggestions }}"
+      }
+    },
+    {
+      "id": "email",
+      "name": "Email Manager",
+      "type": "n8n-nodes-base.gmail",
+      "position": [1050, 400],
+      "parameters": {
+        "to": "electronbusiness07@gmail.com",
+        "subject": "⚠️ Alerte stock - Réapprovisionnement nécessaire",
+        "body": "Produits à faible stock:\n\n{{ $json.lowStock }}\n\nSuggestions IA:\n{{ $json.suggestions }}"
+      }
+    }
+  ],
+  "connections": {
+    "Daily Check": { "main": [[{"node": "Get Products"}]] },
+    "Get Products": { "main": [[{"node": "Low Stock"}]] },
+    "Low Stock": { "main": [[{"node": "AI Reorder Suggestion"}]] },
+    "AI Reorder Suggestion": { "main": [[{"node": "Slack Alert"}, {"node": "Email Manager"}]] }
+  },
+  "tags": ["e-designe", "inventory", "alerts"],
+  "updatedAt": "2026-05-17T12:00:00.000Z"
+}

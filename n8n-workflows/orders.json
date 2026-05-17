@@ -49,7 +49,7 @@
       "typeVersion": 4,
       "position": [850, 250],
       "parameters": {
-        "from": "orders@e-designe.com",
+        "from": "electronbusiness07@gmail.com",
         "to": "={{ $json.customerEmail }}",
         "subject": "Commande confirmée #{{ $json.orderId }}",
         "body": "Bonjour {{ $json.customerName }},\n\nVotre commande #{{ $json.orderId }} a été confirmée!\n\nDétails: {{ $json.items }}\nTotal: {{ $json.total }}€\n\nMerci pour votre confiance!\n\nL'équipe E-Désigne"
@@ -62,8 +62,8 @@
       "typeVersion": 4,
       "position": [850, 400],
       "parameters": {
-        "from": "orders@e-designe.com",
-        "to": "admin@e-designe.com",
+        "from": "electronbusiness07@gmail.com",
+        "to": "electronbusiness07@gmail.com",
         "subject": "⚠ Commande à vérifier #{{ $json.orderId }}",
         "body": "Commande #{{ $json.orderId }} nécessite une vérification humaine.\n\nRaison: {{ $json.message }}"
       }

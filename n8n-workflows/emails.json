@@ -1,0 +1,118 @@
+{
+  "name": "ELECTRON Emails Auto",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "Order Created",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "parameters": { "path": "electron-order-new" }
+    },
+    {
+      "id": "switch",
+      "name": "Email Type",
+      "type": "n8n-nodes-base.switch",
+      "position": [450, 300],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.type }}",
+        "rules": {
+          "cases": [
+            {"operation": "equal", "value2": "welcome"},
+            {"operation": "equal", "value2": "order_confirmed"},
+            {"operation": "equal", "value2": "shipped"},
+            {"operation": "equal", "value2": "delivered"},
+            {"operation": "equal", "value2": "review_request"},
+            {"operation": "equal", "value2": "abandoned_cart"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "email1",
+      "name": "Welcome Email",
+      "type": "n8n-nodes-base.gmail",
+      "position": [650, 100],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "subject": "Bienvenue chez ELECTRON - ELECTRON! 🎀",
+        "body": "Bonjour {{ $json.name }},\n\nMerci de votre inscription chez ELECTRON!\n\nDecouvrez notre collection:\n- Robes elegant\n- Tenues africaines\n- Vetements bebe\n\nUtilisez le code BIENVENUE10 pour -10%!\n\nL'equipe ELECTRON"
+      }
+    },
+    {
+      "id": "email2",
+      "name": "Order Confirmed",
+      "type": "n8n-nodes-base.gmail",
+      "position": [650, 200],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "subject": "Confirmation commande #{{ $json.orderId }} - ELECTRON",
+        "body": "Bonjour!\n\nVotre commande #{{ $json.orderId }} est confirmee.\n\nTotal: {{ $json.total }} euros\n\nNous vous tiendrons informe!"
+      }
+    },
+    {
+      "id": "email3",
+      "name": "Shipped",
+      "type": "n8n-nodes-base.gmail",
+      "position": [650, 300],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "subject": "Votre commande est expadiee! - ELECTRON",
+        "body": "Bonjour!\n\nVotre commande est en route!\n\nSuivi: {{ $json.tracking }}\n\nDelai: 3-5 jours"
+      }
+    },
+    {
+      "id": "email4",
+      "name": "Delivered",
+      "type": "n8n-nodes-base.gmail",
+      "position": [650, 400],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "subject": "Commande livree! - ELECTRON",
+        "body": "Bonjour!\n\nVotre commande est livree!\n\nN'oubliez pas de laisser un avis!\n\nLien: {{ $json.reviewLink }}"
+      }
+    },
+    {
+      "id": "email5",
+      "name": "Review Request",
+      "type": "n8n-nodes-base.gmail",
+      "position": [650, 500],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "subject": "Votre avis nous interesse - ELECTRON",
+        "body": "Bonjour!\n\nVotre avis nous aide a ameliorer notre service!\n\nNotez: {{ $json.reviewLink }}"
+      }
+    },
+    {
+      "id": "email6",
+      "name": "Abandoned Cart",
+      "type": "n8n-nodes-base.gmail",
+      "position": [650, 600],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "subject": "Vous avez oublie quelque chose... - ELECTRON",
+        "body": "Bonjour {{ $json.name }},\n\nVos articles vous attendent:\n{{ $json.items }}\n\nUtilisez PANIER15 pour -15%!"
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Confirm Send",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [850, 300],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Order Created": { "main": [[{"node": "Email Type"}]] },
+    "Email Type": {
+      "0": [[{"node": "Welcome Email"}]],
+      "1": [[{"node": "Order Confirmed"}]],
+      "2": [[{"node": "Shipped"}]],
+      "3": [[{"node": "Delivered"}]],
+      "4": [[{"node": "Review Request"}]],
+      "5": [[{"node": "Abandoned Cart"}]]
+    }
+  },
+  "tags": ["electron", "e-designe", "email", "automation"],
+  "updatedAt": "2026-05-17T12:00:00.000Z"
+}

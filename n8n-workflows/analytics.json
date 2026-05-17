@@ -1,5 +1,5 @@
 {
-  "name": "E-Designe Analytics Hebdo",
+  "name": "ELECTRON Analytics Hebdo",
   "nodes": [
     {
       "id": "schedule",
@@ -64,7 +64,7 @@
       "type": "n8n-nodes-base.gmail",
       "position": [850, 300],
       "parameters": {
-        "to": "admin@e-designe.com,
+        "to": "electronbusiness07@gmail.com,
         "subject": "📊 Rapport hebdomadaire E-Désigne",
         "body": "Bonjour!\n\nVoici le rapport automatique de la semaine:\n\n💰 Ventes: {{ $json.totalSales }}\n\n🏆 Top produits: {{ $json.topProducts }}\n\n⚠️ À风险的: {{ $json.atRiskProducts }}\n\n💡 Recommandations:\n{{ $json.recommendations }}\n\nCordialement,\nLe Bot E-Désigne"
       }

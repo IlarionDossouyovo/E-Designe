@@ -1,0 +1,97 @@
+{
+  "name": "ELECTRON Fraud Detection",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "New Order",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "parameters": { "path": "ed-fraud-check" }
+    },
+    {
+      "id": "api",
+      "name": "Check Fraud API",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/ai/fraud/detect",
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {"name": "ip", "value": "={{ $json.ip }}"},
+            {"name": "amount", "value": "={{ $json.amount }}"},
+            {"name": "address", "value": "={{ $json.address }}"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "switch",
+      "name": "Risk Level",
+      "type": "n8n-nodes-base.switch",
+      "position": [650, 300],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.status }}",
+        "rules": {"cases": [
+          {"operation": "equal", "value2": "approved"},
+          {"operation": "equal", "value2": "review"},
+          {"operation": "equal", "value2": "blocked"}
+        ]}
+      }
+    },
+
+    {
+      "id": "approve", "name": "Auto Approve",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [850, 200],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/orders",
+        "bodyParameters": {"parameters": []}
+      }
+    },
+
+    {
+      "id": "review", "name": "Queue for Review",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [850, 350],
+      "parameters": {
+        "operation": "append",
+        "sheet": "Commandes à vérifier",
+        "values": ["={{ $json.orderId }}", "={{ $json.risk }}", "={{ $json.date }}"]
+      }
+    },
+
+    {
+      "id": "block", "name": "Block Order",
+      "type": "n8n-nodes-base.gmail",
+      "position": [850, 500],
+      "parameters": {
+        "to": "electronbusiness07@gmail.com",
+        "subject": "🚨 Commande bloquée - Fraud suspecté",
+        "body": "Commande #{{ $json.orderId }} bloquée:\n\nRisque: {{ $json.risk }}\nMontant: {{ $json.amount }}€\nIP: {{ $json.ip }}"
+      }
+    },
+
+    {
+      "id": "respond", "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [1050, 300],
+      "parameters": {}
+    }
+  ],
+
+  "connections": {
+    "New Order": { "main": [[{"node": "Check Fraud API"}]] },
+    "Check Fraud API": { "main": [[{"node": "Risk Level"}]] },
+    "Risk Level": {
+      "0": [[{"node": "Auto Approve"}]],
+      "1": [[{"node": "Queue for Review"}]],
+      "2": [[{"node": "Block Order"}]]
+    }
+  },
+  "tags": ["e-designe", "fraud", "security"],
+  "updatedAt": "2026-05-17T12:00:00.000Z"
+}

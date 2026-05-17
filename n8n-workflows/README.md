@@ -1,4 +1,4 @@
-# 🤖 E-DÉSIGNE - N8N WORKFLOWS AVEC OLLAMA
+# 🤖 ELECTRON - N8N WORKFLOWS AVEC OLLAMA
 
 Ce dossier contient les workflows n8n pour gérer ton entreprise E-DÉSIGNE avec l'IA locale.
 

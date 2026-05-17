@@ -1,0 +1,100 @@
+{
+  "name": "ELECTRON Social Media",
+  "nodes": [
+    {
+      "id": "schedule",
+      "name": "Daily 10h & 18h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [250, 300],
+      "parameters": { "rule": {"interval": [{"field": "hours", "hours": 10, "minutes": 15}]} }
+    },
+
+    {
+      "id": "productApi",
+      "name": "Get New Products",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [450, 300],
+      "parameters": { "method": "GET", "url": "http://localhost:3000/api/products?isNew=true" }
+    },
+
+    {
+      "id": "ollama",
+      "name": "AI Content Generator",
+      "type": "ollamaAi",
+      "position": [650, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Génère un post redes sociaux pour ce produit E-Désigne: {{ $json.product }}. Style: accrocheur, en francais, avec emojis. Twitter (280): tweet. Instagram (2200): caption avec hashtags. LinkedIn (3000): post professionnel. JSON: { tweet, instagram, linkedin }"
+      }
+    },
+
+    {
+      "id": "switch",
+      "name": "Platform",
+      "type": "n8n-nodes-base.switch",
+      "position": [850, 300],
+      "parameters": { "dataType": "string", "value1": "={{ $json.platform }}", "rules": {"cases": [ {"operation": "contains", "value2": "twitter"}, {"operation": "contains", "value2": "instagram"}, {"operation": "contains", "value2": "linkedin"} ]} }
+    },
+
+    {
+      "id": "twitter",
+      "name": "Twitter Post",
+      "type": "n8n-nodes-base.twitter",
+      "position": [1050, 200],
+      "parameters": {
+        "text": "={{ $json.tweet }}",
+        "media": "={{ $json.image }}"
+      }
+    },
+
+    {
+      "id": "instagram",
+      "name": "Instagram Post",
+      "type": "n8n-nodes-base.instagram",
+      "position": [1050, 350],
+      "parameters": {
+        "caption": "={{ $json.instagram }}",
+        "media": "={{ $json.image }}"
+      }
+    },
+
+    {
+      "id": "linkedin",
+      "name": "LinkedIn Post",
+      "type": "n8n-nodes-base.linkedIn",
+      "position": [1050, 500],
+      "parameters": {
+        "text": "={{ $json.linkedin }}"
+      }
+    },
+
+    {
+      "id": "log",
+      "name": "Log to API",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [1250, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/ai/social/posts",
+        "bodyParameters": {"parameters": []}
+      }
+    }
+  ],
+
+  "connections": {
+    "Daily 10h & 18h": { "main": [[{"node": "Get New Products"}]] },
+    "Get New Products": { "main": [[{"node": "AI Content Generator"}]] },
+    "AI Content Generator": { "main": [[{"node": "Platform"}]] },
+    "Platform": {
+      "0": [[{"node": "Twitter Post"}]],
+      "1": [[{"node": "Instagram Post"}]],
+      "2": [[{"node": "LinkedIn Post"}]]
+    },
+    "Twitter Post": { "main": [[{"node": "Log to API"}]] },
+    "Instagram Post": { "main": [[{"node": "Log to API"}]] },
+    "LinkedIn Post": { "main": [[{"node": "Log to API"}]] }
+  },
+  "tags": ["e-designe", "social", "automation"],
+  "updatedAt": "2026-05-17T12:00:00.000Z"
+}
