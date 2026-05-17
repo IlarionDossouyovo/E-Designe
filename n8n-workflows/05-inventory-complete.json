@@ -1,0 +1,92 @@
+{
+  "name": "ELECTRON - Inventaire & Alertes Stock",
+  "nodes": [
+    {
+      "id": "schedule",
+      "name": "Every Day at 8h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [220, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hours": [8]
+            }
+          ]
+        },
+        "display": {
+          "day": "monday"
+        }
+      }
+    },
+    {
+      "id": "fetchProducts",
+      "name": "Get All Products",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 300],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products",
+        "options": {"timeout": 15000}
+      }
+    },
+    {
+      "id": "filterLowStock",
+      "name": "Filter Low Stock",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 3,
+      "position": [660, 300],
+      "parameters": {
+        "data": [
+          {
+            "value1": "={{ $json.stock }}",
+            "operation": "lte",
+            "value2": "10"
+          }
+        ],
+        "combineType": "any"
+      }
+    },
+    {
+      "id": "aiSuggestion",
+      "name": "AI Reorder Suggestions",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [880, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Tu es un assistant gestion de stock pour ELECTRON. Ces produits sont en rupture:\\n{{ $json.lowStock }}\\n\\nPour chaque produit, propose:\\n1. Quantite a commander (bas sur vente mensuelle)\\n2. Priorite (haute/moyenne/basse)\\n3. Fournisseur sugger\\n\\nReponds en JSON: { suggestions: [{ id, name, quantity, priority, supplier }]}"
+      }
+    },
+    {
+      "id": "emailAlert",
+      "name": "Alert Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1100, 300],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "to": "electronbusiness07@gmail.com",
+        "subject": "⚠️ Alerte stock bas - ELECTRON",
+        "bodyType": "text",
+        "body": "Bonjour,\\n\nProduits en rupture ou faible stock:\n\n{{ $json.lowStock }}\\n\\nSuggestions de reorder IA:\n\n{{ $json.suggestions }}\\n\\nMerci de verifier et commander.\n\nL'equipe ELECTRON"
+      }
+    }
+  ],
+  "connections": {
+    "Every Day at 8h": {"main": [[{"node": "Get All Products"}]]},
+    "Get All Products": {"main": [[{"node": "Filter Low Stock"}]]},
+    "Filter Low Stock": {"main": [[{"node": "AI Reorder Suggestions"}]]},
+    "AI Reorder Suggestions": {"main": [[{"node": "Alert Email"}]]}
+  },
+  "active": false,
+  "settings": {},
+  "id": "inventory-electron",
+  "tags": ["electron", "inventory", "stock", "alerte"],
+  "createdAt": "2026-05-17T14:00:00.000Z",
+  "updatedAt": "2026-05-17T14:00:00.000Z"
+}

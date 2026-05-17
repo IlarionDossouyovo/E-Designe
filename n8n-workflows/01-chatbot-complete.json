@@ -1,0 +1,111 @@
+{
+  "name": "ELECTRON - Chatbot IA",
+  "nodes": [
+    {
+      "id": "webhook",
+      "name": "Webhook trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 340],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "electron-chatbot",
+        "responseMode": "onReceived",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "webhookId": "electron-chatbot"
+    },
+    {
+      "id": "setPrompt",
+      "name": "Set Prompt System",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [440, 340],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "systemPrompt",
+              "name": "systemPrompt",
+              "value": "Tu es un assistant commercial pour ELECTRON, boutique e-commerce de mode et textile au Benin. Tu aides les clients avec:\\n- Questions sur les produits (robes, chemises, vetements africains, bebe)\\n- Suivi de commandes\\n- Informations livraison\\n- Retours et Remboursements\\n- Tailles et conseils\\n- Paiements (Stripe, PayPal)\\n\\nReponds TOUJOURS de maniere aimable en francais. Sois concis et utile.",
+              "type": "string"
+            },
+            {
+              "id": "userMessage",
+              "name": "userMessage",
+              "value": "={{ $json.prompt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama AI",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [660, 340],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "={{ $json.systemPrompt }}\\n\\nClient: {{ $json.userMessage }}",
+        "options": {
+          "temperature": 0.7,
+          "max_tokens": 500
+        }
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [880, 340],
+      "parameters": {
+        "respondWith": "allEntries",
+        "options": {}
+      },
+      "inputs": [
+        {
+          "type": "ollamaAi",
+          "output": "main"
+        }
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Prompt System",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Set Prompt System": {
+      "main": [
+        [
+          {
+            "node": "Ollama AI",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "id": "chatbot-electron",
+  "tags": ["electron", "chatbot", "ai", "ollama"],
+  "createdAt": "2026-05-17T14:00:00.000Z",
+  "updatedAt": "2026-05-17T14:00:00.000Z"
+}

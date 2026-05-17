@@ -1,0 +1,146 @@
+{
+  "name": "ELECTRON - Fraud Detection",
+  "nodes": [
+    {
+      "id": "webhook",
+      "name": "Fraud Check Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "electron-fraud"
+      }
+    },
+    {
+      "id": "aiAnalysis",
+      "name": "AI Fraud Analysis",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [440, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Tu es un expert en prevention de fraude pour ELECTRON. Analyse cette commande:\\n\\nIP: {{ $json.ip }}\\nMontant: {{ $json.amount }}\\nAdresse: {{ $json.address }}\\nEmail: {{ $json.email }}\\nTelephone: {{ $json.phone }}\\n\\nEvalue le risque (haute/moyenne/basse) et donne une raison en un JSON:\\n{ risk: \"...\", reason: \"...\" }"
+      }
+    },
+    {
+      "id": "switch",
+      "name": "Risk Level",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [660, 300],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.risk }}",
+        "operation": "equal",
+        "value2": "basse",
+        "rules": {
+          "cases": [
+            {"operation": "equal", "value2": "basse", "output": 0},
+            {"operation": "equal", "value2": "moyenne", "output": 1},
+            {"operation": "equal", "value2": "haute", "output": 2}
+          ]
+        }
+      }
+    },
+    {
+      "id": "approve",
+      "name": "Auto Approve",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [880, 100],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {"id": "status", "name": "status", "value": "approved", "type": "string"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "review",
+      "name": "Queue for Review",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [880, 280],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {"id": "status", "name": "status", "value": "review", "type": "string"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "alertReview",
+      "name": "Alert for Review",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1100, 280],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "to": "electronbusiness07@gmail.com",
+        "subject": "⚠️ Commande a verifier - ELECTRON",
+        "bodyType": "text",
+        "body": "Commande a verifier:\\n\\nMontant: {{ $json.amount }} euros\\nEmail: {{ $json.email }}\\nIP: {{ $json.ip }}\\n\\nRaison: {{ $json.reason }}"
+      }
+    },
+    {
+      "id": "block",
+      "name": "Block Order",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [880, 460],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {"id": "status", "name": "status", "value": "blocked", "type": "string"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "alertBlocked",
+      "name": "Alert Blocked",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1100, 460],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "to": "electronbusiness07@gmail.com",
+        "subject": "🚨 Commande BLOQUEE - ELECTRON",
+        "bodyType": "text",
+        "body": "Commande BLOQUEE pour suspicion de fraude:\\n\\nMontant: {{ $json.amount }} euros\\nEmail: {{ $json.email }}\\nIP: {{ $json.ip }}\\n\\nRaison: {{ $json.reason }}"
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1320, 300],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Fraud Check Webhook": {"main": [[{"node": "AI Fraud Analysis"}]]},
+    "AI Fraud Analysis": {"main": [[{"node": "Risk Level"}]]},
+    "Risk Level": {
+      "0": [[{"node": "Auto Approve"}]],
+      "1": [[{"node": "Queue for Review"}]],
+      "2": [[{"node": "Block Order"}]]
+    },
+    "Auto Approve": {"main": [[{"node": "Respond"}]]},
+    "Queue for Review": {"main": [[{"node": "Alert for Review"}]]},
+    "Alert for Review": {"main": [[{"node": "Respond"}]]},
+    "Block Order": {"main": [[{"node": "Alert Blocked"}]]},
+    "Alert Blocked": {"main": [[{"node": "Respond"}]]}
+  },
+  "active": false,
+  "settings": {},
+  "id": "fraud-electron",
+  "tags": ["electron", "fraud", "securite", "detection"],
+  "createdAt": "2026-05-17T14:00:00.000Z",
+  "updatedAt": "2026-05-17T14:00:00.000Z"
+}

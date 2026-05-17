@@ -1,0 +1,374 @@
+{
+  "name": "ELECTRON - Emails Transactionnels",
+  "nodes": [
+    {
+      "id": "webhook",
+      "name": "Webhook - Order Event",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "electron-email",
+        "responseMode": "onReceived",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "webhookId": "electron-email"
+    },
+    {
+      "id": "switch",
+      "name": "Email Type Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [420, 300],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.type }}",
+        "operation": "equal",
+        "value2": "welcome",
+        "rules": {
+          "cases": [
+            {
+              "operation": "equal",
+              "value2": "welcome",
+              "output": 0
+            },
+            {
+              "operation": "equal",
+              "value2": "order_confirmed",
+              "output": 1
+            },
+            {
+              "operation": "equal",
+              "value2": "shipped",
+              "output": 2
+            },
+            {
+              "operation": "equal",
+              "value2": "delivered",
+              "output": 3
+            },
+            {
+              "operation": "equal",
+              "value2": "review_request",
+              "output": 4
+            },
+            {
+              "operation": "equal",
+              "value2": "abandoned_cart",
+              "output": 5
+            }
+          ],
+          "rulesInput": {
+            "mode": "string"
+          }
+        },
+        "options": {
+          "fallbackOutput": 6
+        }
+      }
+    },
+    {
+      "id": "welcome",
+      "name": "1 - Welcome Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [640, 100],
+      "parameters": {
+        "operation": "send",
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Bienvenue chez ELECTRON - E-Designe! 🎀",
+        "bodyType": "text",
+        "body": "Bonjour {{ $json.name }},\n\nMerci de votre inscription chez ELECTRON!\n\nNous sommes ravis de vous avoir avec nous.\n\nDecouvrez notre collection:\n- Robes elegantes\n- Tenues africaines traditionnelles\n- Vetements pour bebe\n- Accessoires de mode\n\nUtilisez le code **BIENVENUE10** pour obtenir 10% de reduction sur votre premiere commande!\n\nL'equipe ELECTRON\n\n---\n electronbusiness07@gmail.com",
+        "options": {
+          "includeHtml": false
+        }
+      },
+      "credentials": {
+        "gmailApi": {
+          "id": "gmail-electron",
+          "name": "ELECTRON Gmail"
+        }
+      }
+    },
+    {
+      "id": "confirmed",
+      "name": "2 - Order Confirmed",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [640, 200],
+      "parameters": {
+        "operation": "send",
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Confirmation commande #{{ $json.orderId }} - ELECTRON",
+        "bodyType": "text",
+        "body": "Bonjour!\n\nVotre commande #{{ $json.orderId }} est confirmee!\n\nDetails:\n{{ $json.items }}\n\nTotal: {{ $json.total }} euros\n\nNous vous tiendrons informe de l'avancement!\n\nL'equipe ELECTRON",
+        "options": {
+          "includeHtml": false
+        }
+      },
+      "credentials": {
+        "gmailApi": {
+          "id": "gmail-electron",
+          "name": "ELECTRON Gmail"
+        }
+      }
+    },
+    {
+      "id": "shipped",
+      "name": "3 - Order Shipped",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [640, 300],
+      "parameters": {
+        "operation": "send",
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Votre commande est expadiee! 🚚 - ELECTRON",
+        "bodyType": "text",
+        "body": "Bonjour!\n\nVotre commande est en route!\n\nNumero de suivi: {{ $json.tracking }}\n\nDelai de livraison: 3-5 jours ouvres\n\nSuivez votre colis en ligne!\n\nL'equipe ELECTRON",
+        "options": {
+          "includeHtml": false
+        }
+      },
+      "credentials": {
+        "gmailApi": {
+          "id": "gmail-electron",
+          "name": "ELECTRON Gmail"
+        }
+      }
+    },
+    {
+      "id": "delivered",
+      "name": "4 - Order Delivered",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [640, 400],
+      "parameters": {
+        "operation": "send",
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Commande livree! - ELECTRON",
+        "bodyType": "text",
+        "body": "Bonjour!\n\nVotre commande est livree!\n\nNous esperons qu'elle vous plaira!\n\nN'oubliez pas de laisser un avis - ça nous aide beaucoup a nous ameliorer.\n\nLien pour donner votre avis: {{ $json.reviewLink }}\n\nMerci de votre confiance!\n\nL'equipe ELECTRON",
+        "options": {
+          "includeHtml": false
+        }
+      },
+      "credentials": {
+        "gmailApi": {
+          "id": "gmail-electron",
+          "name": "ELECTRON Gmail"
+        }
+      }
+    },
+    {
+      "id": "review",
+      "name": "5 - Review Request",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [640, 500],
+      "parameters": {
+        "operation": "send",
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Votre avis nous interesse - ELECTRON",
+        "bodyType": "text",
+        "body": "Bonjour!\n\nVotre commande a etee livree il y a quelques jours.\n\nVotre avis nous aide a ameliorer notre service!\n\nPrenez 1 minute pour noter votre experience:\n{{ $json.reviewLink }}\n\nMerci d'avance!\n\nL'equipe ELECTRON",
+        "options": {
+          "includeHtml": false
+        }
+      },
+      "credentials": {
+        "gmailApi": {
+          "id": "gmail-electron",
+          "name": "ELECTRON Gmail"
+        }
+      }
+    },
+    {
+      "id": "abandoned",
+      "name": "6 - Abandoned Cart",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [640, 600],
+      "parameters": {
+        "operation": "send",
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Vous avez oublie quelque chose... 🛒 - ELECTRON",
+        "bodyType": "text",
+        "body": "Bonjour {{ $json.name }},\n\nVous avez laisse des articles dans votre panier:\n\n{{ $json.items }}\n\nIls vous attendent!\n\nUtilisez le code **PANIER15** pour obtenir 15% de reduction et finaliser votre achat.\n\nAttention: cette offre expire dans 24h!\n\nL'equipe ELECTRON",
+        "options": {
+          "includeHtml": false
+        }
+      },
+      "credentials": {
+        "gmailApi": {
+          "id": "gmail-electron",
+          "name": "ELECTRON Gmail"
+        }
+      }
+    },
+    {
+      "id": "fallback",
+      "name": "Unknown Type",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 2,
+      "position": [640, 700],
+      "parameters": {}
+    },
+    {
+      "id": "respond",
+      "name": "Confirm",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [860, 300],
+      "parameters": {
+        "respondWith": "allEntries",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Webhook - Order Event": {
+      "main": [
+        [
+          {
+            "node": "Email Type Switch",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Email Type Switch": {
+      "main": [
+        [
+          {
+            "node": "1 - Welcome Email",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "node": "2 - Order Confirmed",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "node": "3 - Order Shipped",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "node": "4 - Order Delivered",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "node": "5 - Review Request",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "node": "6 - Abandoned Cart",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "node": "Unknown Type",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "1 - Welcome Email": {
+      "main": [
+        [
+          {
+            "node": "Confirm",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "2 - Order Confirmed": {
+      "main": [
+        [
+          {
+            "node": "Confirm",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "3 - Order Shipped": {
+      "main": [
+        [
+          {
+            "node": "Confirm",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "4 - Order Delivered": {
+      "main": [
+        [
+          {
+            "node": "Confirm",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "5 - Review Request": {
+      "main": [
+        [
+          {
+            "node": "Confirm",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "6 - Abandoned Cart": {
+      "main": [
+        [
+          {
+            "node": "Confirm",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Unknown Type": {
+      "main": [
+        [
+          {
+            "node": "Confirm",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "id": "emails-electron",
+  "tags": ["electron", "email", "automation", "transactionnel"],
+  "createdAt": "2026-05-17T14:00:00.000Z",
+  "updatedAt": "2026-05-17T14:00:00.000Z"
+}

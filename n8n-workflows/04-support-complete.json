@@ -1,0 +1,216 @@
+{
+  "name": "ELECTRON - Support Client IA",
+  "nodes": [
+    {
+      "id": "webhook",
+      "name": "Support Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "electron-support"
+      }
+    },
+    {
+      "id": "classify",
+      "name": "Classify Issue with AI",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [440, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Tu es un assistant de support client pour ELECTRON. Classe cette demande en une de ces categories:\\n- LIVRAISON: questions sur la livraison, le suivi\\n- RETOUR: demandes de retour, remboursement\\n- PAIEMENT: probleme de paiement,Stripe,PayPal\\n- PRODUIT: question sur un produit, taille\\n- AUTRE: autre demande\\n\\nRenvoie uniquement le nom de la categorie en un mot.",
+        "options": {}
+      }
+    },
+    {
+      "id": "switch",
+      "name": "Category Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [660, 300],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.classification }}",
+        "operation": "equal",
+        "value2": "LIVRAISON",
+        "rules": {
+          "cases": [
+            {"operation": "equal", "value2": "LIVRAISON", "output": 0},
+            {"operation": "equal", "value2": "RETOUR", "output": 1},
+            {"operation": "equal", "value2": "PAIEMENT", "output": 2},
+            {"operation": "equal", "value2": "PRODUIT", "output": 3},
+            {"operation": "equal", "value2": "AUTRE", "output": 4}
+          ]
+        }
+      }
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery Response",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [880, 100],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Reponds en francais au client ELECTRON pour une question sur la LIVRAISON. Voici sa question: {{ $json.message }}\\n\\nInfos livraison ELECTRON:\\n- Livraison: 3-5 jours ouvres\\n- Suivi: disponible via email\\n- Frais: gratuits pour commandes +50 euros\\n- Zone: Benin, Afrique de l'Ouest"
+      }
+    },
+    {
+      "id": "return",
+      "name": "Return Response",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [880, 220],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Reponds en francais au client ELECTRON pour une demande de RETOUR. Voici sa question: {{ $json.message }}\\n\\nPolitique retours ELECTRON:\\n- 14 jours pour retourner\\n- Produit neuf avec etiquette\\n- Remboursement sous 7 jours"
+      }
+    },
+    {
+      "id": "payment",
+      "name": "Payment Response",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [880, 340],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Reponds en francais au client ELECTRON pour un probleme de PAIEMENT. Voici sa question: {{ $json.message }}\\n\\nPaiements acceptes: Stripe, PayPal, virement\\nSecurise etcrypte"
+      }
+    },
+    {
+      "id": "product",
+      "name": "Product Response",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [880, 460],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Reponds en francais au client ELECTRON pour une question PRODUIT. Voici sa question: {{ $json.message }}\\n\\nProduits: robes, chemises, tenues africaines, bebe, accessoires"
+      }
+    },
+    {
+      "id": "other",
+      "name": "Other Response",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [880, 580],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Reponds en francais, de maniere aimable et utile, au client ELECTRON: {{ $json.message }}"
+      }
+    },
+    {
+      "id": "emailDELIVERY",
+      "name": "Email Delivery",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1100, 100],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Re: Votre demande - ELECTRON",
+        "bodyType": "text",
+        "body": "={{ $json.response }}"
+      }
+    },
+    {
+      "id": "emailRETOUR",
+      "name": "Email Return",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1100, 220],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Re: Votre demande - ELECTRON",
+        "bodyType": "text",
+        "body": "={{ $json.response }}"
+      }
+    },
+    {
+      "id": "emailPAYEMENT",
+      "name": "Email Payment",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1100, 340],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Re: Votre demande - ELECTRON",
+        "bodyType": "text",
+        "body": "={{ $json.response }}"
+      }
+    },
+    {
+      "id": "emailPRODUIT",
+      "name": "Email Product",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1100, 460],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Re: Votre demande - ELECTRON",
+        "bodyType": "text",
+        "body": "={{ $json.response }}"
+      }
+    },
+    {
+      "id": "emailAUTRE",
+      "name": "Email Other",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1100, 580],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Re: Votre demande - ELECTRON",
+        "bodyType": "text",
+        "body": "={{ $json.response }}"
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1320, 300],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Support Webhook": {"main": [[{"node": "Classify Issue with AI"}]]},
+    "Classify Issue with AI": {"main": [[{"node": "Category Switch"}]]},
+    "Category Switch": {
+      "0": [[{"node": "Delivery Response"}]],
+      "1": [[{"node": "Return Response"}]],
+      "2": [[{"node": "Payment Response"}]],
+      "3": [[{"node": "Product Response"}]],
+      "4": [[{"node": "Other Response"}]]
+    },
+    "Delivery Response": {"main": [[{"node": "Email Delivery"}]]},
+    "Return Response": {"main": [[{"node": "Email Return"}]]},
+    "Payment Response": {"main": [[{"node": "Email Payment"}]]},
+    "Product Response": {"main": [[{"node": "Email Product"}]]},
+    "Other Response": {"main": [[{"node": "Email Other"}]]},
+    "Email Delivery": {"main": [[{"node": "Respond"}]]},
+    "Email Return": {"main": [[{"node": "Respond"}]]},
+    "Email Payment": {"main": [[{"node": "Respond"}]]},
+    "Email Product": {"main": [[{"node": "Respond"}]]},
+    "Email Other": {"main": [[{"node": "Respond"}]]}
+  },
+  "active": false,
+  "settings": {},
+  "id": "support-electron",
+  "tags": ["electron", "support", "ai"],
+  "createdAt": "2026-05-17T14:00:00.000Z",
+  "updatedAt": "2026-05-17T14:00:00.000Z"
+}

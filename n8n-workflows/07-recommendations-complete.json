@@ -1,0 +1,113 @@
+{
+  "name": "ELECTRON - Recommendations IA",
+  "nodes": [
+    {
+      "id": "webhook",
+      "name": "Recommendation Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "electron-recommend"
+      }
+    },
+    {
+      "id": "fetchHistory",
+      "name": "Get Customer History",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 200],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'http://localhost:3000/api/orders?customerId=' & $json.customerId }}"
+      }
+    },
+    {
+      "id": "fetchProducts",
+      "name": "Get All Products",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 380],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products"
+      }
+    },
+    {
+      "id": "aiRecommend",
+      "name": "AI Product Recommendations",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [660, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Tu es un conseiller commercial expert pour ELECTRON.\\n\\nHistorique du client: {{ $json.history }}\\n\\nProduits disponibles: {{ $json.products }}\\n\\nRecommande 4 produits bases sur:\\n1. Achats precedents\\n2. Preferences\\n3. Tendances\\n\\nReponds en JSON avec:\n{\n  recommendations: [\n    { id, name, price, reason },\n    { id, name, price, reason },\n    { id, name, price, reason },\n    { id, name, price, reason }\n  ]\n}"
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Send Recommendations",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [880, 300],
+      "parameters": {
+        "respondWith": "allEntries",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Recommendation Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get Customer History",
+            "type": "main"
+          },
+          {
+            "node": "Get All Products",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get Customer History": {
+      "main": [
+        [
+          {
+            "node": "AI Product Recommendations",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Get All Products": {
+      "main": [
+        [
+          {
+            "node": "AI Product Recommendations",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "AI Product Recommendations": {
+      "main": [
+        [
+          {
+            "node": "Send Recommendations",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "id": "recommendation-electron",
+  "tags": ["electron", "recommendation", "ai", "produits"],
+  "createdAt": "2026-05-17T14:00:00.000Z",
+  "updatedAt": "2026-05-17T14:00:00.000Z"
+}

@@ -1,0 +1,108 @@
+{
+  "name": "ELECTRON - Analytics & Rapport Hebdo",
+  "nodes": [
+    {
+      "id": "schedule",
+      "name": "Every Monday 9h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [220, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "hours": [9],
+              "minutes": [0]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "fetchOrders",
+      "name": "Get Orders",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 180],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/orders"
+      }
+    },
+    {
+      "id": "fetchProducts",
+      "name": "Get Products",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 300],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products"
+      }
+    },
+    {
+      "id": "fetchCustomers",
+      "name": "Get Customers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 420],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/customers"
+      }
+    },
+    {
+      "id": "aiAnalysis",
+      "name": "AI Business Analysis",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [660, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Tu es un analyste business pour ELECTRON. Analyse ces donnees et cree un rapport hebdomadaire.\\n\\nCommandes: {{ $json.orders }}\\nProduits: {{ $json.products }}\\nClients: {{ $json.customers }}\\n\\nFournis un JSON avec:\\n{\\n  statsSemaine: { totalVentes, nCommandes, nouveauxClients },\\n  topProduits: [],\\n  produitsRisque: [],\\n  recommandation: []\\n}"
+      }
+    },
+    {
+      "id": "emailReport",
+      "name": "Email Report",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [880, 200],
+      "parameters": {
+        "from": "electronbusiness07@gmail.com",
+        "to": "electronbusiness07@gmail.com",
+        "subject": "📊 Rapport hebdomadaire - ELECTRON",
+        "bodyType": "text",
+        "body": "Bonjour,\\n\nVoici le rapport automatique de la semaine ELECTRON:\\n\\n💰 STATISTIQUES:\\n{{ $json.statsSemaine }}\\n\\n🏆 TOP PRODUITS:\\n{{ $json.topProduits }}\\n\\n⚠️ PRODUITS A RISQUE:\\n{{ $json.produitsRisque }}\\n\\n💡 RECOMMANDATIONS:\\n{{ $json.recommandation }}\\n\\nCordialement,\nLe Bot ELECTRON"
+      }
+    },
+    {
+      "id": "slack",
+      "name": "Slack Notification",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 3,
+      "position": [880, 400],
+      "parameters": {
+        "operation": "sendMessage",
+        "channel": "#ventes",
+        "text": "📊 Rapport ELECTRON: {{ $json.statsSemaine.totalVentes }} euros cette semaine!"
+      }
+    }
+  ],
+  "connections": {
+    "Every Monday 9h": {"main": [[{"node": "Get Orders"}, {"node": "Get Products"}, {"node": "Get Customers"}]]},
+    "Get Orders": {"main": [[{"node": "AI Business Analysis"}]]},
+    "Get Products": {"main": [[{"node": "AI Business Analysis"}]]},
+    "Get Customers": {"main": [[{"node": "AI Business Analysis"}]]},
+    "AI Business Analysis": {"main": [[{"node": "Email Report"}, {"node": "Slack Notification"}]]}
+  },
+  "active": false,
+  "settings": {},
+  "id": "analytics-electron",
+  "tags": ["electron", "analytics", "rapport", "hebdo"],
+  "createdAt": "2026-05-17T14:00:00.000Z",
+  "updatedAt": "2026-05-17T14:00:00.000Z"
+}

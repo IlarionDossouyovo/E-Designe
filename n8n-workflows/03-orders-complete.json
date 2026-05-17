@@ -1,0 +1,372 @@
+{
+  "name": "ELECTRON - Validation Commandes",
+  "nodes": [
+    {
+      "id": "webhook",
+      "name": "New Order Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "electron-order",
+        "responseMode": "onReceived"
+      },
+      "webhookId": "electron-order"
+    },
+    {
+      "id": "fraudCheck",
+      "name": "Check Fraud API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 180],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/ai/fraud/detect",
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "ip",
+              "value": "={{ $json.ip }}"
+            },
+            {
+              "name": "amount",
+              "value": "={{ $json.amount }}"
+            },
+            {
+              "name": "address",
+              "value": "={{ $json.shippingAddress }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "id": "stockCheck",
+      "name": "Check Stock",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 300],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'http://localhost:3000/api/products/' & $json.productId }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "switchFraud",
+      "name": "Fraud Status",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [640, 180],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.status }}",
+        "operation": "equal",
+        "value2": "approved",
+        "rules": {
+          "cases": [
+            {
+              "operation": "equal",
+              "value2": "approved",
+              "output": 0
+            },
+            {
+              "operation": "equal",
+              "value2": "review",
+              "output": 1
+            },
+            {
+              "operation": "equal",
+              "value2": "blocked",
+              "output": 2
+            }
+          ],
+          "rulesInput": {
+            "mode": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "createOrder",
+      "name": "Create Order in API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [840, 80],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/orders",
+        "sendHeaders": true,
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "orderId",
+              "value": "={{ $json.orderId }}"
+            },
+            {
+              "name": "customerId",
+              "value": "={{ $json.customerId }}"
+            },
+            {
+              "name": "customerEmail",
+              "value": "={{ $json.email }}"
+            },
+            {
+              "name": "customerName",
+              "value": "={{ $json.name }}"
+            },
+            {
+              "name": "items",
+              "value": "={{ $json.items }}"
+            },
+            {
+              "name": "total",
+              "value": "={{ $json.amount }}"
+            },
+            {
+              "name": "status",
+              "value": "confirmed"
+            },
+            {
+              "name": "createdAt",
+              "value": "={{ $now }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "sendConfirmed",
+      "name": "Send Confirmation Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1040, 80],
+      "parameters": {
+        "operation": "send",
+        "from": "electronbusiness07@gmail.com",
+        "to": "={{ $json.email }}",
+        "subject": "Commande confirmee #{{ $json.orderId }} - ELECTRON",
+        "bodyType": "text",
+        "body": "Bonjour {{ $json.name }},\n\nVotre commande #{{ $json.orderId }} est confirmee!\n\nTotal: {{ $json.amount }} euros\n\nNous vous tiendrons informe de la livraison!\n\nL'equipe ELECTRON"
+      },
+      "credentials": {
+        "gmailApi": {
+          "id": "gmail-electron",
+          "name": "ELECTRON Gmail"
+        }
+      }
+    },
+    {
+      "id": "queueReview",
+      "name": "Queue for Review",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [840, 250],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "note",
+              "name": "note",
+              "value": "Commande #{{ $json.orderId }} en attente de verification humaine. Montant: {{ $json.amount }} euros",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "alertAdmin",
+      "name": "Alert Admin",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1040, 250],
+      "parameters": {
+        "operation": "send",
+        "from": "electronbusiness07@gmail.com",
+        "to": "electronbusiness07@gmail.com",
+        "subject": "⚠ Commande a verifier - ELECTRON",
+        "bodyType": "text",
+        "body": "Commande #{{ $json.orderId }} necessite une verification humaine.\n\nMontant: {{ $json.amount }} euros\nClient: {{ $json.email }}\n\nRisk level: {{ $json.risk }}"
+      },
+      "credentials": {
+        "gmailApi": {
+          "id": "gmail-electron",
+          "name": "ELECTRON Gmail"
+        }
+      }
+    },
+    {
+      "id": "blockOrder",
+      "name": "Block Order",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [840, 380],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "blocked",
+              "name": "blocked",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "notifyBlocked",
+      "name": "Notify Blocked",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 4,
+      "position": [1040, 380],
+      "parameters": {
+        "operation": "send",
+        "from": "electronbusiness07@gmail.com",
+        "to": "electronbusiness07@gmail.com",
+        "subject": "🚨 Commande bloogee - ELECTRON",
+        "bodyType": "text",
+        "body": "Commande #{{ $json.orderId }} BLOQUEE pour suspicion de fraude.\n\nIp: {{ $json.ip }}\nMontant: {{ $json.amount }} euros\nClient: {{ $json.email }}"
+      },
+      "credentials": {
+        "gmailApi": {
+          "id": "gmail-electron",
+          "name": "ELECTRON Gmail"
+        }
+      }
+    },
+    {
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1260, 300],
+      "parameters": {
+        "respondWith": "allEntries"
+      }
+    }
+  ],
+  "connections": {
+    "New Order Webhook": {
+      "main": [
+        [
+          {
+            "node": "Check Fraud API",
+            "type": "main"
+          },
+          {
+            "node": "Check Stock",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Check Fraud API": {
+      "main": [
+        [
+          {
+            "node": "Fraud Status",
+            "type": "main"
+          }
+        ]
+      },
+      "0": [
+        {
+          "node": "Create Order in API",
+          "type": "main"
+        }
+      ]
+    },
+    "Fraud Status": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Queue for Review",
+            "type": "main"
+          }
+        ],
+        [
+          {
+            "node": "Block Order",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Create Order in API": {
+      "main": [
+        [
+          {
+            "node": "Send Confirmation Email",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Send Confirmation Email": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Queue for Review": {
+      "main": [
+        [
+          {
+            "node": "Alert Admin",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Alert Admin": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Block Order": {
+      "main": [
+        [
+          {
+            "node": "Notify Blocked",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Notify Blocked": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "id": "orders-electron",
+  "tags": ["electron", "orders", "validation", "fraud"],
+  "createdAt": "2026-05-17T14:00:00.000Z",
+  "updatedAt": "2026-05-17T14:00:00.000Z"
+}

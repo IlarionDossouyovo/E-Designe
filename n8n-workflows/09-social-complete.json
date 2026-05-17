@@ -1,0 +1,138 @@
+{
+  "name": "ELECTRON - Social Media Auto",
+  "nodes": [
+    {
+      "id": "schedule",
+      "name": "Daily at 10h & 18h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [220, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hours": [10, 18]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "fetchNew",
+      "name": "Get New Products",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 300],
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products?isNew=true"
+      }
+    },
+    {
+      "id": "aiContent",
+      "name": "AI Content Generator",
+      "type": "ollamaAi",
+      "typeVersion": 1,
+      "position": [660, 300],
+      "parameters": {
+        "url": "http://localhost:11434",
+        "model": "llama2",
+        "prompt": "Genere du contenu pour reseaux sociaux pour ce produit ELECTRON:\\n{{ $json.product }}\\n\\nCree un Tweet (280 caracteres), une caption Instagram avec hashtags, et un post LinkedIn (300 caracteres).\\n\\nReponds en JSON:\\n{\n  tweet: \"...\",\n  instagram: \"...\",\n  linkedin: \"...\"\n}"
+      }
+    },
+    {
+      "id": "switch",
+      "name": "Platform",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [880, 300],
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.platform }}",
+        "operation": "equal",
+        "value2": "twitter",
+        "rules": {
+          "cases": [
+            {"operation": "equal", "value2": "twitter", "output": 0},
+            {"operation": "equal", "value2": "instagram", "output": 1},
+            {"operation": "equal", "value2": "linkedin", "output": 2},
+            {"operation": "equal", "value2": "all", "output": 3}
+          ]
+        }
+      }
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter Post",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 3,
+      "position": [1100, 100],
+      "parameters": {
+        "operation": "sendDirect",
+        "text": "={{ $json.tweet }}"
+      }
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram Post",
+      "type": "n8n-nodes-base.instagram",
+      "typeVersion": 1,
+      "position": [1100, 220],
+      "parameters": {
+        "operation": "upload",
+        "media": "={{ $json.image }}",
+        "caption": "={{ $json.instagram }}"
+      }
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn Post",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [1100, 340],
+      "parameters": {
+        "text": "={{ $json.linkedin }}"
+      }
+    },
+    {
+      "id": "log",
+      "name": "Log to API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1320, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/social/posts",
+        "specifyBody": "json",
+        "bodyParameters": {
+          "parameters": [
+            {"name": "platform", "value": "={{ $json.platform }}"},
+            {"name": "content", "value": "={{ $json.content }}"},
+            {"name": "createdAt", "value": "={{ $now }}"}
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Daily at 10h & 18h": {"main": [[{"node": "Get New Products"}]]},
+    "Get New Products": {"main": [[{"node": "AI Content Generator"}]]},
+    "AI Content Generator": {"main": [[{"node": "Platform"}]]},
+    "Platform": {
+      "0": [[{"node": "Twitter Post"}]],
+      "1": [[{"node": "Instagram Post"}]],
+      "2": [[{"node": "LinkedIn Post"}]],
+      "3": [[{"node": "Twitter Post"}], {"node": "Instagram Post"}], {"node": "LinkedIn Post"}]]
+    },
+    "Twitter Post": {"main": [[{"node": "Log to API"}]]},
+    "Instagram Post": {"main": [[{"node": "Log to API"}]]},
+    "LinkedIn Post": {"main": [[{"node": "Log to API"}]]}
+  },
+  "active": false,
+  "settings": {},
+  "id": "social-electron",
+  "tags": ["electron", "social", "media", "automation", "twitter", "instagram"],
+  "createdAt": "2026-05-17T14:00:00.000Z",
+  "updatedAt": "2026-05-17T14:00:00.000Z"
+}
