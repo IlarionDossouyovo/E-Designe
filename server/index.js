@@ -184,7 +184,7 @@ app.post('/api/ai/chatbot', async (req, res) => {
   } else if (lower.includes('paiement')) {
     response = "💳 Stripe, PayPal, 4x sans frais"
   } else if (lower.includes('contact') || lower.includes('service')) {
-    response = "📞 support@e-designe.com | Lun-Ven 9h-18h"
+    response = "📞 electronbusiness07@gmail.com | Lun-Ven 9h-18h"
   } else if (lower.includes('promo') || lower.includes('sale')) {
     response = "🔥 -30% africain | CODE: BIENVENUE10"
   }
