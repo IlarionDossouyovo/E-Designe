@@ -39,10 +39,10 @@ export default function Footer() {
           </div>
           <div>
             <h3>Contact</h3>
-            <p>electronbusiness07@gmail.com</p>
-            <p>+229 01 97 700 347</p>
-            <p>+229 01 49 80 2202</p>
-            <p>Cotonou, Bénin</p>
+            <p>electronbusiness@gmail.com</p>
+            <p>+229 01 977 003 47</p>
+            <p>+229 01 498 022 02</p>
+            <p>Cotonou, Benin</p>
           </div>
         </div>
         <div style={{ textAlign: 'center', marginTop: '2rem', opacity: 0.7, borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
