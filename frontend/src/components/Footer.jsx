@@ -39,7 +39,7 @@ export default function Footer() {
           </div>
           <div>
             <h3>Contact</h3>
-            <p>electronbusiness@gmail.com</p>
+            <p>electronbusiness07@gmail.com</p>
             <p>+229 01 977 003 47</p>
             <p>+229 01 498 022 02</p>
             <p>Cotonou, Benin</p>
