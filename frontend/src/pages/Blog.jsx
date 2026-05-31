@@ -24,7 +24,7 @@ const blogPosts = [
     excerpt: 'Histoire et signification des tissues traditionnelafricain authentique.', 
     date: '5 Avril 2024', 
     category: 'Culture',
-    image: 'https://images.unsplash.com/photo-1583391722359-1528b3ceabd2?w=600&h=400&fit=crop'
+    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop'
   },
   { 
     id: 4, 
@@ -32,7 +32,7 @@ const blogPosts = [
     excerpt: 'Conseils pratiques pour prolonger la vie de vos habits preferes.', 
     date: '1 Avril 2024', 
     category: 'Entretien',
-    image: 'https://images.unsplash.com/photo-1556905055-8f2a19ce7145?w=600&h=400&fit=crop'
+    image: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&h=400&fit=crop'
   },
   { 
     id: 5, 
