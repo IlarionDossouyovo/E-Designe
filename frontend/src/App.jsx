@@ -89,6 +89,7 @@ export default function App() {
             <Route path="/recherche-ia" element={<AISearch />} />
             <Route path="/marques" element={<BrandsDirectory />} />
             <Route path="/partenaire" element={<Affiliate />} />
+            <Route path="/affiliate" element={<Affiliate />} />
           </Routes>
         </AnimatePresence>
       </main>
