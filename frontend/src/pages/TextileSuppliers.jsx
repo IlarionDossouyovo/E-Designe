@@ -80,7 +80,10 @@ export default function TextileSuppliers() {
                   <h3 style={{ margin: 0, fontSize: '1.3rem', color: '#fff' }}>{supplier.name}</h3>
                   <p style={{ margin: '4px 0 0', fontSize: '0.9rem', color: '#9ca3af' }}>{supplier.country}</p>
                 </div>
-                <span style={{ background: '#22c55e', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold' }}>{supplier.certification}</span>
+                <div style={{ display: 'flex', gap: '6px' }}>
+                  <span style={{ background: '#22c55e', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold' }}>{supplier.certification}</span>
+                  {supplier.dropship && <span style={{ background: '#8b5cf6', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold' }}>DROPSHIP</span>}
+                </div>
               </div>
               
               <div style={{ marginBottom: '16px' }}>
@@ -103,13 +106,15 @@ export default function TextileSuppliers() {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <button style={{ flex: 1, padding: '10px', background: '#4B6CB7', color: '#fff', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '14px' }}>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <a href={`mailto:electronbusiness07@gmail.com?subject=Commande ${supplier.name}&body=Bonjour,%0D%0A%0D%0AJe souhaiterais commander chez ${supplier.name}.%0D%0A%0D%0ADétails:%0D%0A- Spécialités: ${supplier.specialties.join(', ')}%0D%0A- Certification: ${supplier.certification}%0D%0A%0D%0AMerci de votre réponse.%0D%0A%0D%0ACordialement`} style={{ flex: 1, minWidth: '120px', padding: '10px', background: '#4B6CB7', color: '#fff', borderRadius: '8px', textDecoration: 'none', textAlign: 'center', fontWeight: '600', fontSize: '14px', display: 'inline-block' }}>
                   Commander
-                </button>
-                {supplier.dropship && <button style={{ padding: '10px 16px', background: '#22c55e', color: '#fff', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '14px' }}>
-                  Dropship
-                </button>}
+                </a>
+                {supplier.dropship && (
+                  <a href={`mailto:electronbusiness07@gmail.com?subject=Dropship ${supplier.name}&body=Bonjour,%0D%0A%0D%0AJe suis intéressé par le service Dropship de ${supplier.name}.%0D%0A%0D%0ADétails:%0D%0A- Spécialités: ${supplier.specialties.join(', ')}%0D%0A- Certification: ${supplier.certification}%0D%0A%0D%0AMerci de votre réponse.%0D%0A%0D%0ACordialement`} style={{ padding: '10px 16px', background: '#22c55e', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '14px', display: 'inline-block' }}>
+                    Dropship
+                  </a>
+                )}
               </div>
             </div>
           </div>
