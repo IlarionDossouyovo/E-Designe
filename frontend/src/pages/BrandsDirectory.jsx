@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const brandsData = [
   { id: 1, name: 'Gucci', category: 'Luxe', country: 'Italie', commission: '15%', products: 45, dropship: true, url: 'https://gucci.com', minOrder: 5 },
   { id: 2, name: 'Prada', category: 'Luxe', country: 'Italie', commission: '12%', products: 38, dropship: true, url: 'https://prada.com', minOrder: 3 },
-  { id: 3, name: 'Louis Vuitton', category: 'Luxe', country: 'France', commission: '18%', products: 52, dropship: true, url: 'https://lv.com', minOrder: 2 },
+  { id: 3, name: 'Louis Vuitton', category: 'Luxe', country: 'France', commission: '18%', products: 52, dropship: true, url: 'https://louisvuitton.com', minOrder: 2 },
   { id: 4, name: 'Chanel', category: 'Luxe', country: 'France', commission: '16%', products: 41, dropship: true, url: 'https://chanel.com', minOrder: 3 },
   { id: 5, name: 'Hermes', category: 'Luxe', country: 'France', commission: '20%', products: 35, dropship: false, url: 'https://hermes.com', minOrder: 1 },
   { id: 6, name: 'Nike', category: 'Sport', country: 'USA', commission: '10%', products: 120, dropship: true, url: 'https://nike.com', minOrder: 10 },
