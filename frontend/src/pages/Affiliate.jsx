@@ -2,10 +2,74 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const programs = [
-  { id: 1, name: 'Programme Revendeur', commission: '15-20%', description: 'Revendez nos produits avec marge', requirements: 'Commande min 500€', color: '#4B6CB7' },
-  { id: 2, name: 'Programme Affiliation', commission: '10%', description: 'Gagnez des commissions sur chaque vente', requirements: 'Site web ou reseau social', color: '#22c55e' },
-  { id: 3, name: 'Programme Influencer', commission: '12%', description: 'Collaboration avec influenceurs', requirements: '10k+ followers', color: '#f59e0b' },
-  { id: 4, name: 'dropshipping', commission: '25%', description: 'Vendez sans stock', requirements: 'Boutique en ligne', color: '#8b5cf6' },
+  { 
+    id: 1, 
+    name: 'Programme Revendeur', 
+    commission: '15-20%', 
+    description: 'Revendez nos produits avec marge',
+    requirements: 'Commande min 500€', 
+    color: '#4B6CB7',
+    details: [
+      'Prix grossiste exclusif (-30% sur PVP)',
+      'Priorité sur les nouveautés',
+      'Support dédié revendeur',
+      'Retours sous 30 jours',
+      'Formation produits gratuite',
+      'Marketing kit fourni'
+    ],
+    example: 'Commande 500€ → Revente 1000€ = 500€ profit'
+  },
+  { 
+    id: 2, 
+    name: 'Programme Affiliation', 
+    commission: '10%', 
+    description: 'Gagnez des commissions sur chaque vente',
+    requirements: 'Site web ou reseau social', 
+    color: '#22c55e',
+    details: [
+      'Lien de parrainage unique',
+      'Cookies 90 jours',
+      'Commission sur tout le panier',
+      'Tableau de bord analytics',
+      'Bannières publicitaires',
+      'Paiements mensuels'
+    ],
+    example: '5 ventes/mois × 200€ = 100€ commission'
+  },
+  { 
+    id: 3, 
+    name: 'Programme Influencer', 
+    commission: '12%', 
+    description: 'Collaboration avec influenceurs',
+    requirements: '10k+ followers', 
+    color: '#f59e0b',
+    details: [
+      'Code promo personnalisé',
+      'Accès collection exclusive',
+      ' shooting gratuit',
+      'Events VIP réservés',
+      'Collaboration contenus',
+      'Paiement rapide'
+    ],
+    example: '50 ventes × 200€ = 1200€'
+  },
+  { 
+    id: 4, 
+    name: 'Dropshipping', 
+    commission: '25%', 
+    description: 'Vendez sans stock',
+    requirements: 'Boutique en ligne', 
+    color: '#8b5cf6',
+    details: [
+      'Photos produits haute qualité',
+      'Expédition directe usine',
+      'Pas de stock minimum',
+      'Marque blanche possible',
+      'Tracking automatique',
+      'Marge maximale'
+    ],
+    example: 'Vente 200€ - 150€ = 50€ profit'
+  },
 ]
 
 const benefits = [
@@ -81,14 +145,29 @@ export default function Affiliate() {
               border: selectedProgram === program.id ? `2px solid ${program.color}` : '2px solid transparent',
               cursor: 'pointer'
             }}
-            onClick={() => setSelectedProgram(program.id)}
+            onClick={() => setSelectedProgram(selectedProgram === program.id ? null : program.id)}
           >
             <h3 style={{ margin: '0 0 8px', color: program.color }}>{program.name}</h3>
             <p style={{ fontSize: '2rem', fontWeight: 'bold', margin: '0 0 12px' }}>{program.commission}</p>
             <p style={{ color: '#666', margin: '0 0 12px' }}>{program.description}</p>
-            <p style={{ fontSize: '12px', color: '#666', margin: 0 }}>
-              <strong>Requirement:</strong> {program.requirements}
+            <p style={{ fontSize: '12px', color: '#666', margin: '0 0 12px' }}>
+              <strong>Exigence:</strong> {program.requirements}
             </p>
+            
+            {selectedProgram === program.id && (
+              <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
+                <p style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '12px', color: program.color }}>✓ Inclus:</p>
+                <ul style={{ paddingLeft: '16px', margin: 0 }}>
+                  {program.details.map((detail, i) => (
+                    <li key={i} style={{ marginBottom: '8px', color: '#444' }}>{detail}</li>
+                  ))}
+                </ul>
+                <div style={{ marginTop: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '8px', textAlign: 'center' }}>
+                  <p style={{ fontSize: '12px', color: '#666', margin: '0 0 4px' }}>Exemple de gain:</p>
+                  <p style={{ fontWeight: 'bold', color: program.color, margin: 0 }}>{program.example}</p>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
