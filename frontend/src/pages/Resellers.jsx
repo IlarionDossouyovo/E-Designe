@@ -2,12 +2,16 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const partners = [
-  { id: 1, name: 'Fashion Africa Co', country: 'Sénégal', products: 150, commission: '15%', verified: true, image: '🇸🇳' },
-  { id: 2, name: 'EuroStyle Wholesale', country: 'France', products: 89, commission: '12%', verified: true, image: '🇫🇷' },
-  { id: 3, name: 'AfroShop Mali', country: 'Mali', products: 200, commission: '18%', verified: true, image: '🇲🇱' },
-  { id: 4, name: 'Nigeria Fashion', country: 'Nigeria', products: 120, commission: '14%', verified: false, image: '🇳🇬' },
-  { id: 5, name: 'Cote d\'Ivoire Trend', country: 'Côte d\'Ivoire', products: 95, commission: '13%', verified: true, image: '🇨🇮' },
-  { id: 6, name: 'Ghana Styles', country: 'Ghana', products: 75, commission: '11%', verified: false, image: '🇬🇭' },
+  { id: 1, name: 'Fashion Africa Co', country: 'Sénégal', products: 150, commission: '15%', verified: true, image: '🇸🇳', phone: '+221 77 123 45 67', email: 'contact@fashionafrica.com', whatsapp: true },
+  { id: 2, name: 'EuroStyle Wholesale', country: 'France', products: 89, commission: '12%', verified: true, image: '🇫🇷', phone: '+33 1 23 45 67 89', email: 'contact@eurostyle.fr', whatsapp: false },
+  { id: 3, name: 'AfroShop Mali', country: 'Mali', products: 200, commission: '18%', verified: true, image: '🇲🇱', phone: '+223 76 12 34 56', email: 'info@afroshop.ml', whatsapp: true },
+  { id: 4, name: 'Nigeria Fashion', country: 'Nigeria', products: 120, commission: '14%', verified: false, image: '🇳🇬', phone: '+234 80 1234 5678', email: 'hello@nigeriafashion.ng', whatsapp: true },
+  { id: 5, name: 'Cote d\'Ivoire Trend', country: 'Côte d\'Ivoire', products: 95, commission: '13%', verified: true, image: '🇨🇮', phone: '+225 07 12 34 56', email: 'contact@citrend.ci', whatsapp: true },
+  { id: 6, name: 'Ghana Styles', country: 'Ghana', products: 75, commission: '11%', verified: false, image: '🇬🇭', phone: '+233 20 123 4567', email: 'info@ghanastyles.gh', whatsapp: true },
+  { id: 7, name: 'Benin Mode', country: 'Bénin', products: 180, commission: '16%', verified: true, image: '🇧🇯', phone: '+229 01 977 003 47', email: 'contact@beninmode.bj', whatsapp: true },
+  { id: 8, name: 'Togo Fashion', country: 'Togo', products: 65, commission: '12%', verified: true, image: '🇹🇬', phone: '+228 90 12 34 56', email: 'info@togofashion.tg', whatsapp: true },
+  { id: 9, name: 'Cameroon Style', country: 'Cameroun', products: 110, commission: '14%', verified: false, image: '🇨🇲', phone: '+237 6 12 34 56 78', email: 'contact@cmrstyle.cm', whatsapp: true },
+  { id: 10, name: 'Paris Luxe', country: 'France', products: 250, commission: '20%', verified: true, image: '🇫🇷', phone: '+33 1 45 67 89 01', email: 'contact@parisluxe.fr', whatsapp: false },
 ]
 
 export default function Resellers() {
@@ -45,7 +49,7 @@ export default function Resellers() {
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '40px' }}>
         <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-          <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#4B6CB7' }}>250+</p>
+          <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#4B6CB7' }}>500+</p>
           <p style={{ color: '#666' }}>Revendeurs actifs</p>
         </div>
         <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
@@ -93,9 +97,10 @@ export default function Resellers() {
                 <p style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#4B6CB7', margin: 0 }}>{partner.commission}</p>
               </div>
             </div>
-            <button style={{ width: '100%', padding: '12px', marginTop: '16px', background: '#4B6CB7', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
-              Contacter
-            </button>
+            <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+              <a href={`mailto:${partner.email}`} style={{ flex: 1, padding: '12px', background: '#4B6CB7', color: '#fff', borderRadius: '8px', textDecoration: 'none', textAlign: 'center', fontWeight: 'bold', fontSize: '14px' }}>✉ Email</a>
+              {partner.whatsapp && <a href={`https://wa.me/${partner.phone.replace(/\D/g, '')}`} target="_blank" style={{ flex: 1, padding: '12px', background: '#25D366', color: '#fff', borderRadius: '8px', textDecoration: 'none', textAlign: 'center', fontWeight: 'bold', fontSize: '14px' }}>💬 WhatsApp</a>}
+            </div>
           </div>
         ))}
       </div>
