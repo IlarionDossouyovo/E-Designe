@@ -120,9 +120,9 @@ export default function BrandsDirectory() {
                 <a href={brand.url} target="_blank" rel="noopener" style={{ flex: 1, padding: '10px', background: '#4B6CB7', color: '#fff', borderRadius: '8px', textDecoration: 'none', textAlign: 'center', fontWeight: '600', fontSize: '14px' }}>
                   Site Officiel
                 </a>
-                <button style={{ padding: '10px 16px', background: '#22c55e', color: '#fff', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '14px' }}>
-                  Devis
-                </button>
+                <a href={`mailto:electronbusiness07@gmail.com?subject=Demande devis ${brand.name}&body=Bonjour,%0D%0A%0D%0AJe souhaiterais obtenir un devis pour les produits ${brand.name}.%0D%0A%0D%0AMerci de votre réponse.%0D%0A%0D%0ACordialement`} style={{ padding: '10px 16px', background: '#22c55e', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '14px', display: 'inline-block', textAlign: 'center' }}>
+                  Demander Devis
+                </a>
               </div>
             </div>
           </div>
