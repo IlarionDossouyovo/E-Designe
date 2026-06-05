@@ -24,7 +24,7 @@ define('DB_CHARSET', 'utf8mb4');
 
 // Configuration email
 define('EMAIL_FROM', 'noreply@e-graphisme.com');
-define('EMAIL_TO', 'contact@e-graphisme.com');
+define('EMAIL_TO', 'electronbusiness07@gmail.com');
 
 // Fuseau horaire
 date_default_timezone_set('Europe/Paris');
