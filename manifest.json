@@ -9,14 +9,10 @@
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "https://via.placeholder.com/192x192.png?text=E-G",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "https://via.placeholder.com/512x512.png?text=E-G",
-            "sizes": "512x512",
-            "type": "image/png"
+            "src": "images/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
         }
     ],
     "categories": ["business", "design"],

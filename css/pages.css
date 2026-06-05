@@ -265,6 +265,41 @@
     color: var(--white);
 }
 
+/* E-Studio Service Box Styles */
+.service-image .image-box.estudio-box {
+    background: linear-gradient(135deg, #00D4FF, #7B2FFF, #FF006E);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-image .image-box.estudio-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.estudio-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #00D4FF, #7B2FFF);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
 .service-text h2 {
     font-size: 2rem;
     margin-bottom: 20px;

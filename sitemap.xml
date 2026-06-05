@@ -6,6 +6,11 @@
         <priority>1.0</priority>
     </url>
     <url>
+        <loc>https://ilariondossouyovo.github.io/E-Graphisme/index.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
         <loc>https://ilariondossouyovo.github.io/E-Graphisme/studio.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
@@ -49,5 +54,10 @@
         <loc>https://ilariondossouyovo.github.io/E-Graphisme/terms.html</loc>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
+    </url>
+    <url>
+        <loc>https://ilariondossouyovo.github.io/E-Graphisme/404.html</loc>
+        <changefreq>yearly</changefreq>
+        <priority>0.1</priority>
     </url>
 </urlset>
