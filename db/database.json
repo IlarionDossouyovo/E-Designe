@@ -13,6 +13,14 @@
             "role": "admin",
             "status": "active",
             "created_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "user_editor",
+            "username": "editor",
+            "email": "editor@e-graphisme.com",
+            "role": "editor",
+            "status": "active",
+            "created_at": "2024-05-01 10:00:00"
         }
     ],
     "messages": [
@@ -21,15 +29,45 @@
             "name": "Jean Dupont",
             "email": "jean.dupont@email.com",
             "phone": "+33 6 12 34 56 78",
-            "company": "entreprise SAS",
+            "company": "Entreprise SAS",
             "service": "web-design",
             "budget": "3000-5000",
-            "message": "Je souhaite créer un site web professionnel pour mon entreprise.",
+            "message": "Je souhaite creer un site web professionnel pour mon entreprise.",
             "status": "new",
             "ip_address": "192.168.1.1",
             "user_agent": "Mozilla/5.0",
             "created_at": "2024-04-24 12:00:00",
             "updated_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "msg_002",
+            "name": "Sophie Martin",
+            "email": "sophie.martin@agency.fr",
+            "phone": "+33 6 98 76 54 32",
+            "company": "Agence Creative",
+            "service": "branding",
+            "budget": "5000-10000",
+            "message": "Nous avons besoin d'une refonte complete de notre identite visuelle.",
+            "status": "read",
+            "ip_address": "192.168.1.5",
+            "user_agent": "Mozilla/5.0",
+            "created_at": "2024-05-15 09:30:00",
+            "updated_at": "2024-05-15 14:00:00"
+        },
+        {
+            "id": "msg_003",
+            "name": "Marc Bernard",
+            "email": "marc@techstart.io",
+            "phone": "+33 7 11 22 33 44",
+            "company": "TechStart",
+            "service": "motion-design",
+            "budget": "10000-20000",
+            "message": "Creation d'animations video pour notre nouvelle application mobile.",
+            "status": "new",
+            "ip_address": "192.168.1.10",
+            "user_agent": "Mozilla/5.0",
+            "created_at": "2024-06-01 11:00:00",
+            "updated_at": "2024-06-01 11:00:00"
         }
     ],
     "comments": [
@@ -40,20 +78,34 @@
             "author": "Marie Martin",
             "email": "marie@email.com",
             "website": "https://marie-martin.com",
-            "content": "Superarticle! Merci pour le partage.",
+            "content": "Super article! Merci pour le partage.",
             "status": "approved",
             "ip_address": "192.168.1.2",
             "user_agent": "Mozilla/5.0",
             "created_at": "2024-04-24 12:00:00",
             "updated_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "comment_002",
+            "post_id": "post_002",
+            "parent_id": null,
+            "author": "Pierre Durant",
+            "email": "pierre.d@email.com",
+            "website": "",
+            "content": "Excellents conseils pour creer une identite visuelle forte!",
+            "status": "approved",
+            "ip_address": "192.168.1.8",
+            "user_agent": "Mozilla/5.0",
+            "created_at": "2024-05-10 15:20:00",
+            "updated_at": "2024-05-10 15:20:00"
         }
     ],
     "posts": [
         {
             "id": "post_001",
-            "title": " Bienvenue sur E-Graphisme",
+            "title": "Bienvenue sur E-Graphisme",
             "slug": "bienvenue",
-            "content": "Bienvenue sur le site de E-Graphisme By ELECTRON...",
+            "content": "Bienvenue sur le site de E-Graphisme By ELECTRON. Nous sommes une agence creative specialisee dans le design graphique et le web design.",
             "excerpt": "Premier article du blog",
             "author": "admin",
             "status": "published",
@@ -63,15 +115,74 @@
             "views": 150,
             "created_at": "2024-04-24 12:00:00",
             "updated_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "post_002",
+            "title": "Les tendances design graphique en 2026",
+            "slug": "tendances-design-2026",
+            "content": "<p>Le design graphique evolue constamment. En 2026, plusieurs tendances se degagent : les couleurs vives, le neomorphisme, et les interfaces conversationnelles.</p>",
+            "excerpt": "Decouvrez les principales tendances du design graphique cette annee.",
+            "author": "editor",
+            "status": "published",
+            "category": "Tendances",
+            "tags": ["design", "tendances", "2026"],
+            "featured_image": "/images/blog-2.jpg",
+            "views": 320,
+            "created_at": "2024-05-01 10:00:00",
+            "updated_at": "2024-05-15 14:30:00"
+        },
+        {
+            "id": "post_003",
+            "title": "Comment creer une identite visuelle forte",
+            "slug": "creer-identite-visuelle",
+            "content": "<p>Une identite visuelle forte permet de se differencier de la concurrence. Voici nos conseils pour la creer.</p>",
+            "excerpt": "Guide complet pour creer une identite visuelle memorisable.",
+            "author": "admin",
+            "status": "published",
+            "category": "Conseil",
+            "tags": ["branding", "identite"],
+            "featured_image": "/images/blog-3.jpg",
+            "views": 280,
+            "created_at": "2024-05-10 09:00:00",
+            "updated_at": "2024-05-10 09:00:00"
+        },
+        {
+            "id": "post_004",
+            "title": "L'importance du web design responsive",
+            "slug": "web-design-responsive",
+            "content": "<p>Le web design responsive est essentiel pour offrir une experience utilisateur optimale sur tous les appareils.</p>",
+            "excerpt": "Pourquoi le responsive design est indispensable pour votre site.",
+            "author": "editor",
+            "status": "published",
+            "category": "Web Design",
+            "tags": ["responsive", "mobile", "ux"],
+            "featured_image": "/images/blog-4.jpg",
+            "views": 195,
+            "created_at": "2024-05-20 14:00:00",
+            "updated_at": "2024-05-20 14:00:00"
         }
     ],
     "subscribers": [
         {
             "id": "sub_001",
-            "email": " subscriber@example.com",
+            "email": "subscriber@example.com",
             "status": "active",
             "created_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "sub_002",
+            "email": "newsletter@client.fr",
+            "status": "active",
+            "created_at": "2024-05-10 08:00:00"
         }
     ],
-    "analytics": []
+    "analytics": [
+        {
+            "id": "analytics_001",
+            "page": "/",
+            "views": 1250,
+            "unique_visitors": 890,
+            "date": "2024-06-01"
+        }
+    ]
 }
