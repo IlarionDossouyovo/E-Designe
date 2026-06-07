@@ -20,7 +20,7 @@ $articles = [
         'category' => 'Tendances',
         'date' => '2026-04-15',
         'author' => 'E-Graphisme',
-        'image' => 'https://via.placeholder.com/600x400/6366f1/ffffff?text=Design+2026',
+        'image' => 'images/placeholders/design.svg',
         'featured' => true
     ],
     [
@@ -32,7 +32,7 @@ $articles = [
         'category' => 'Conseil',
         'date' => '2026-04-10',
         'author' => 'E-Graphisme',
-        'image' => 'https://via.placeholder.com/600x400/f472b6/ffffff?text=Identité',
+        'image' => 'images/placeholders/identite.svg',
         'featured' => false
     ],
     [
@@ -44,7 +44,7 @@ $articles = [
         'category' => 'Web Design',
         'date' => '2026-04-05',
         'author' => 'E-Graphisme',
-        'image' => 'https://via.placeholder.com/600x400/22d3ee/ffffff?text=Responsive',
+        'image' => 'images/placeholders/responsive.svg',
         'featured' => false
     ],
     [
@@ -56,7 +56,7 @@ $articles = [
         'category' => 'Print',
         'date' => '2026-03-28',
         'author' => 'E-Graphisme',
-        'image' => 'https://via.placeholder.com/600x400/10b981/ffffff?text=Print',
+        'image' => 'images/placeholders/print.svg',
         'featured' => false
     ]
 ];
