@@ -24,6 +24,6 @@ echo.
 echo Serveur en cours... (Ctrl+C pour arreter)
 echo.
 
-php -S localhost:8000 index.php
+php -S localhost:8000 -t .
 
 pause
