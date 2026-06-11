@@ -1,101 +1,64 @@
 {
-  "name": "E-Graphisme Business Automation",
   "nodes": [
     {
       "parameters": {
         "httpMethod": "POST",
         "path": "contact-form",
-        "responseMode": "onReceived",
         "options": {}
       },
-      "id": "webhook-contact",
+      "id": "webhook1",
       "name": "Contact Form Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
-      "position": [250, 300],
+      "position": [100, 300],
       "webhookId": "e-graphisme-contact"
     },
     {
       "parameters": {
-        "to": "electronbusiness07@gmail.com",
         "subject": "Nouveau lead - E-Graphisme",
-        "body": "Nouveau message de: {{ $json.name }}\nEmail: {{ $json.email }}\nService: {{ $json.service }}\nMessage: {{ $json.message }}"
+        "additionalFields": {}
       },
-      "id": "email-notify",
+      "id": "gmail1",
       "name": "Notify Admin",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 1,
-      "position": [450, 300],
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "1",
-          "name": "Gmail account"
-        }
-      }
+      "position": [400, 200]
     },
     {
       "parameters": {
-        "operation": "append",
         "fileName": "db/contacts.json",
-        "properties": {
-          "dataProperty": "contact",
-          "asBinary": false
-        }
+        "options": {}
       },
-      "id": "save-contact",
+      "id": "save1",
       "name": "Save to Database",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
-      "position": [450, 450]
+      "position": [400, 400]
     },
     {
       "parameters": {
-        "httpMethod": "POST",
         "options": {}
       },
-      "id": "respond-200",
+      "id": "respond1",
       "name": "Respond with Success",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [650, 300]
+      "position": [700, 300]
     }
   ],
   "connections": {
-    "webhook-contact": {
+    "webhook1": {
       "main": [
         [
-          {
-            "node": "email-notify",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "save-contact",
-            "type": "main",
-            "index": 0
-          }
+          {"node": "gmail1", "type": "main", "index": 0},
+          {"node": "save1", "type": "main", "index": 0}
         ]
       ]
     },
-    "save-contact": {
+    "save1": {
       "main": [
-        [
-          {
-            "node": "respond-200",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        [{"node": "respond1", "type": "main", "index": 0}]
       ]
     }
-  },
-  "active": false,
-  "settings": {
-    "executionOrder": "v1"
-  },
-  "versionId": "1.0.0",
-  "id": "e-graphisme-automation",
-  "tags": ["automation", "business", "lead-management"],
-  "createdAt": "2026-06-11T11:56:19Z",
-  "updatedAt": "2026-06-11T11:56:19Z"
+  }
 }
