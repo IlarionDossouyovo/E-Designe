@@ -24,6 +24,6 @@ echo.
 echo Serveur en cours... (Ctrl+C pour arreter)
 echo.
 
-php -S localhost:8000 -t .
+php -S localhost:8000 -t "C:\Users\AUGUSTIN\Documents\Projets\E-Graphisme"
 
 pause
