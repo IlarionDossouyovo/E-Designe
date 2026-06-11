@@ -1,0 +1,202 @@
+{
+  "name": "E-Graphisme Complete",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contact",
+        "options": {}
+      },
+      "id": "webhook1",
+      "name": "Webhook Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        100,
+        200
+      ],
+      "webhookId": "lead-contact"
+    },
+    {
+      "parameters": {
+        "fileName": "db/contacts.json",
+        "options": {}
+      },
+      "id": "save1",
+      "name": "Save",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        300,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "subject": "Nouveau lead",
+        "additionalFields": {}
+      },
+      "id": "email1",
+      "name": "Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [
+        300,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "respond1",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        500,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "model": "llama3",
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "ai1",
+      "name": "Ollama",
+      "type": "ollama",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ai-chat",
+        "options": {}
+      },
+      "id": "webhook2",
+      "name": "Webhook AI",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ],
+      "webhookId": "ai-chat"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "respond2",
+      "name": "Respond AI",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutes": 30
+            }
+          ]
+        }
+      },
+      "id": "timer1",
+      "name": "Every 30min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "log1",
+      "name": "Log",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        300,
+        400
+      ]
+    }
+  ],
+  "connections": {
+    "webhook1": {
+      "main": [
+        [
+          {
+            "node": "save1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "save1": {
+      "main": [
+        [
+          {
+            "node": "respond1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "webhook2": {
+      "main": [
+        [
+          {
+            "node": "ai1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ai1": {
+      "main": [
+        [
+          {
+            "node": "respond2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "timer1": {
+      "main": [
+        [
+          {
+            "node": "log1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
