@@ -1,35 +1,36 @@
 <?php
-// Router script for E-Graphisme PHP built-in server
-$uri = $_SERVER['REQUEST_URI'];
+// E-Graphisme Router
+$uri = $_SERVER['REQUEST_URI'] ?? '/';
 $path = parse_url($uri, PHP_URL_PATH);
 
-// Remove leading/trailing slashes
-$path = trim($path, '/');
+// Remove query strings and trim
+$path = trim(explode('?', $path)[0], '/');
 
-// If path is empty, serve index.html
-if ($path === '' || $path === 'index' || $path === 'index.html') {
-    readfile(__DIR__ . '/index.html');
-    return;
+// Get directory
+$dir = __DIR__;
+
+// If root, serve index
+if ($path === '') {
+    include $dir . '/index.html';
+    exit;
 }
 
-// Build full file path
-$filePath = __DIR__ . '/' . $path;
-
-// If file exists, serve it
-if (is_file($filePath)) {
-    readfile($filePath);
-    return;
+// Try direct file
+$file = $dir . '/' . $path;
+if (file_exists($file)) {
+    include $file;
+    exit;
 }
 
-// Try with .html extension if not already there
-if (substr($path, -5) !== '.html') {
-    $htmlPath = __DIR__ . '/' . $path . '.html';
-    if (is_file($htmlPath)) {
-        readfile($htmlPath);
-        return;
+// Try with .html
+if (!str_ends_with($path, '.html')) {
+    $htmlFile = $dir . '/' . $path . '.html';
+    if (file_exists($htmlFile)) {
+        include $htmlFile;
+        exit;
     }
 }
 
 // 404
 http_response_code(404);
-echo "Page non trouvée: " . htmlspecialchars($path);
+echo "Page non trouvée: $path";
