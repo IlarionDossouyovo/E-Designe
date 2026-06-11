@@ -1,0 +1,221 @@
+{
+  "name": "E-Graphisme Business Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contact-form",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-contact",
+      "name": "Contact Form Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "e-graphisme-contact"
+    },
+    {
+      "parameters": {
+        "operation": "readAll",
+        "limit": 10
+      },
+      "id": "db-contacts",
+      "name": "Read Contacts DB",
+      "type": "n8n-nodes-base.readBinaryFiles",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:1b",
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "ai-ollama",
+      "name": "AI Response (Ollama)",
+      "type": "ollama",
+      "typeVersion": 1,
+      "position": [650, 300],
+      "credentials": {
+        "ollama": {
+          "id": "1",
+          "name": "Ollama API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Confirmation - E-Graphisme",
+        "body": "={{ $json.ai_response }}"
+      },
+      "id": "email-confirm",
+      "name": "Send Confirmation Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [850, 200],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "to": "electronbusiness07@gmail.com",
+        "subject": "Nouveau lead - E-Graphisme",
+        "body": "Nouveau message de: {{ $json.name }}\nEmail: {{ $json.email }}\nService: {{ $json.service }}\nMessage: {{ $json.message }}"
+      },
+      "id": "email-notify",
+      "name": "Notify Admin",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [850, 400],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "fileName": "db/contacts.json",
+        "properties": {
+          "dataProperty": "contact",
+          "asBinary": false
+        }
+      },
+      "id": "save-contact",
+      "name": "Save to Database",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "webhook": "https://api.telegram.org/bot{{ $credentials.telegramApiToken }}/sendMessage",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "-1001234567890"
+            },
+            {
+              "name": "text",
+              "value": "🔔 Nouveau lead E-Graphisme!\n\nNom: {{ $json.name }}\nEmail: {{ $json.email }}\nService: {{ $json.service }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "telegram-alert",
+      "name": "Telegram Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1050, 450]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "projectId": "e-graphisme-pipeline",
+        "title": "={{ $json.name }} - {{ $json.service }}",
+        "status": "new",
+        "data": {
+          "email": "={{ $json.email }}",
+          "phone": "={{ $json.phone }}",
+          "company": "={{ $json.company }}",
+          "budget": "={{ $json.budget }}",
+          "message": "={{ $json.message }}"
+        }
+      },
+      "id": "linear-ticket",
+      "name": "Create Linear Ticket",
+      "type": "linear",
+      "typeVersion": 1,
+      "position": [1250, 300],
+      "credentials": {
+        "linearApi": {
+          "id": "1",
+          "name": "Linear account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "webhook-contact": {
+      "main": [
+        [
+          {
+            "node": "db-contacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "db-contacts": {
+      "main": [
+        [
+          {
+            "node": "ai-ollama",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ai-ollama": {
+      "main": [
+        [
+          {
+            "node": "email-confirm",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "email-notify",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "save-contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "save-contact": {
+      "main": [
+        [
+          {
+            "node": "telegram-alert",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "linear-ticket",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1.0.0",
+  "id": "e-graphisme-automation",
+  "tags": ["automation", "business", "lead-management"],
+  "createdAt": "2026-06-11T11:56:19Z",
+  "updatedAt": "2026-06-11T11:56:19Z"
+}
