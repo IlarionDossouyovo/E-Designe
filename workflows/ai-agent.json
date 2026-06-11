@@ -4,14 +4,19 @@
     {
       "parameters": {
         "rule": {
-          "cron": {"expression": "*/5 * * * *"}
+          "cron": {
+            "expression": "*/5 * * * *"
+          }
         }
       },
       "id": "t1",
-      "name": "Every 5 Minutes",
+      "name": "Every 5min",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1,
-      "position": [100, 300]
+      "position": [
+        100,
+        300
+      ]
     },
     {
       "parameters": {
@@ -20,37 +25,78 @@
         "limit": 50
       },
       "id": "r1",
-      "name": "Read Leads",
+      "name": "Read",
       "type": "n8n-nodes-base.readBinaryFiles",
       "typeVersion": 1,
-      "position": [300, 300]
+      "position": [
+        300,
+        300
+      ]
     },
     {
       "parameters": {
         "model": "llama3",
-        "options": {"temperature": 0.5}
+        "options": {
+          "temperature": 0.5
+        }
       },
-      "id": "ai1",
-      "name": "AI Analysis",
+      "id": "a1",
+      "name": "AI",
       "type": "ollama",
       "typeVersion": 1,
-      "position": [500, 300]
+      "position": [
+        500,
+        300
+      ]
     },
     {
       "parameters": {
-        "subject": "Lead Analysis",
+        "subject": "Analysis",
         "additionalFields": {}
       },
       "id": "e1",
-      "name": "Report to Admin",
+      "name": "Report",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 1,
-      "position": [700, 300]
+      "position": [
+        700,
+        300
+      ]
     }
   ],
   "connections": {
-    "t1": {"main": [[{"node": "r1", "type": "main", "index": 0}]]},
-    "r1": {"main": [[{"node": "ai1", "type": "main", "index": 0}]]},
-    "ai1": {"main": [[{"node": "e1", "type": "main", "index": 0}]]}
+    "t1": {
+      "main": [
+        [
+          {
+            "node": "r1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "r1": {
+      "main": [
+        [
+          {
+            "node": "a1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "a1": {
+      "main": [
+        [
+          {
+            "node": "e1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   }
 }
