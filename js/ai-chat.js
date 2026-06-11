@@ -5,7 +5,13 @@
 
 // AI Configuration
 const AI_CONFIG = {
-    // Free AI APIs (you can replace with your own API key)
+    // Ollama API (local AI)
+    ollama: {
+        endpoint: 'http://localhost:11434/api/generate',
+        model: 'llama3',
+        maxTokens: 500
+    },
+    // OpenAI API (you can replace with your own API key)
     openai: {
         endpoint: 'https://api.openai.com/v1/chat/completions',
         model: 'gpt-3.5-turbo',
@@ -494,6 +500,27 @@ async function getAIResponse(userMessage) {
         if (item.pattern.test(userMessage)) {
             return item.response;
         }
+    }
+    
+    // Try Ollama API (local AI)
+    try {
+        const response = await fetch(AI_CONFIG.ollama.endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: AI_CONFIG.ollama.model,
+                prompt: `You are E-Graphisme AI assistant. Help users with design, branding, web design, and company information. Respond in ${lang} language.\n\nUser: ${userMessage}\nAssistant:`,
+                max_tokens: AI_CONFIG.ollama.maxTokens,
+                stream: false
+            })
+        });
+        
+        const data = await response.json();
+        return data.response || data.message?.content;
+    } catch (ollamaError) {
+        console.log('Ollama not available, trying OpenAI...');
     }
     
     // Try OpenAI API if configured
