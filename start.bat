@@ -1,13 +1,15 @@
 @echo off
 cd /d "%~dp0"
-echo Starting E-Graphisme Server...
+echo ========================================
+echo E-Graphisme Server
+echo ========================================
 echo.
-echo Open your browser to:
-echo   - http://localhost:8000/index.html
-echo   - http://localhost:8000/portfolio.html
-echo   - http://localhost:8000/services.html
-echo   - http://localhost:8000/studio.html
+echo Open in browser (with .html extension):
+echo   http://localhost:8000/index.html
+echo   http://localhost:8000/portfolio.html
+echo   http://localhost:8000/services.html
+echo   http://localhost:8000/studio.html
 echo.
-echo Press Ctrl+C to stop the server
+echo ========================================
 echo.
-php -S localhost:8000 -t "%~dp0"
+php -S localhost:8000 -t "%~dp0" router.php
