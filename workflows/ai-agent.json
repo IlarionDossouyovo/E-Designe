@@ -1,0 +1,42 @@
+{
+  "name": "AI Agents Manager",
+  "nodes": [
+    {
+      "parameters": {"rule": {"cron": {"expression": "*/5 * * * *"}}},
+      "id": "trigger1",
+      "name": "Every 5 Minutes",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {"operation": "readAll", "fileName": "db/contacts.json", "limit": 50}},
+      "id": "read1",
+      "name": "Read New Leads",
+      "type": "n8n-nodes-base.readBinaryFiles",
+      "typeVersion": 1,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {"model": "llama3", "options": {"temperature": 0.5}}},
+      "id": "ai1",
+      "name": "AI Analysis",
+      "type": "ollama",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {"subject": "Lead Analysis", "additionalFields": {}}},
+      "id": "email1",
+      "name": "Report to Admin",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [700, 300]
+    }
+  ],
+  "connections": {
+    "trigger1": {"main": [[{"node": "read1", "type": "main", "index": 0}]]},
+    "read1": {"main": [[{"node": "ai1", "type": "main", "index": 0}]]},
+    "ai1": {"main": [[{"node": "email1", "type": "main", "index": 0}]]}
+  }
+}
