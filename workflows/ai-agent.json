@@ -2,31 +2,9 @@
   "name": "AI Agent",
   "nodes": [
     {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "minutes",
-              "minutes": 5
-            }
-          ]
-        }
-      },
-      "id": "t1",
-      "name": "Every 5min",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1,
-      "position": [
-        100,
-        300
-      ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "l1",
-      "name": "Log",
+      "parameters": {},
+      "id": "n1",
+      "name": "NoOp",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
@@ -35,17 +13,5 @@
       ]
     }
   ],
-  "connections": {
-    "t1": {
-      "main": [
-        [
-          {
-            "node": "l1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
-  }
+  "connections": {}
 }
