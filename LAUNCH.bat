@@ -1,76 +1,77 @@
 @echo off
-REM E-Graphisme - Launch All Services
-REM Lance tous les services E-Graphisme
+REM ============================================
+REM E-Graphisme - Systeme de Demarrage Complet
+REM ============================================
 
 echo.
 echo ========================================
-echo E-Graphisme - Demarrage Complet
+echo   E-Graphisme - Demarrage Automatique
 echo ========================================
 echo.
 
-REM === DOCKER ===
-echo [1] Verification Docker...
-docker version >nul 2>&1
+REM Creer les dossiers necessaires
+if not exist db mkdir db
+if not exist logs mkdir logs
+if not exist db\contacts.json echo [] > db\contacts.json
+
+echo [1/6] Demarrage du serveur Web...
+start "E-Graphisme Web" cmd /c "python -m http.server 8000"
+timeout /t 2 /nobreak >nul
+echo     OK - Port 8000
+
+echo [2/6] Verification N8n...
+netstat -an | findstr ":5678" >nul
 if %errorlevel% neq 0 (
-    echo    ERREUR: Docker n'est pas demarre
-    echo    Lancez Docker Desktop puis reessayez
-    pause
-    exit /b 1
-)
-echo    Docker: OK
-
-REM === N8N ===
-echo [2] Verification N8n...
-docker ps --format "{{.Names}}" | findstr "n8n" >nul
-if %errorlevel% equ 0 (
-    echo    N8n: Deja en service
+    echo     ATTENTION: N8n pas demarre
+    echo     -> Executer: docker run -d -p 5678:5678 -v ~/.n8n:/home/node/.n8n n8nio/n8n
 ) else (
-    echo    Demarrage N8n...
-    docker run -d --name n8n -p 5678:5678 -v n8n-data:/home/node/.n8n n8nio/n8n
-    echo    N8n: Demarre
+    echo     OK - N8n sur port 5678
 )
 
-REM === OLLAMA ===
-echo [3] Verification Ollama...
+echo [3/6] Verification Ollama...
 netstat -an | findstr ":11434" >nul
-if %errorlevel% equ 0 (
-    echo    Ollama: Deja en service
+if %errorlevel% neq 0 (
+    echo     ATTENTION: Ollama pas demarre
+    echo     -> Executer: ollama serve
 ) else (
-    echo    Demarrage Ollama...
-    start "Ollama" cmd /c "ollama serve"
-    timeout /t 3 /nobreak >nul
-    echo    Ollama: Demarre
+    echo     OK - Ollama sur port 11434
 )
 
-REM === OPEN WEBUI ===
-echo [4] Verification Open WebUI...
-docker ps --format "{{.Names}}" | findstr "open-webui" >nul
-if %errorlevel% equ 0 (
-    echo    Open WebUI: Deja en service
+echo [4/6] Verification Open WebUI...
+netstat -an | findstr ":3001" >nul
+if %errorlevel% neq 0 (
+    echo     ATTENTION: Open WebUI pas demarre
+    echo     -> Executer: docker run -d -p 3001:8080 openwebui/open-webui
 ) else (
-    echo    Demarrage Open WebUI...
-    docker run -d --name open-webui -p 3001:8080 -v ollama:/root/.ollama open-webui/open-webui:latest
-    echo    Open WebUI: Demarre
+    echo     OK - Open WebUI sur port 3001
 )
 
-REM === SERVEUR WEB E-GRAPHISME ===
-echo [5] Demarrage Serveur Web...
-start "E-Graphisme Web" cmd /c "cd /d "%~dp0" && py -m http.server 8000 --directory "%~dp0" --bind 127.0.0.1"
+echo [5/6] Verification Docker...
+docker ps >nul 2>&1
+if %errorlevel% neq 0 (
+    echo     ATTENTION: Docker pas demarre
+) else (
+    echo     OK - Docker actif
+)
+
+echo [6/6]Ouverture du Dashboard...
+start http://127.0.0.1:8000/dashboard.html
 
 echo.
 echo ========================================
-echo TOUS LES SERVICES SONT LANCES!
+echo   E-Graphisme Pret!
 echo ========================================
 echo.
-echo ACCES AUX SERVICES:
+echo   [URLs]
+echo   Dashboard:   http://127.0.0.1:8000/dashboard.html
+echo   N8n:        http://localhost:5678
+echo   Ollama:      http://localhost:11434
+echo   Open WebUI:  http://localhost:3001
 echo.
-echo   E-Graphisme:    http://127.0.0.1:8000
-echo   N8n:           http://localhost:5678
-echo   Ollama:        http://localhost:11434
-echo   Open WebUI:    http://localhost:3001
+echo   [Commandes Manuelles]
+echo   N8n:        docker run -d -p 5678:5678 n8nio/n8n
+echo   Open WebUI: docker run -d -p 3001:8080 openwebui/open-webui
 echo.
 echo ========================================
-echo.
-echo Appuyez sur une touche pour fermer cette fenetre
-echo (Les services continueront de fonctionner)
-pause >nul
+
+pause
