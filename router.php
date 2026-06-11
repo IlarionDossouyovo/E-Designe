@@ -1,20 +1,36 @@
 <?php
-// E-Graphisme Router - Debug Version
+// E-Graphisme Router - with debug
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 $path = parse_url($uri, PHP_URL_PATH);
 $path = trim($path, '/');
 
 $dir = __DIR__;
+$fullPath = $dir . '/' . $path;
 
-// Debug: show what we're looking for
-$debug = "Searching for: '$path' in dir: '$dir'<br>";
-$debug .= "Files in dir:<br>";
-$files = scandir($dir);
-foreach ($files as $f) {
-    $debug .= "- $f<br>";
+echo "URI: $uri<br>";
+echo "PATH: $path<br>";
+echo "DIR: $dir<br>";
+echo "FULL: $fullPath<br>";
+echo "EXISTS: " . (file_exists($fullPath) ? 'YES' : 'NO') . "<br>";
+
+if ($path === '') {
+    echo "ROOT - serving index.html";
+    readfile($dir . '/index.html');
+    exit;
 }
 
-echo $debug;
-exit;
+if (is_file($fullPath)) {
+    echo "FOUND: $fullPath";
+    readfile($fullPath);
+    exit;
+}
 
-// (rest of code never reached)
+$htmlPath = $dir . '/' . $path . '.html';
+echo "HTML: $htmlPath EXISTS: " . (file_exists($htmlPath) ? 'YES' : 'NO') . "<br>";
+if (is_file($htmlPath)) {
+    readfile($htmlPath);
+    exit;
+}
+
+echo "404";
+exit;
