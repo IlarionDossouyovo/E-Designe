@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Graphisme - Dashboard IA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0d1117; min-height: 100vh; color: #fff; }
+        .header { background: #161b22; padding: 20px; border-bottom: 2px solid #00d4ff; text-align: center; }
+        .header h1 { color: #00d4ff; font-size: 28px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: #21262d; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #30363d; }
+        .stat-card h3 { color: #8b949e; font-size: 12px; margin-bottom: 10px; }
+        .stat-card .value { font-size: 32px; color: #00d4ff; font-weight: bold; }
+        .section { background: #21262d; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .section h2 { color: #00d4ff; margin-bottom: 15px; font-size: 18px; }
+        .btn { background: #238636; color: #fff; border: none; padding: 15px 30px; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; }
+        .btn:hover { background: #2ea043; }
+        .btn:active { background: #238636; transform: scale(0.98); }
+        .btn:visited { background: #238636; }
+        .btn:focus { background: #2ea043; outline: 2px solid #fff; }
+        .info { color: #8b949e; text-align: center; margin-top: 20px; font-size: 14px; }
+        .click-test { background: #da3633; padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 20px; cursor: pointer; }
+        .click-test:hover { background: #f85149; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 E-Graphisme Dashboard</h1>
+    </div>
+    
+    <div class="container">
+        <div class="click-test" id="clickTest" onclick="alert('CLICK WORKS!'); console.log('Clicked!');">
+            CLICK HERE TO TEST
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>AGENTS ACTIFS</h3>
+                <div class="value" id="agents">6</div>
+            </div>
+            <div class="stat-card">
+                <h3>LEADS</h3>
+                <div class="value" id="leads">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>MESSAGES</h3>
+                <div class="value" id="messages">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>UPTIME</h3>
+                <div class="value">99%</div>
+            </div>
+        </div>
+        
+        <button class="btn" id="refreshBtn" onclick="doRefresh()">🔄 ACTUALISER</button>
+        
+        <div class="info" id="lastUpdate">
+            Dernière mise à jour: --
+        </div>
+    </div>
+    
+    <script>
+        console.log('Script loaded');
+        
+        function doRefresh() {
+            console.log('Refresh clicked!');
+            var now = new Date();
+            document.getElementById('lastUpdate').innerHTML = 'Dernière mise à jour: ' + now.toLocaleString('fr-FR');
+            document.getElementById('leads').innerHTML = Math.floor(Math.random() * 20);
+            document.getElementById('messages').innerHTML = Math.floor(Math.random() * 100);
+            alert('Actualisé!');
+        }
+        
+        // Test button on load
+        window.onload = function() {
+            console.log('Page loaded');
+            document.getElementById('refreshBtn').innerHTML = '🔄 CLICK ME: ' + document.getElementById('refreshBtn').innerHTML;
+        };
+    </script>
+</body>
+</html>
