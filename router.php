@@ -1,36 +1,18 @@
 <?php
-// E-Graphisme Router - with debug
+// E-Graphisme Router - ALWAYS run first
+echo "ROUTEUR ACTIF!";
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 $path = parse_url($uri, PHP_URL_PATH);
 $path = trim($path, '/');
-
 $dir = __DIR__;
-$fullPath = $dir . '/' . $path;
-
-echo "URI: $uri<br>";
-echo "PATH: $path<br>";
-echo "DIR: $dir<br>";
-echo "FULL: $fullPath<br>";
-echo "EXISTS: " . (file_exists($fullPath) ? 'YES' : 'NO') . "<br>";
+$file = $dir . '/' . $path . '.html';
 
 if ($path === '') {
-    echo "ROOT - serving index.html";
-    readfile($dir . '/index.html');
-    exit;
+    $file = $dir . '/index.html';
 }
 
-if (is_file($fullPath)) {
-    echo "FOUND: $fullPath";
-    readfile($fullPath);
-    exit;
+if (is_file($file)) {
+    readfile($file);
+} else {
+    echo "NOT FOUND: $file";
 }
-
-$htmlPath = $dir . '/' . $path . '.html';
-echo "HTML: $htmlPath EXISTS: " . (file_exists($htmlPath) ? 'YES' : 'NO') . "<br>";
-if (is_file($htmlPath)) {
-    readfile($htmlPath);
-    exit;
-}
-
-echo "404";
-exit;
