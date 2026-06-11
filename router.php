@@ -1,18 +1,13 @@
 <?php
-// E-Graphisme Router - ALWAYS run first
-echo "ROUTEUR ACTIF!";
+// E-Graphisme Router - Minimal
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 $path = parse_url($uri, PHP_URL_PATH);
 $path = trim($path, '/');
-$dir = __DIR__;
-$file = $dir . '/' . $path . '.html';
 
 if ($path === '') {
-    $file = $dir . '/index.html';
+    $path = 'index.html';
+} else if (!str_ends_with($path, '.html')) {
+    $path = $path . '.html';
 }
 
-if (is_file($file)) {
-    readfile($file);
-} else {
-    echo "NOT FOUND: $file";
-}
+readfile(__DIR__ . '/' . $path);
