@@ -1,9 +1,41 @@
 {
   "name": "Daily Report",
   "nodes": [
-    {"parameters": {"rule": {"cron": {"expression": "0 9 * * *"}}}, "id": "t1", "name": "Daily Trigger", "type": "n8n-nodes-base.scheduleTrigger", "typeVersion": 1, "position": [100, 300]},
-    {"parameters": {"operation": "readAll", "fileName": "db/contacts.json", "limit": 100}}, "id": "r1", "name": "Read Contacts", "type": "n8n-nodes-base.readBinaryFiles", "typeVersion": 1, "position": [300, 300]},
-    {"parameters": {"subject": "Rapport quotidien - E-Graphisme", "additionalFields": {}}}, "id": "e1", "name": "Send Report", "type": "n8n-nodes-base.gmail", "typeVersion": 1, "position": [500, 300]}
+    {
+      "parameters": {
+        "rule": {
+          "cron": {"expression": "0 9 * * *"}
+        }
+      },
+      "id": "t1",
+      "name": "Daily Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "operation": "readAll",
+        "fileName": "db/contacts.json",
+        "limit": 100
+      },
+      "id": "r1",
+      "name": "Read Contacts",
+      "type": "n8n-nodes-base.readBinaryFiles",
+      "typeVersion": 1,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {
+        "subject": "Rapport quotidien - E-Graphisme",
+        "additionalFields": {}
+      },
+      "id": "e1",
+      "name": "Send Report",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [500, 300]
+    }
   ],
   "connections": {
     "t1": {"main": [[{"node": "r1", "type": "main", "index": 0}]]},
