@@ -14,4 +14,4 @@ echo   http://localhost:8000/studio.html
 echo.
 echo ========================================
 echo.
-php -S localhost:8000 -t "C:\Users\AUGUSTIN\Documents\Projets\E-Graphisme"
+php -S localhost:8000 index.php
