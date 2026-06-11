@@ -4,13 +4,16 @@
     {
       "parameters": {
         "rule": {
-          "cron": {
-            "expression": "0 9 * * *"
-          }
+          "interval": [
+            {
+              "field": "minutes",
+              "minutes": 30
+            }
+          ]
         }
       },
       "id": "t1",
-      "name": "Daily",
+      "name": "Every 30min",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1,
       "position": [
@@ -20,30 +23,14 @@
     },
     {
       "parameters": {
-        "operation": "readAll",
-        "fileName": "db/contacts.json",
-        "limit": 100
+        "options": {}
       },
-      "id": "r1",
-      "name": "Read",
-      "type": "n8n-nodes-base.readBinaryFiles",
+      "id": "l1",
+      "name": "Log",
+      "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
         300,
-        300
-      ]
-    },
-    {
-      "parameters": {
-        "subject": "Rapport",
-        "additionalFields": {}
-      },
-      "id": "e1",
-      "name": "Email",
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 1,
-      "position": [
-        500,
         300
       ]
     }
@@ -53,18 +40,7 @@
       "main": [
         [
           {
-            "node": "r1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "r1": {
-      "main": [
-        [
-          {
-            "node": "e1",
+            "node": "l1",
             "type": "main",
             "index": 0
           }

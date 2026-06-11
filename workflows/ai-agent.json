@@ -4,9 +4,12 @@
     {
       "parameters": {
         "rule": {
-          "cron": {
-            "expression": "*/5 * * * *"
-          }
+          "interval": [
+            {
+              "field": "minutes",
+              "minutes": 5
+            }
+          ]
         }
       },
       "id": "t1",
@@ -20,46 +23,14 @@
     },
     {
       "parameters": {
-        "operation": "readAll",
-        "fileName": "db/contacts.json",
-        "limit": 50
+        "options": {}
       },
-      "id": "r1",
-      "name": "Read",
-      "type": "n8n-nodes-base.readBinaryFiles",
+      "id": "l1",
+      "name": "Log",
+      "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
         300,
-        300
-      ]
-    },
-    {
-      "parameters": {
-        "model": "llama3",
-        "options": {
-          "temperature": 0.5
-        }
-      },
-      "id": "a1",
-      "name": "AI",
-      "type": "ollama",
-      "typeVersion": 1,
-      "position": [
-        500,
-        300
-      ]
-    },
-    {
-      "parameters": {
-        "subject": "Analysis",
-        "additionalFields": {}
-      },
-      "id": "e1",
-      "name": "Report",
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 1,
-      "position": [
-        700,
         300
       ]
     }
@@ -69,29 +40,7 @@
       "main": [
         [
           {
-            "node": "r1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "r1": {
-      "main": [
-        [
-          {
-            "node": "a1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "a1": {
-      "main": [
-        [
-          {
-            "node": "e1",
+            "node": "l1",
             "type": "main",
             "index": 0
           }
