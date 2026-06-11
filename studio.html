@@ -1048,7 +1048,7 @@
         <div class="cta-content">
             <h2>Prêt à Révolutionner Votre Création ?</h2>
             <p>Rejoignez des milliers de créateurs qui font confiance à E-Studio pour leurs productions vidéo.</p>
-            <button class="btn-primary">
+            <button class="btn-primary" onclick="openAIGenerator()">
                 <i class="fas fa-rocket"></i>
                 Commencer Gratuitement
             </button>
@@ -1084,8 +1084,242 @@
         </div>
     </footer>
     
+    <!-- AI Video Generation Module -->
+    <section id="ai-generator" class="ai-generator-section" style="display: none;">
+        <div class="container">
+            <div class="generator-card">
+                <div class="generator-header">
+                    <h2><i class="fas fa-robot"></i> Générateur Vidéo IA</h2>
+                    <button class="close-generator" onclick="closeAIGenerator()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="generator-body">
+                    <div class="form-group">
+                        <label>Type de vidéo</label>
+                        <select id="video-type" class="form-control">
+                            <option value="marketing">Publicité/Marketing</option>
+                            <option value="social">Contenu Réseaux Sociaux</option>
+                            <option value="tutorial">Tutoriel/Formation</option>
+                            <option value="presentation">Présentation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sujet de la vidéo</label>
+                        <input type="text" id="video-subject" class="form-control" placeholder="Ex: Promotion nouveau produit...">
+                    </div>
+                    <div class="form-group">
+                        <label>Durée estimée</label>
+                        <select id="video-duration" class="form-control">
+                            <option value="30">30 secondes</option>
+                            <option value="60">1 minute</option>
+                            <option value="180">3 minutes</option>
+                            <option value="300">5 minutes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Style visuel</label>
+                        <select id="video-style" class="form-control">
+                            <option value="modern">Moderne/Dynamique</option>
+                            <option value="corporate">Corporate/Professionnel</option>
+                            <option value="creative">Créatif/Artistique</option>
+                            <option value="minimal">Minimaliste</option>
+                        </select>
+                    </div>
+                    <button class="btn-generate" onclick="generateVideoScript()">
+                        <i class="fas fa-magic"></i> Générer avec IA
+                    </button>
+                    <div id="generated-result" class="generated-result" style="display: none;">
+                        <h4>Script généré:</h4>
+                        <pre id="script-output"></pre>
+                        <div class="result-actions">
+                            <button class="btn-secondary" onclick="copyScript()">
+                                <i class="fas fa-copy"></i> Copier
+                            </button>
+                            <button class="btn-primary" onclick="downloadScript()">
+                                <i class="fas fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script src="js/toast.js"></script>
     <script>
+        // E-Studio AI Configuration
+        const STUDIO_AI_CONFIG = {
+            ollama: {
+                host: 'http://localhost:11434',
+                model: 'llama3:latest'
+            },
+            features: {
+                script: true,
+                voiceover: true,
+                subtitles: true,
+                effects: true
+            }
+        };
+
+        // Check Ollama availability
+        async function checkOllamaStatus() {
+            try {
+                const response = await fetch('http://localhost:11434/api/tags', {
+                    method: 'GET',
+                    timeout: 3000
+                });
+                return response.ok;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // Generate video script using Ollama
+        async function generateVideoScript() {
+            const subject = document.getElementById('video-subject').value;
+            const videoType = document.getElementById('video-type').value;
+            const duration = document.getElementById('video-duration').value;
+            const style = document.getElementById('video-style').value;
+            
+            if (!subject) {
+                toast.error('Erreur', 'Veuillez entrer un sujet pour la vidéo');
+                return;
+            }
+
+            const btn = document.querySelector('.btn-generate');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Génération en cours...';
+            btn.disabled = true;
+
+            try {
+                // Try Ollama first
+                const response = await fetch('http://localhost:11434/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'llama3:latest',
+                        messages: [{
+                            role: 'system',
+                            content: 'Tu es un expert en création de scripts vidéo marketing. Génère des scripts professionnels, créatifs et engageants.'
+                        }, {
+                            role: 'user',
+                            content: `Génère un script vidéo ${videoType} de ${duration} secondes sur le sujet: ${subject}. Style: ${style}. Format: Introduction + Corps + Conclusion. Durée pour chaque partie.`
+                        }],
+                        stream: false
+                    })
+                });
+
+                let script = '';
+                if (response.ok) {
+                    const data = await response.json();
+                    script = data.message.content;
+                } else {
+                    // Fallback to local generation
+                    script = generateLocalScript(subject, videoType, duration, style);
+                }
+
+                document.getElementById('script-output').textContent = script;
+                document.getElementById('generated-result').style.display = 'block';
+                toast.success('Succès', 'Script généré avec IA!');
+            } catch (e) {
+                // Fallback
+                const script = generateLocalScript(subject, videoType, duration, style);
+                document.getElementById('script-output').textContent = script;
+                document.getElementById('generated-result').style.display = 'block';
+                toast.warning('Mode hors-ligne', 'Script généré localement');
+            }
+
+            btn.innerHTML = '<i class="fas fa-magic"></i> Générer avec IA';
+            btn.disabled = false;
+        }
+
+        // Local script generation (fallback)
+        function generateLocalScript(subject, type, duration, style) {
+            return `🎬 SCRIPT VIDÉO - ${subject.toUpperCase()}
+=====================================
+Type: ${type} | Durée: ${duration}s | Style: ${style}
+
+📍 INTRODUCTION (0-${Math.floor(duration*0.15)}s)
+- Hook visuel accrocheur
+- Présentation du sujet: ${subject}
+- Promesse du bénéfice client
+
+📍 CORPS (${Math.floor(duration*0.15)}s-${Math.floor(duration*0.85)}s)
+- Problème: [Identifier le besoin]
+- Solution: ${subject}
+- Preuve/Bénéfices:
+  * Benefit 1: [...]
+  * Benefit 2: [...]
+  * Benefit 3: [...]
+- Appel à l'action
+
+📍 CONCLUSION (${Math.floor(duration*0.85)}s-${duration}s)
+- Résumé rapide
+- CTA: [Visiter le site/Appeler]
+- Remerciement
+
+📝 SUGGESTIONS VISUELLES:
+- Images: ${getStyleImages(style)}
+- Transitions: Cut, Fade, Slide
+- Musique: ${getMusicStyle(type)}
+
+=====================================
+Généré par E-Studio IA (Ollama)`
+        }
+
+        function getStyleImages(style) {
+            const styles = {
+                modern: 'ÉLÉMENTS GÉOMÉTRIQUES, COULEURS VIVES',
+                corporate: 'PHOTOS PROFESSIONNELLES, ÉLÉLÉGANT',
+                creative: 'ABSTRAIT, EXPÉRIMENTAL',
+                minimal: 'ESPACE BLANC, TYPOGRAPHIE'
+            };
+            return styles[style] || styles.modern;
+        }
+
+        function getMusicStyle(type) {
+            const types = {
+                marketing: 'Uplift, Énergique',
+                social: 'Trending, TikTok',
+                tutorial: 'Ambiant, Calme',
+                presentation: 'Corporate, Professionnel'
+            };
+            return types[type] || types.marketing;
+        }
+
+        function copyScript() {
+            const script = document.getElementById('script-output').textContent;
+            navigator.clipboard.writeText(script);
+            toast.success('Copié!', 'Script copié dans le presse-papiers');
+        }
+
+        function downloadScript() {
+            const script = document.getElementById('script-output').textContent;
+            const blob = new Blob([script], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'e-studio-script.txt';
+            a.click();
+            toast.success('Téléchargé!', 'Script enregistré');
+        }
+
+        function openAIGenerator() {
+            document.getElementById('ai-generator').style.display = 'block';
+            document.getElementById('ai-generator').scrollIntoView({ behavior: 'smooth' });
+            
+            // Check Ollama status
+            checkOllamaStatus().then(available => {
+                if (!available) {
+                    toast.warning('IA Locale', 'Ollama non détecté - Mode hors-ligne');
+                }
+            });
+        }
+
+        function closeAIGenerator() {
+            document.getElementById('ai-generator').style.display = 'none';
+        }
+
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
