@@ -16,6 +16,6 @@ echo.
 echo ========================================
 echo.
 
-py -m http.server 8000 --directory .
+py -m http.server 8000 --directory "%~dp0" --bind 127.0.0.1
 
 pause
