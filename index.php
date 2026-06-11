@@ -1,38 +1,46 @@
 <?php
-// Auto-index - redirect to index.html or list files
-$files = [
-    'index.html',
-    'portfolio.html', 
-    'services.html',
-    'studio.html',
-    'contact.html',
-    'about.html',
-    'blog.html'
-];
-
+// Simple router - serves files from current directory
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 $path = parse_url($uri, PHP_URL_PATH);
 $path = trim($path, '/');
 
-// If requesting a specific file
-if ($path && in_array($path, $files)) {
-    readfile(__DIR__ . '/' . $path);
+// Security - remove ..
+$path = str_replace('..', '', $path);
+
+// If empty, use index.html
+if ($path === '') {
+    $path = 'index.html';
+}
+
+// Build full path
+$dir = __DIR__;
+$file = $dir . '/' . $path;
+
+// Check if file exists
+if (file_exists($file)) {
+    $ext = pathinfo($path, PATHINFO_EXTENSION);
+    $mime_types = [
+        'html' => 'text/html',
+        'htm' => 'text/html',
+        'css' => 'text/css',
+        'js' => 'application/javascript',
+        'json' => 'application/json',
+        'png' => 'image/png',
+        'jpg' => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'gif' => 'image/gif',
+        'svg' => 'image/svg+xml',
+        'ico' => 'image/x-icon',
+        'woff' => 'font/woff',
+        'woff2' => 'font/woff2',
+    ];
+    
+    header('Content-Type: ' . ($mime_types[$ext] ?? 'text/html'));
+    readfile($file);
     exit;
 }
 
-// If root, redirect to index.html
-if ($path === '' || $path === '/') {
-    readfile(__DIR__ . '/index.html');
-    exit;
-}
-
-// Otherwise show links
-header('Content-Type: text/html; charset=utf-8');
-echo "<h1>E-Graphisme</h1>";
-echo "<p>Server working! Files:</p>";
-echo "<ul>";
-foreach ($files as $f) {
-    echo "<li><a href='$f'>$f</a></li>";
-}
-echo "</ul>";
-echo "<p>Current dir: " . __DIR__ . "</p>";
+// 404
+http_response_code(404);
+echo "404 - File not found: " . htmlspecialchars($path);
+echo "<br>Looking in: " . $dir;
