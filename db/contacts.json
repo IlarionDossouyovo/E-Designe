@@ -38,10 +38,64 @@
     "services": [
         {
             "id": "srv_001",
+            "name": "Identité Visuelle",
+            "slug": "identite-visuelle",
+            "description": "Création de logo, charte graphique, palette de couleurs",
+            "price": 299,
+            "status": "active",
+            "created_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "srv_002",
             "name": "Web Design",
             "slug": "web-design",
-            "description": " Création de sites web professionnels",
-            "price": 1500,
+            "description": "Création de sites web professionnels",
+            "price": 699,
+            "status": "active",
+            "created_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "srv_003",
+            "name": "E-commerce",
+            "slug": "e-commerce",
+            "description": "Boutique en ligne avec paiement",
+            "price": 1499,
+            "status": "active",
+            "created_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "srv_004",
+            "name": "Design Print",
+            "slug": "design-print",
+            "description": "Affiches, flyers, cartes de visite, packaging",
+            "price": 199,
+            "status": "active",
+            "created_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "srv_005",
+            "name": "UI/UX Design",
+            "slug": "ui-ux-design",
+            "description": "Maquettes, prototypage, tests utilisateur",
+            "price": 899,
+            "status": "active",
+            "created_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "srv_006",
+            "name": "Motion Design",
+            "slug": "motion-design",
+            "description": "Animations, intros vidéo, transitions",
+            "price": 399,
+            "status": "active",
+            "created_at": "2024-04-24 12:00:00"
+        },
+        {
+            "id": "srv_007",
+            "name": "E-Studio IA",
+            "slug": "e-studio-ia",
+            "description": "Production vidéo par intelligence artificielle",
+            "price": 99,
             "status": "active",
             "created_at": "2024-04-24 12:00:00"
         }
