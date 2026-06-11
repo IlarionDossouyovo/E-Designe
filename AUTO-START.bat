@@ -20,7 +20,7 @@ REM ============================================
 set WEB_PORT=8000
 set N8N_PORT=5678
 set OLLAMA_PORT=11434
-set WEBUI_PORT=3001
+set OPENHANDS_PORT=3000
 
 REM Dossiers
 set DB_DIR=db
@@ -94,15 +94,15 @@ if %errorlevel% neq 0 (
 )
 
 echo.
-echo [ETAPE 6] Demarrage Open WebUI...
-netstat -an | findstr ":%WEBUI_PORT%" >nul
+echo [ETAPE 6] Demarrage OpenHands...
+netstat -an | findstr ":%OPENHANDS_PORT%" >nul
 if %errorlevel% neq 0 (
-    echo     Demarrage de Open WebUI...
-    docker run -d --name egraphisme-webui -p %WEBUI_PORT%:8080 -e OLLAMA_BASE_URL=http://host.docker.internal:11434 openwebui/open-webui
+    echo     Demarrage de OpenHands...
+    docker run -d --name egraphisme-openhands -p %OPENHANDS_PORT%:3000 -e OPENHANDS_API_KEY=egraphisme-2024 openhands/openhands:latest
     timeout /t 5 /nobreak >nul
-    echo     OK - Open WebUI demarre
+    echo     OK - OpenHands demarre
 ) else (
-    echo     OK - Open WebUI deja actif
+    echo     OK - OpenHands deja actif
 )
 
 REM ============================================
@@ -126,8 +126,8 @@ netstat -an | findstr ":%N8N_PORT%" >nul && echo     EN LIGNE || echo     HORS L
 echo [3] Ollama : 
 netstat -an | findstr ":%OLLAMA_PORT%" >nul && echo     EN LIGNE || echo     HORS LIGNE
 
-echo [4] Open WebUI : 
-netstat -an | findstr ":%WEBUI_PORT%" >nul && echo     EN LIGNE || echo     HORS LIGNE
+echo [4] OpenHands : 
+netstat -an | findstr ":%OPENHANDS_PORT%" >nul && echo     EN LIGNE || echo     HORS LIGNE
 
 REM ============================================
 REM OUVERTURE DES URLS
@@ -143,7 +143,7 @@ echo   ----------------------
 echo   Dashboard:   http://127.0.0.1:%WEB_PORT%/dashboard.html
 echo   N8n:        http://localhost:%N8N_PORT%
 echo   Ollama:      http://localhost:%OLLAMA_PORT%
-echo   Open WebUI:  http://localhost:%WEBUI_PORT%
+echo   OpenHands:  http://localhost:%OPENHANDS_PORT%
 echo.
 echo ========================================
 

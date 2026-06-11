@@ -22,9 +22,9 @@ docker stop egraphisme-n8n >nul 2>&1
 docker rm egraphisme-n8n >nul 2>&1
 echo     OK
 
-echo [ETAPE 3] Arret Open WebUI...
-docker stop egraphisme-webui >nul 2>&1
-docker rm egraphisme-webui >nul 2>&1
+echo [ETAPE 3] Arret OpenHands...
+docker stop egraphisme-openhands >nul 2>&1
+docker rm egraphisme-openhands >nul 2>&1
 echo     OK
 
 echo [ETAPE 4] Arret Ollama...

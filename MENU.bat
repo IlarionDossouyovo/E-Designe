@@ -20,7 +20,7 @@ echo   3. Arreter tout (AUTO-STOP)
 echo.
 echo   4. Dashboard E-Graphisme
 echo   5. Interface N8n
-echo   6. Open WebUI
+echo   6. OpenHands
 echo.
 echo   0. Quitter
 echo.
@@ -70,7 +70,7 @@ start http://localhost:5678
 goto menu
 
 :webui
-start http://localhost:3001
+start http://localhost:3000
 goto menu
 
 :quit

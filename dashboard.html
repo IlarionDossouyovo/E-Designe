@@ -64,7 +64,7 @@
     
     <div class="header">
         <h1>🤖 E-Graphisme - Dashboard IA</h1>
-        <div class="subtitle">Tableau de bord intelligent pour votre entreprise</div>
+        <div class="subtitle">Tableau de bord intelligent avec OpenHands</div>
     </div>
     
     <div class="container">
@@ -87,36 +87,36 @@
             <div class="stat-card">
                 <h3>Uptime</h3>
                 <div class="value" id="uptime">--</div>
-                <div class="label">Disponibilité</div>
+                <div class="label">Disponibilite</div>
             </div>
         </div>
         
         <div class="section">
-            <h2><span class="status-dot active"></span> Services Connectés</h2>
+            <h2><span class="status-dot active"></span> Services Connectes</h2>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="icon">🌐</div>
                     <h4>Web Server</h4>
                     <div class="url">localhost:8000</div>
-                    <div class="status" id="status-web"><span class="status-dot checking"></span> Vérification...</div>
+                    <div class="status" id="status-web"><span class="status-dot checking"></span> Verification...</div>
                 </div>
                 <div class="service-card">
                     <div class="icon">🔄</div>
                     <h4>N8n</h4>
                     <div class="url">localhost:5678</div>
-                    <div class="status" id="status-n8n"><span class="status-dot checking"></span> Vérification...</div>
+                    <div class="status" id="status-n8n"><span class="status-dot checking"></span> Verification...</div>
                 </div>
                 <div class="service-card">
                     <div class="icon">🧠</div>
                     <h4>Ollama</h4>
                     <div class="url">localhost:11434</div>
-                    <div class="status" id="status-ollama"><span class="status-dot checking"></span> Vérification...</div>
+                    <div class="status" id="status-ollama"><span class="status-dot checking"></span> Verification...</div>
                 </div>
                 <div class="service-card">
-                    <div class="icon">💬</div>
-                    <h4>Open WebUI</h4>
-                    <div class="url">localhost:3001</div>
-                    <div class="status" id="status-webui"><span class="status-dot checking"></span> Vérification...</div>
+                    <div class="icon">🤖</div>
+                    <h4>OpenHands</h4>
+                    <div class="url">localhost:3000</div>
+                    <div class="status" id="status-openhands"><span class="status-dot checking"></span> Verification...</div>
                 </div>
             </div>
         </div>
@@ -129,8 +129,8 @@
                         <h3>📊 Lead Manager</h3>
                         <span class="status-dot active"></span>
                     </div>
-                    <p class="description">Gère les leads et notifications</p>
-                    <div class="stats">Runs: <span id="leads-runs">0</span> | Succès: <span>98%</span></div>
+                    <p class="description">Gere les leads et notifications</p>
+                    <div class="stats">Runs: <span id="leads-runs">0</span> | Succes: <span>98%</span></div>
                 </div>
                 <div class="agent-card">
                     <div class="header">
@@ -138,7 +138,7 @@
                         <span class="status-dot active"></span>
                     </div>
                     <p class="description">Chatbot intelligent avec Ollama</p>
-                    <div class="stats">Runs: <span id="chat-runs">0</span> | Succès: <span>95%</span></div>
+                    <div class="stats">Runs: <span id="chat-runs">0</span> | Succes: <span>95%</span></div>
                 </div>
                 <div class="agent-card">
                     <div class="header">
@@ -146,13 +146,13 @@
                         <span class="status-dot active"></span>
                     </div>
                     <p class="description">Rapports et statistiques</p>
-                    <div class="stats">Runs: <span id="analytics-runs">0</span> | Succès: <span>100%</span></div>
+                    <div class="stats">Runs: <span id="analytics-runs">0</span> | Succes: <span>100%</span></div>
                 </div>
             </div>
         </div>
         
         <button class="refresh-btn" id="refreshBtn">🔄 Actualiser Dashboard</button>
-        <div class="last-update">Dernière mise à jour: <span id="last-update">--</span></div>
+        <div class="last-update">Derniere mise a jour: <span id="last-update">--</span></div>
     </div>
     
     <script>
@@ -160,7 +160,7 @@
             { id: 'web', name: 'Web', url: 'http://127.0.0.1:8000' },
             { id: 'n8n', name: 'N8n', url: 'http://localhost:5678' },
             { id: 'ollama', name: 'Ollama', url: 'http://localhost:11434' },
-            { id: 'webui', name: 'Open WebUI', url: 'http://localhost:3001' }
+            { id: 'openhands', name: 'OpenHands', url: 'http://localhost:3000' }
         ];
         
         let stats = { leads: 0, chats: 0, analytics: 0 };
@@ -186,7 +186,7 @@
         }
         
         async function refreshDashboard() {
-            document.getElementById('refreshBtn').textContent = '⏳ Vérification...';
+            document.getElementById('refreshBtn').textContent = '⏳ Verification...';
             
             for (const service of services) {
                 const status = await checkService(service);
