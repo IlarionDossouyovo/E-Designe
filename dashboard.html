@@ -77,25 +77,25 @@
                     <div class="icon">🌐</div>
                     <h4>Web Server</h4>
                     <div class="url">localhost:8000</div>
-                    <div class="status"><span class="status-dot active"></span> En ligne</div>
+                    <div class="status" id="status-web"><span class="status-dot active"></span> En ligne</div>
                 </div>
                 <div class="service-card">
                     <div class="icon">🔄</div>
                     <h4>N8n</h4>
                     <div class="url">localhost:5678</div>
-                    <div class="status"><span class="status-dot active"></span> En ligne</div>
+                    <div class="status" id="status-n8n"><span class="status-dot active"></span> En ligne</div>
                 </div>
                 <div class="service-card">
                     <div class="icon">🧠</div>
                     <h4>Ollama</h4>
                     <div class="url">localhost:11434</div>
-                    <div class="status"><span class="status-dot active"></span> En ligne</div>
+                    <div class="status" id="status-ollama"><span class="status-dot active"></span> En ligne</div>
                 </div>
                 <div class="service-card">
                     <div class="icon">💬</div>
                     <h4>Open WebUI</h4>
                     <div class="url">localhost:3001</div>
-                    <div class="status"><span class="status-dot active"></span> En ligne</div>
+                    <div class="status" id="status-webui"><span class="status-dot active"></span> En ligne</div>
                 </div>
             </div>
         </div>
@@ -182,28 +182,51 @@
     </div>
     
     <script>
+        // Données simulées pour démonstration
+        let dashboardData = {
+            leads: 0,
+            messages: 0,
+            lastUpdate: null
+        };
+        
         function refreshDashboard() {
             const now = new Date();
             document.getElementById('last-update').textContent = now.toLocaleString('fr-FR');
             
-            // Simuler une mise à jour
-            fetch('/php/leads-api.php')
-                .then(r => r.json())
-                .then(data => {
-                    if(data.contacts) {
-                        const today = new Date().toDateString();
-                        const todayLeads = data.contacts.filter(c => new Date(c.created_at).toDateString() === today).length;
-                        document.getElementById('leads-today').textContent = todayLeads;
-                    }
-                })
-                .catch(() => {});
+            // Simuler des données
+            dashboardData.leads = Math.floor(Math.random() * 10);
+            dashboardData.messages = Math.floor(Math.random() * 50);
+            
+            document.getElementById('leads-today').textContent = dashboardData.leads;
+            document.getElementById('ai-messages').textContent = dashboardData.messages;
+            
+            // Vérifier les services
+            checkServices();
+        }
+        
+        function checkServices() {
+            const services = [
+                { id: 'web', url: 'http://127.0.0.1:8000' },
+                { id: 'n8n', url: 'http://localhost:5678' },
+                { id: 'ollama', url: 'http://localhost:11434' }
+            ];
+            
+            services.forEach(service => {
+                fetch(service.url, { method: 'HEAD', mode: 'no-cors' })
+                    .then(() => {
+                        document.getElementById('status-' + service.id).innerHTML = '<span class="status-dot active"></span> En ligne';
+                    })
+                    .catch(() => {
+                        document.getElementById('status-' + service.id).innerHTML = '<span class="status-dot inactive"></span> Hors ligne';
+                    });
+            });
         }
         
         // Auto-refresh toutes les 30 secondes
         setInterval(refreshDashboard, 30000);
         
         // Initial
-        refreshDashboard();
+        window.addEventListener('load', refreshDashboard);
     </script>
 </body>
 </html>
