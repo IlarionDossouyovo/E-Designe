@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="E-Graphisme - E-Graphisme - Agência Criativa spécialisée en design graphique et web. Création d'identité visuelle, web design, print design et motion design.">
+    <meta name="description" content="E-Graphisme - Agence créative spécialisée en design graphique et web. Création d'identité visuelle, web design, print design et motion design.">
     <meta name="keywords" content="design graphique, web design, création logo, identité visuelle, print design, motion design, UI/UX, agences design Paris">
     <meta name="author" content="E-Graphisme">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="E-Graphisme - Design Gráfico Graphique & Web Profissional">
-    <meta property="og:description" content="E-Graphisme - Agência Criativa spécialisée en design graphique et web. Création d'identité visuelle, web design, print design.">
+    <meta property="og:title" content="E-Graphisme | Design Graphique & Web Professionnel">
+    <meta property="og:description" content="Agence créative spécialisée en design graphique et web. Création d'identité visuelle, web design, print design.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ilariondossouyovo.github.io/E-Graphisme">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="E-Graphisme - Design Gráfico Graphique & Web">
-    <meta name="twitter:description" content="E-Graphisme - Agência Criativa spécialisée en design graphique et web.">
+    <meta name="twitter:title" content="E-Graphisme | Design Graphique & Web">
+    <meta name="twitter:description" content="Agence créative spécialisée en design graphique et web.">
     <link rel="canonical" href="https://ilariondossouyovo.github.io/E-Graphisme">
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <link rel="apple-touch-icon" href="images/favicon.svg">
     
     <!-- Multilingual SEO - Hreflang -->
-    <link rel="alternate" hreflang="pt" href="https://ilariondossouyovo.github.io/E-Graphisme/">
+    <link rel="alternate" hreflang="fr" href="https://ilariondossouyovo.github.io/E-Graphisme/">
     <link rel="alternate" hreflang="en" href="https://ilariondossouyovo.github.io/E-Graphisme/en/">
     <link rel="alternate" hreflang="es" href="https://ilariondossouyovo.github.io/E-Graphisme/es/">
     <link rel="alternate" hreflang="pt" href="https://ilariondossouyovo.github.io/E-Graphisme/pt/">
@@ -31,7 +31,7 @@
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "name": "E-Graphisme",
-        "description": "E-Graphisme - Agência Criativa spécialisée en design graphique et web. Création d'identité visuelle, web design, print design et motion design.",
+        "description": "Agence créative spécialisée en design graphique et web. Création d'identité visuelle, web design, print design et motion design.",
         "url": "https://ilariondossouyovo.github.io/E-Graphisme",
         "telephone": "+229 01 977 003 47",
         "email": "electronbusiness07@gmail.com",
@@ -55,7 +55,7 @@
         },
         "priceRange": "€€-€€€",
         "areaServed": ["Bénin", "France", "Afrique de l'Ouest", "Monde"],
-        "serviceType": ["Design Gráfico", "Web Design", "Print Design", "Motion Design", "UI/UX Design", "Identité Visuelle"],
+        "serviceType": ["Design Graphique", "Web Design", "Print Design", "Motion Design", "UI/UX Design", "Identité Visuelle"],
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.9",
@@ -70,7 +70,7 @@
     }
     </script>
     
-    <title>E-Graphisme - Design Gráfico Graphique & Web</title>
+    <title>E-Graphisme | Design Graphique & Web</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/pages.css">
@@ -99,7 +99,7 @@
         <div class="container">
             <a href="index.html" class="logo">E-<span>Graphisme By ELECTRON</span></a>
             <ul class="nav-links">
-                <li><a href="index.html">Início</a></li>
+                <li><a href="index.html">Accueil</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="portfolio.html">Portfolio</a></li>
                 <li><a href="about.html">À propos</a></li>
@@ -119,15 +119,44 @@
                 <option value="fr">🇫🇷 Français</option>
                 <option value="en">🇬🇧 English</option>
                 <option value="es">🇪🇸 Español</option>
-                <option value="pt">🇧🇷 Português</option>
+                <option value="pt" selected>🇧🇷 Português</option>
             </select>
             <script>
+                // Auto-detect and redirect on page load
+                (function() {
+                    const savedLang = localStorage.getItem('egraphisme-lang');
+                    const browserLang = navigator.language.split('-')[0];
+                    const currentPath = window.location.pathname;
+                    
+                    // Only redirect if on root and no language saved
+                    if (!currentPath.includes('/en/') && !currentPath.includes('/es/') && !currentPath.includes('/pt/')) {
+                        if (savedLang && savedLang !== 'fr') {
+                            // Redirect to saved language
+                            console.log("Auto-redirecting to:", savedLang);
+                            window.location.href = '/' + savedLang + '/';
+                        } else if (!savedLang && browserLang !== 'fr') {
+                            // Auto-detect browser language
+                            console.log("Browser language:", browserLang);
+                            // Don't auto-redirect, just show the selector
+                        }
+                    }
+                })();
+                
                 function changeLanguage(lang) {
                     console.log("Changing language to:", lang);
                     localStorage.setItem('egraphisme-lang', lang);
-                    document.documentElement.lang = lang;
-                    alert('Langue changée: ' + lang + ' - La page va se recharger');
-                    location.reload();
+                    
+                    // Redirect to language-specific page
+                    let newUrl = '';
+                    
+                    if (lang === 'fr') {
+                        newUrl = window.location.origin + '/E-Graphisme/';
+                    } else {
+                        newUrl = window.location.origin + '/E-Graphisme/' + lang + '/';
+                    }
+                    
+                    console.log("Redirecting to:", newUrl);
+                    window.location.href = newUrl;
                 }
             </script>
         </div>
@@ -136,7 +165,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1>Design Gráfico & <span>Web</span> Profissional</h1>
+            <h1>Design Graphique & <span>Web</span> Professionnel</h1>
             <p>Nous créons des expériences visuelles uniques qui captivent votre audience et renforcent votre image de marque.</p>
             <div class="hero-buttons">
                 <a href="#portfolio" class="btn btn-primary">Voir nos réalisations</a>
@@ -398,7 +427,7 @@
     <section id="faq" class="faq-section">
         <div class="container">
             <div class="section-header">
-                <h2>Perguntas Frequentes</h2>
+                <h2>Questions Fréquentes</h2>
                 <p>Tout ce que vous devez savoir sur nos services</p>
             </div>
             
@@ -552,7 +581,7 @@
                 <div class="footer-links">
                     <h4>Liens Rapides</h4>
                     <ul>
-                        <li><a href="#home">Início</a></li>
+                        <li><a href="#home">Accueil</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#portfolio">Portfolio</a></li>
                         <li><a href="#contact">Contact</a></li>

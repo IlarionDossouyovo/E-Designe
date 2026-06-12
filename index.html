@@ -122,12 +122,41 @@
                 <option value="pt">🇧🇷 Português</option>
             </select>
             <script>
+                // Auto-detect and redirect on page load
+                (function() {
+                    const savedLang = localStorage.getItem('egraphisme-lang');
+                    const browserLang = navigator.language.split('-')[0];
+                    const currentPath = window.location.pathname;
+                    
+                    // Only redirect if on root and no language saved
+                    if (!currentPath.includes('/en/') && !currentPath.includes('/es/') && !currentPath.includes('/pt/')) {
+                        if (savedLang && savedLang !== 'fr') {
+                            // Redirect to saved language
+                            console.log("Auto-redirecting to:", savedLang);
+                            window.location.href = '/' + savedLang + '/';
+                        } else if (!savedLang && browserLang !== 'fr') {
+                            // Auto-detect browser language
+                            console.log("Browser language:", browserLang);
+                            // Don't auto-redirect, just show the selector
+                        }
+                    }
+                })();
+                
                 function changeLanguage(lang) {
                     console.log("Changing language to:", lang);
                     localStorage.setItem('egraphisme-lang', lang);
-                    document.documentElement.lang = lang;
-                    alert('Langue changée: ' + lang + ' - La page va se recharger');
-                    location.reload();
+                    
+                    // Redirect to language-specific page
+                    let newUrl = '';
+                    
+                    if (lang === 'fr') {
+                        newUrl = window.location.origin + '/E-Graphisme/';
+                    } else {
+                        newUrl = window.location.origin + '/E-Graphisme/' + lang + '/';
+                    }
+                    
+                    console.log("Redirecting to:", newUrl);
+                    window.location.href = newUrl;
                 }
             </script>
         </div>
