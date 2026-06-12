@@ -16,9 +16,9 @@ const AIWidget = {
         position: 'bottom-right',
         theme: 'dark',
         accentColor: '#7B2FFF',
-        title: 'E-Graphisme AI',
-        subtitle: 'Assistant virtuel',
-        company: 'E-Graphisme By ELECTRON'
+        title: window.AIWidgetConfig?.title || 'E-Graphisme AI',
+        subtitle: window.AIWidgetConfig?.subtitle || 'Assistant virtuel',
+        company: window.AIWidgetConfig?.company || 'E-Graphisme By ELECTRON'
     },
 
     /**

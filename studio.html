@@ -1498,6 +1498,21 @@
 
     <script src="js/toast.js"></script>
     <script>
+        // Override AI widget for E-Studio
+        window.AIWidgetConfig = {
+            title: 'E-Studio AI',
+            subtitle: 'Assistant vidéo IA',
+            company: 'E-Studio'
+        };
+        // Override chat widget
+        window.ChatWidgetConfig = {
+            companyName: 'E-Studio',
+            whatsappNumber: '+2290197700347'
+        };
+    </script>
+    <script src="js/ai-widget.js" defer></script>
+    <script src="js/chat-widget.js"></script>
+    <script>
         // Feature details
         const featureDetails = {
             'Montage Intelligent': {
