@@ -2,11 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <!-- Main Pages -->
     <url>
-        <loc>https://ilariondossouyovo.github.io/E-Graphisme/</loc>
+        <loc>https://e-graphisme.vercel.app/</loc>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
+<<<<<<< HEAD
         <loc>https://ilariondossouyovo.github.io/E-Graphisme/index.html</loc>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
@@ -15,22 +16,32 @@
     <!-- Content Pages -->
     <url>
         <loc>https://ilariondossouyovo.github.io/E-Graphisme/studio.html</loc>
+=======
+        <loc>https://e-graphisme.vercel.app/studio.html</loc>
+>>>>>>> 45c735b8664914a71ed7ef816a63d5788db42a40
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://ilariondossouyovo.github.io/E-Graphisme/services.html</loc>
+        <loc>https://e-graphisme.vercel.app/services.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
+<<<<<<< HEAD
         <loc>https://ilariondossouyovo.github.io/E-Graphisme/portfolio.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+=======
+        <loc>https://e-graphisme.vercel.app/portfolio.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+>>>>>>> 45c735b8664914a71ed7ef816a63d5788db42a40
     </url>
     <url>
-        <loc>https://ilariondossouyovo.github.io/E-Graphisme/about.html</loc>
+        <loc>https://e-graphisme.vercel.app/about.html</loc>
         <changefreq>monthly</changefreq>
+<<<<<<< HEAD
         <priority>0.8</priority>
     </url>
     <url>
@@ -42,9 +53,22 @@
         <loc>https://ilariondossouyovo.github.io/E-Graphisme/blog.php</loc>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
+=======
+        <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://ilariondossouyovo.github.io/E-Graphisme/contact.html</loc>
+        <loc>https://e-graphisme.vercel.app/blog.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://e-graphisme.vercel.app/blog.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+>>>>>>> 45c735b8664914a71ed7ef816a63d5788db42a40
+    </url>
+    <url>
+        <loc>https://e-graphisme.vercel.app/contact.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -63,12 +87,12 @@
     
     <!-- Legal Pages -->
     <url>
-        <loc>https://ilariondossouyovo.github.io/E-Graphisme/privacy.html</loc>
+        <loc>https://e-graphisme.vercel.app/privacy.html</loc>
         <changefreq>yearly</changefreq>
         <priority>0.4</priority>
     </url>
     <url>
-        <loc>https://ilariondossouyovo.github.io/E-Graphisme/terms.html</loc>
+        <loc>https://e-graphisme.vercel.app/terms.html</loc>
         <changefreq>yearly</changefreq>
         <priority>0.4</priority>
     </url>

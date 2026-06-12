@@ -1,0 +1,116 @@
+[
+  {
+    "id": "identite-visuelle",
+    "name": "Identité Visuelle",
+    "slug": "identite-visuelle",
+    "category": "design",
+    "description": "Création d'identité de marque complète : logo, charte graphique, palette de couleurs.",
+    "price": 200000,
+    "currency": "XOF",
+    "duration": "14 jours",
+    "features": [
+      "Logo professionnel",
+      "Charte graphique complète",
+      "Palette de couleurs",
+      "Typographie",
+      "Carte de visite & papeterie"
+    ],
+    "image": "/images/services/identite.svg",
+    "popular": true
+  },
+  {
+    "id": "web-design",
+    "name": "Web Design",
+    "slug": "web-design",
+    "category": "web",
+    "description": "Conception de sites web modernes, responsives et ergonomiques.",
+    "price": 150000,
+    "currency": "XOF",
+    "duration": "7 jours",
+    "features": [
+      "Design personnalisé",
+      "Responsive (mobile/tablette/desktop)",
+      "SEO optimisé",
+      "Formulaire de contact",
+      "Intégration réseaux sociaux"
+    ],
+    "image": "/images/services/web.svg",
+    "popular": true
+  },
+  {
+    "id": "print",
+    "name": "Print Design",
+    "slug": "print-design",
+    "category": "print",
+    "description": "Affiches, flyers, cartes de visite, brochures et tous supports.",
+    "price": 75000,
+    "currency": "XOF",
+    "duration": "5 jours",
+    "features": [
+      "Affiches publicitaires",
+      "Flyers & dépliants",
+      "Cartes de visite",
+      "Brochures & catalogues",
+      "Supports événementiels"
+    ],
+    "image": "/images/services/print.svg",
+    "popular": false
+  },
+  {
+    "id": "marketing",
+    "name": "Marketing Visuel",
+    "slug": "marketing-visuel",
+    "category": "marketing",
+    "description": "Créations pour les réseaux sociaux, bannières publicitaires et newsletters.",
+    "price": 100000,
+    "currency": "XOF",
+    "duration": "7 jours",
+    "features": [
+      "Posts réseaux sociaux",
+      "Bannières publicitaires",
+      "Newsletters",
+      "Couverture événements",
+      "Templates publicitaires"
+    ],
+    "image": "/images/services/marketing.svg",
+    "popular": true
+  },
+  {
+    "id": "ui-ux",
+    "name": "UI/UX Design",
+    "slug": "ui-ux",
+    "category": "design",
+    "description": "Interfaces utilisateur intuitives et expériences utilisateur optimisées.",
+    "price": 175000,
+    "currency": "XOF",
+    "duration": "10 jours",
+    "features": [
+      "Wireframes",
+      "Prototypage interactif",
+      "Tests utilisateur",
+      "Design system",
+      "Spécifications techniques"
+    ],
+    "image": "/images/services/uiux.svg",
+    "popular": false
+  },
+  {
+    "id": "motion",
+    "name": "Motion Design",
+    "slug": "motion-design",
+    "category": "video",
+    "description": "Animations vidéo, intros, logos animés et contenus interactifs.",
+    "price": 250000,
+    "currency": "XOF",
+    "duration": "7 jours",
+    "features": [
+      "Intros vidéo",
+      "Logos animés",
+      "Animations 2D/3D",
+      "Motion graphics",
+      "Contenu interactif"
+    ],
+    "image": "/images/services/motion.svg",
+    "popular": true
+  }
+]

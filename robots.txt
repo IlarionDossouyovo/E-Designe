@@ -21,6 +21,7 @@ Disallow: /*.json$
 Disallow: /docker*
 Disallow: /*.yml
 
+<<<<<<< HEAD
 # Allow static assets
 Allow: /images/*
 Allow: /css/*
@@ -28,3 +29,8 @@ Allow: /js/*
 
 # Host specification
 Host: https://ilariondossouyovo.github.io/E-Graphisme
+=======
+# Sitemap
+Sitemap: https://e-graphisme.vercel.app/sitemap.xml
+Sitemap: https://e-graphisme.vercel.app/sitemap.xml
+>>>>>>> 45c735b8664914a71ed7ef816a63d5788db42a40
