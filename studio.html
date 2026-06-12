@@ -721,15 +721,17 @@
         .demo-feature {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
-            padding: 25px;
+            padding: 15px;
             text-align: center;
             border: 1px solid rgba(0, 212, 255, 0.2);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .demo-feature:hover {
             border-color: var(--primary);
             transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
         
         .demo-feature i {
@@ -768,11 +770,6 @@
             opacity: 1;
         }
         
-        .demo-feature {
-            cursor: pointer;
-            padding: 15px;
-        }
-        
         .demo-feature-img {
             width: 100%;
             height: 120px;
@@ -780,17 +777,12 @@
             border-radius: 10px;
             margin-bottom: 15px;
             transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 212, 255, 0.3);
         }
         
         .demo-feature:hover .demo-feature-img {
             transform: scale(1.02);
-        }
-        
-        .demo-feature:hover {
-            cursor: pointer;
-            transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
         }
         
         /* Player Video */
@@ -1553,21 +1545,39 @@
             }
         };
         
-        // Event delegation for demo features
-        document.addEventListener('DOMContentLoaded', function() {
-            const featuresContainer = document.getElementById('demo-features-list');
-            if (featuresContainer) {
-                featuresContainer.addEventListener('click', function(e) {
-                    const featureEl = e.target.closest('.demo-feature');
-                    if (featureEl) {
-                        const feature = featureEl.getAttribute('data-feature');
-                        if (feature) {
-                            window.playDemoFeature(feature);
-                        }
-                    }
-                });
+        // Event delegation for demo features - works even if images are clicked
+        document.addEventListener('click', function(e) {
+            // Check if clicked element is inside demo-feature
+            const featureEl = e.target.closest('.demo-feature');
+            if (featureEl) {
+                const feature = featureEl.getAttribute('data-feature');
+                if (feature) {
+                    console.log('Demo feature clicked:', feature);
+                    window.playDemoFeature(feature);
+                }
             }
         });
+        
+        // Also try DOMContentLoaded as fallback
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupDemoFeatures);
+        } else {
+            setupDemoFeatures();
+        }
+        
+        function setupDemoFeatures() {
+            const features = document.querySelectorAll('.demo-feature');
+            features.forEach(function(el) {
+                el.addEventListener('click', function(e) {
+                    const feature = this.getAttribute('data-feature');
+                    if (feature) {
+                        console.log('Direct click on demo-feature:', feature);
+                        window.playDemoFeature(feature);
+                    }
+                });
+            });
+            console.log('Demo features setup, count:', features.length);
+        }
         
         function openDemoGenerator() {
             const generator = document.getElementById('ai-generator');
