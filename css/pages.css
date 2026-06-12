@@ -242,6 +242,11 @@
     margin-bottom: 80px;
 }
 
+.service-image {
+    width: 100%;
+    height: 350px;
+}
+
 .service-row.reverse {
     direction: rtl;
 }
