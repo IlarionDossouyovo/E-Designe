@@ -1813,6 +1813,40 @@ Généré par E-Studio IA (Ollama)`
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
+        
+        // Feature card click handlers - scroll to demo section
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function() {
+                const title = this.querySelector('h3').textContent;
+                const desc = this.querySelector('p').textContent;
+                
+                // Show toast with feature info
+                if (typeof showToast === 'function') {
+                    showToast('🚧 Fonctionnalité: ' + title + ' - Bientôt disponible!', 'info');
+                } else {
+                    alert('Fonctionnalité: ' + title + '\n\n' + desc + '\n\nCette fonctionnalité sera bientôt disponible!');
+                }
+                
+                // Also open demo modal
+                const demoModal = document.getElementById('demo-modal');
+                if (demoModal) {
+                    demoModal.style.display = 'flex';
+                }
+            });
+        });
+        
+        // Steps click handlers
+        document.querySelectorAll('.step').forEach(step => {
+            step.style.cursor = 'pointer';
+            step.addEventListener('click', function() {
+                const title = this.querySelector('h3').textContent;
+                if (typeof showToast === 'function') {
+                    showToast('📝 ' + title + ' - Voir les tarifs', 'info');
+                }
+                document.getElementById('pricing')?.scrollIntoView({behavior: 'smooth'});
+            });
+        });
     </script>
 </body>
 </html>
