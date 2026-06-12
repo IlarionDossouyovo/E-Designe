@@ -1,4 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
-  <rect width="600" height="400" fill="#10b981"/>
-  <text x="300" y="200" font-family="Arial, sans-serif" font-size="48" fill="white" text-anchor="middle" dominant-baseline="middle">Print</text>
+  <defs>
+    <linearGradient id="printGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="#0f0f1a"/>
+  <rect x="100" y="60" width="180" height="240" rx="4" fill="#10b981" transform="rotate(-5 190 180)"/>
+  <rect x="105" y="62" width="180" height="240" rx="4" fill="#34d399" transform="rotate(-2 195 182)"/>
+  <rect x="110" y="65" width="180" height="240" rx="4" fill="white"/>
+  <rect x="130" y="85" width="80" height="10" rx="2" fill="#10b981"/>
+  <rect x="130" y="110" width="140" height="6" rx="2" fill="#059669" opacity="0.6"/>
+  <rect x="130" y="125" width="100" height="6" rx="2" fill="#059669" opacity="0.6"/>
+  <rect x="130" y="140" width="120" height="6" rx="2" fill="#059669" opacity="0.6"/>
+  <rect x="130" y="170" width="140" height="100" rx="4" fill="#10b981" opacity="0.5"/>
+  <rect x="320" y="100" width="120" height="80" rx="4" fill="#34d399"/>
+  <rect x="330" y="110" width="100" height="60" rx="2" fill="#10b981" opacity="0.3"/>
+  <rect x="320" y="200" width="120" height="80" rx="4" fill="#059669"/>
+  <text x="300" y="370" font-family="Arial" font-size="32" fill="white" text-anchor="middle" font-weight="bold">PRINT DESIGN</text>
 </svg>

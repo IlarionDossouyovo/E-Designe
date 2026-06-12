@@ -1,10 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
   <defs>
-    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="printGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <rect width="400" height="300" fill="url(#grad3)"/>
-  <text x="200" y="160" font-family="Arial" font-size="40" fill="white" text-anchor="middle" font-weight="bold">Print</text>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#0f0f1a"/>
+  
+  <!-- Flyer Stack -->
+  <rect x="80" y="50" width="180" height="120" rx="4" fill="#ef4444" transform="rotate(-6 170 110)"/>
+  <rect x="85" y="52" width="180" height="120" rx="4" fill="#f59e0b" transform="rotate(-3 175 112)"/>
+  <rect x="90" y="55" width="180" height="120" rx="4" fill="white"/>
+  
+  <!-- Content -->
+  <rect x="110" y="75" width="80" height="10" rx="2" fill="#f59e0b"/>
+  <rect x="110" y="95" width="130" height="6" rx="2" fill="#ef4444" opacity="0.6"/>
+  <rect x="110" y="108" width="100" height="6" rx="2" fill="#ef4444" opacity="0.6"/>
+  <rect x="110" y="121" width="120" height="6" rx="2" fill="#ef4444" opacity="0.6"/>
+  
+  <!-- Image Placeholders -->
+  <rect x="110" y="140" width="60" height="25" rx="2" fill="#f59e0b" opacity="0.5"/>
+  <rect x="180" y="140" width="60" height="25" rx="2" fill="#ef4444" opacity="0.5"/>
+  
+  <!-- Business Cards -->
+  <rect x="290" y="70" width="70" height="40" rx="3" fill="#f59e0b"/>
+  <rect x="295" y="75" width="60" height="30" rx="2" fill="white" opacity="0.2"/>
+  
+  <rect x="295" y="120" width="70" height="40" rx="3" fill="#ef4444"/>
+  <rect x="300" y="125" width="60" height="30" rx="2" fill="white" opacity="0.2"/>
+  
+  <!-- Color Bars -->
+  <rect x="80" y="220" width="80" height="4" rx="2" fill="#f59e0b"/>
+  <rect x="180" y="220" width="140" height="4" rx="2" fill="#ef4444"/>
+  
+  <!-- Label -->
+  <text x="200" y="270" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold">PRINT DESIGN</text>
 </svg>
