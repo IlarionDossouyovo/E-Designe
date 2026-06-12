@@ -115,12 +115,20 @@
             <button class="theme-toggle" id="themeToggle" title="Changer le thème">
                 <i class="fas fa-moon"></i>
             </button>
-            <select id="langSelect" class="lang-select" title="Changer de langue">
-                <option value="fr" selected>🇧🇯 FR</option>
+            <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)" title="Changer de langue">
+                <option value="fr" selected>🇫🇷 FR</option>
                 <option value="en">🇬🇧 EN</option>
                 <option value="es">🇪🇸 ES</option>
                 <option value="pt">🇧🇷 PT</option>
             </select>
+            <script>
+                function changeLanguage(lang) {
+                    localStorage.setItem('egraphisme-lang', lang);
+                    document.documentElement.lang = lang;
+                    alert('Langue changée: ' + lang);
+                    location.reload();
+                }
+            </script>
         </div>
     </nav>
 
