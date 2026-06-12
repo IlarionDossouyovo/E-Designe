@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250">
+<defs><linearGradient id="g5" x1="0" y1="0" x2="400" y2="250"><stop offset="0" stop-color="#a18cd1"/><stop offset="1" stop-color="#fbc2eb"/></linearGradient></defs>
+<rect width="400" height="250" fill="url(#g5)"/>
+<polygon points="150,80 250,125 150,170" fill="white" opacity="0.5"/>
+<polygon points="170,80 270,125 170,170" fill="white" opacity="0.3"/>
+<text x="200" y="220" fill="white" font-family="Arial" font-size="20" text-anchor="middle">Motion</text>
+</svg>
