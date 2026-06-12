@@ -1,9 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250">
-<defs><linearGradient id="g2" x1="0" y1="0" x2="400" y2="250"><stop offset="0" stop-color="#f093fb"/><stop offset="1" stop-color="#f5576c"/></linearGradient></defs>
-<rect width="400" height="250" fill="url(#g2)"/>
-<rect x="80" y="50" width="240" height="150" rx="5" fill="white" opacity="0.3"/>
-<line x1="100" y1="90" x2="300" y2="90" stroke="white" stroke-width="2" opacity="0.5"/>
-<line x1="100" y1="120" x2="280" y2="120" stroke="white" stroke-width="2" opacity="0.5"/>
-<line x1="100" y1="150" x2="260" y2="150" stroke="white" stroke-width="2" opacity="0.5"/>
-<text x="200" y="220" fill="white" font-family="Arial" font-size="20" text-anchor="middle">Print Design</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="printGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="250" fill="#1a1a2e"/>
+  
+  <!-- Flyer/Brochure Stack -->
+  <rect x="80" y="40" width="180" height="120" rx="4" fill="#f5576c" transform="rotate(-5 170 100)"/>
+  <rect x="85" y="42" width="180" height="120" rx="4" fill="#f093fb" transform="rotate(-2 175 102)"/>
+  <rect x="90" y="45" width="180" height="120" rx="4" fill="white"/>
+  
+  <!-- Content Lines -->
+  <rect x="110" y="65" width="80" height="8" rx="2" fill="#f093fb" opacity="0.7"/>
+  <rect x="110" y="85" width="140" height="4" rx="2" fill="#f5576c" opacity="0.5"/>
+  <rect x="110" y="97" width="120" height="4" rx="2" fill="#f5576c" opacity="0.5"/>
+  <rect x="110" y="109" width="100" height="4" rx="2" fill="#f5576c" opacity="0.5"/>
+  
+  <!-- Image Placeholder -->
+  <rect x="110" y="130" width="140" height="20" rx="2" fill="#f093fb" opacity="0.4"/>
+  
+  <!-- Business Cards -->
+  <rect x="280" y="80" width="60" height="35" rx="2" fill="#f093fb"/>
+  <rect x="285" y="85" width="50" height="4" rx="1" fill="white" opacity="0.7"/>
+  <rect x="285" y="95" width="30" height="3" rx="1" fill="white" opacity="0.5"/>
+  
+  <rect x="290" y="125" width="60" height="35" rx="2" fill="#f5576c"/>
+  <rect x="295" y="130" width="50" height="4" rx="1" fill="white" opacity="0.7"/>
+  <rect x="295" y="140" width="30" height="3" rx="1" fill="white" opacity="0.5"/>
+  
+  <!-- Label -->
+  <text x="200" y="235" font-family="Arial" font-size="16" fill="white" text-anchor="middle" font-weight="bold">PRINT DESIGN</text>
 </svg>

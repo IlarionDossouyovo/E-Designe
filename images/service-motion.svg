@@ -1,7 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250">
-<defs><linearGradient id="g5" x1="0" y1="0" x2="400" y2="250"><stop offset="0" stop-color="#a18cd1"/><stop offset="1" stop-color="#fbc2eb"/></linearGradient></defs>
-<rect width="400" height="250" fill="url(#g5)"/>
-<polygon points="150,80 250,125 150,170" fill="white" opacity="0.5"/>
-<polygon points="170,80 270,125 170,170" fill="white" opacity="0.3"/>
-<text x="200" y="220" fill="white" font-family="Arial" font-size="20" text-anchor="middle">Motion</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250">
+  <defs>
+    <linearGradient id="motionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a18cd1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbc2eb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="250" fill="#0f0f1a"/>
+  
+  <!-- Video Player Frame -->
+  <rect x="40" y="40" width="320" height="160" rx="8" fill="#1a1a2e" stroke="#a18cd1" stroke-width="2"/>
+  
+  <!-- Screen Content - Animated Layers -->
+  <rect x="60" y="60" width="280" height="120" rx="4" fill="#2a2a4e"/>
+  
+  <!-- Play Button -->
+  <circle cx="200" cy="120" r="25" fill="#a18cd1" opacity="0.3"/>
+  <polygon points="190,105 215,120 190,135" fill="#fbc2eb"/>
+  
+  <!-- Motion Lines/Effects -->
+  <line x1="80" y1="80" x2="120" y2="80" stroke="#a18cd1" stroke-width="2" stroke-linecap="round">
+    <animate attributeName="x1" values="80;120;80" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="120;160;120" dur="2s" repeatCount="indefinite"/>
+  </line>
+  
+  <line x1="90" y1="160" x2="130" y2="160" stroke="#fbc2eb" stroke-width="2" stroke-linecap="round">
+    <animate attributeName="x1" values="90;130;90" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="130;170;130" dur="2s" repeatCount="indefinite"/>
+  </line>
+  
+  <!-- Progress Bar -->
+  <rect x="60" y="175" width="280" height="4" rx="2" fill="#2a2a4e"/>
+  <rect x="60" y="175" width="150" height="4" rx="2" fill="url(#motionGrad)">
+    <animate attributeName="width" values="0;280;0" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Time Labels -->
+  <text x="65" y="195" font-family="Arial" font-size="8" fill="#a18cd1">0:00</text>
+  <text x="330" y="195" font-family="Arial" font-size="8" fill="#a18cd1">2:45</text>
+  
+  <!-- Playback Controls -->
+  <circle cx="180" cy="120" r="8" fill="#a18cd1" opacity="0.5"/>
+  <circle cx="220" cy="120" r="8" fill="#fbc2eb" opacity="0.3"/>
+  
+  <!-- Label -->
+  <text x="200" y="235" font-family="Arial" font-size="16" fill="white" text-anchor="middle" font-weight="bold">MOTION DESIGN</text>
 </svg>
