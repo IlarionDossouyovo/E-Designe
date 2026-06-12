@@ -646,4 +646,16 @@
     <script src="js/toast.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/ai-chat.js"></script>
+    
+    <script>
+        // Portfolio click handlers for index page
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', function() {
+                const title = this.querySelector('h4')?.textContent || this.querySelector('h3')?.textContent;
+                const category = this.querySelector('p')?.textContent || 'Portfolio';
+                alert('Projet: ' + title + '\nCatégorie: ' + category + '\n\nCe projet sera bientôt disponible en ligne!');
+            });
+        });
+    </script>
 </body>

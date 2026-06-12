@@ -233,5 +233,33 @@
     <script src="js/ai-widget.js" defer></script>
     <script src="js/api.js" defer></script>
     <script src="js/notifications.js" defer></script>
+    
+    <script>
+        // Portfolio click handlers
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', function() {
+                const title = this.querySelector('h4').textContent;
+                const category = this.querySelector('p').textContent;
+                alert('Projet: ' + title + '\nCatégorie: ' + category + '\n\nCe projet sera bientôt disponible en ligne!');
+            });
+        });
+        
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
+                document.querySelectorAll('.portfolio-item').forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
