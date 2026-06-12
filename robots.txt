@@ -1,11 +1,30 @@
+# E-Graphisme Robots.txt - SEO Optimized
 User-agent: *
 Allow: /
 
-# Disallow admin and backend
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://ilariondossouyovo.github.io/E-Graphisme/sitemap.xml
+
+# Disallow admin and backend (security)
 Disallow: /admin/
 Disallow: /php/
+Disallow: /db/
 Disallow: /uploads/
 Disallow: /cache/
+Disallow: /workflows/
+Disallow: /.git/
+Disallow: /*.log$
+Disallow: /*.json$
+Disallow: /docker*
+Disallow: /*.yml
 
-# Sitemap
-Sitemap: https://ilariondossouyovo.github.io/E-Graphisme/sitemap.xml
+# Allow static assets
+Allow: /images/*
+Allow: /css/*
+Allow: /js/*
+
+# Host specification
+Host: https://ilariondossouyovo.github.io/E-Graphisme

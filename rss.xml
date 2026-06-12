@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>E-Graphisme - Agence Créative</title>
+        <link>https://ilariondossouyovo.github.io/E-Graphisme</link>
+        <description>Agence créative spécialisée en design graphique et web. Création d'identité visuelle, web design, print design et motion design au Bénin.</description>
+        <language>fr</language>
+        <copyright>Copyright 2023-2026 E-Graphisme</copyright>
+        <managingEditor>electronbusiness07@gmail.com (Ilarion Dossouyovo)</managingEditor>
+        <webMaster>electronbusiness07@gmail.com (Ilarion Dossouyovo)</webMaster>
+        <pubDate>Thu, 12 Jun 2026 00:00:00 GMT</pubDate>
+        <lastBuildDate>Thu, 12 Jun 2026 00:00:00 GMT</lastBuildDate>
+        <generator>E-Graphisme RSS Generator</generator>
+        <atom:link href="https://ilariondossouyovo.github.io/E-Graphisme/rss.xml" rel="self" type="application/rss+xml"/>
+        <category>Graphic Design</category>
+        <category>Web Design</category>
+        <category>Brand Identity</category>
+        <category>Motion Design</category>
+        <category>UI/UX Design</category>
+        
+        <item>
+            <title>Bienvenue chez E-Graphisme</title>
+            <link>https://ilariondossouyovo.github.io/E-Graphisme/blog.html</link>
+            <description>Découvrez E-Graphisme, votre partenaire créatif pour tous vos projets de design graphique et web au Bénin. Nous créons des identités visuelles mémorables qui font vibrer votre marque.</description>
+            <pubDate>Thu, 12 Jun 2026 00:00:00 GMT</pubDate>
+            <author>electronbusiness07@gmail.com (Ilarion Dossouyovo)</author>
+            <guid isPermaLink="true">https://ilariondossouyovo.github.io/E-Graphisme/blog.html</guid>
+            <category>Agence</category>
+            <media:thumbnail url="https://ilariondossouyovo.github.io/E-Graphisme/images/logo.svg"/>
+        </item>
+        
+        <item>
+            <title>Création d'Identité Visuelle Professionnelle</title>
+            <link>https://ilariondossouyovo.github.io/E-Graphisme/portfolio.html</link>
+            <description>Notre expertise en création d'identité visuelle. Logos, chartes graphiques et identités de marque qui vous distinguent de la concurrence.</description>
+            <pubDate>Thu, 12 Jun 2026 00:00:00 GMT</pubDate>
+            <author>electronbusiness07@gmail.com</author>
+            <guid isPermaLink="true">https://ilariondossouyovo.github.io/E-Graphisme/portfolio.html</guid>
+            <category>Identité Visuelle</category>
+            <media:thumbnail url="https://ilariondossouyovo.github.io/E-Graphisme/images/logo.svg"/>
+        </item>
+        
+        <item>
+            <title>Services de Web Design et Développement</title>
+            <link>https://ilariondossouyovo.github.io/E-Graphisme/services.html</link>
+            <description>Création de sites web modernes et responsives. UI/UX design, développement front-end et back-end pour une présence en ligne optimale.</description>
+            <pubDate>Thu, 12 Jun 2026 00:00:00 GMT</pubDate>
+            <author>electronbusiness07@gmail.com</author>
+            <guid isPermaLink="true">https://ilariondossouyovo.github.io/E-Graphisme/services.html</guid>
+            <category>Web Design</category>
+            <media:thumbnail url="https://ilariondossouyovo.github.io/E-Graphisme/images/logo.svg"/>
+        </item>
+    </channel>
+</rss>
