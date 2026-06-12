@@ -11,7 +11,10 @@
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
-      "position": [100, 300]
+      "position": [
+        100,
+        300
+      ]
     },
     {
       "parameters": {
@@ -23,7 +26,10 @@
       "name": "Save",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
-      "position": [300, 300]
+      "position": [
+        300,
+        300
+      ]
     },
     {
       "parameters": {
@@ -34,7 +40,10 @@
       "name": "Email",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 1,
-      "position": [300, 150]
+      "position": [
+        300,
+        150
+      ]
     },
     {
       "parameters": {
@@ -44,11 +53,44 @@
       "name": "Respond",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [500, 300]
+      "position": [
+        500,
+        300
+      ]
     }
   ],
   "connections": {
-    "w1": {"main": [[{"node": "s1", "type": "main", "index": 0}, {"node": "e1", "type": "main", "index": 0}]]},
-    "s1": {"main": [[{"node": "r1", "type": "main", "index": 0}]]}
-  }
+    "w1": {
+      "main": [
+        [
+          {
+            "node": "s1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "e1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "s1": {
+      "main": [
+        [
+          {
+            "node": "r1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "id": "eg_lead_management"
 }

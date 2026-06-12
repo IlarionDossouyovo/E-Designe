@@ -13,5 +13,10 @@
       ]
     }
   ],
-  "connections": {}
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "id": "eg_ai_agent"
 }
