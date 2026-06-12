@@ -7,8 +7,8 @@
         "path": "contact",
         "options": {}
       },
-      "id": "w1",
-      "name": "Webhook",
+      "id": "webhook1",
+      "name": "Webhook Lead",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [250, 300],
@@ -21,24 +21,29 @@
         },
         "options": {}
       },
-      "id": "r1",
+      "id": "respond1",
       "name": "Respond",
       "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "set1",
+      "name": "Set Status",
+      "type": "n8n-nodes-base.set",
       "typeVersion": 1,
       "position": [450, 300]
     }
   ],
   "connections": {
-    "Webhook": {
-      "main": [
-        [
-          {
-            "node": "Respond",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+    "Webhook Lead": {
+      "main": [[{"node": "Set Status", "type": "main", "index": 0}]]
+    },
+    "Set Status": {
+      "main": [[{"node": "Respond", "type": "main", "index": 0}]]
     }
   },
   "active": false,

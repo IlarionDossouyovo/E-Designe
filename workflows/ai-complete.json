@@ -1,40 +1,44 @@
 {
-  "name": "E-Graphisme AI Agent",
+  "name": "E-Graphisme AI Complete",
   "nodes": [
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "ai-agent",
+        "path": "ai-complete",
         "options": {}
       },
       "id": "webhook1",
-      "name": "Webhook Agent",
+      "name": "Webhook AI",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [250, 300],
-      "webhookId": "ai-agent"
+      "webhookId": "ai-complete"
     },
     {
       "parameters": {
-        "url": "http://host.docker.internal:11434/api/chat",
+        "url": "http://host.docker.internal:11434/api/generate",
         "method": "POST",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
             {
-              "name": "messages",
-              "value": [{"role": "user", "content": "={{ $json.message }}"}]
+              "name": "prompt",
+              "value": "={{ $json.message }}"
             },
             {
               "name": "model",
               "value": "llama3"
+            },
+            {
+              "name": "stream",
+              "value": false
             }
           ]
         },
         "options": {}
       },
       "id": "ollama1",
-      "name": "Ollama Chat",
+      "name": "Ollama AI",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [450, 300]
@@ -42,7 +46,7 @@
     {
       "parameters": {
         "data": {
-          "data": "={{ $json.message }}"
+          "data": "={{ $json.response }}"
         },
         "options": {}
       },
@@ -54,13 +58,13 @@
     }
   ],
   "connections": {
-    "Webhook Agent": {
-      "main": [[{"node": "Ollama Chat", "type": "main", "index": 0}]]
+    "Webhook AI": {
+      "main": [[{"node": "Ollama AI", "type": "main", "index": 0}]]
     },
-    "Ollama Chat": {
+    "Ollama AI": {
       "main": [[{"node": "Respond", "type": "main", "index": 0}]]
     }
   },
   "active": false,
-  "id": "eg_ai_agent"
+  "id": "eg_ai_complete"
 }
