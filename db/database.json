@@ -91,6 +91,36 @@
             "views": 195,
             "created_at": "2024-05-20 14:00:00",
             "updated_at": "2024-05-20 14:00:00"
+        },
+        {
+            "id": "post_005",
+            "title": "L'IA dans le design graphique",
+            "slug": "ia-design-graphique",
+            "content": "<p>L'intelligence artificielle revolutionne le design graphique. Decouvrez comment l'IA peut vous aider a creer plus rapidement et plus efficacement.</p><h3>Les outils IA essentiels</h3><ul><li>Generation d'images</li><li>Creation de logos</li><li>Suggestion de couleurs</li></ul>",
+            "excerpt": "Comment l'intelligence artificielle change la donnee dans le design.",
+            "author": "admin",
+            "status": "published",
+            "category": "Technologie",
+            "tags": ["IA", "AI", "design", "innovation"],
+            "featured_image": "/images/blog-5.jpg",
+            "views": 450,
+            "created_at": "2026-01-15 10:00:00",
+            "updated_at": "2026-01-15 10:00:00"
+        },
+        {
+            "id": "post_006",
+            "title": "Conseils pour un portfolio efficace",
+            "slug": "conseils-portfolio",
+            "content": "<p>Un bon portfolio est essentiel pour attirer des clients. Voici nos conseils pour creer un portfolio qui convertit.</p><h3>Ce qu'il faut inclure</h3><ul><li>Vos meilleurs projets</li><li>Descriptifs clairs</li><li>Resultats mesurables</li></ul>",
+            "excerpt": "Guide pour creer un portfolio qui attire des clients.",
+            "author": "admin",
+            "status": "published",
+            "category": "Conseil",
+            "tags": ["portfolio", "marketing", "clients"],
+            "featured_image": "/images/blog-6.jpg",
+            "views": 380,
+            "created_at": "2026-02-01 09:00:00",
+            "updated_at": "2026-02-01 09:00:00"
         }
     ],
     "subscribers": [
@@ -114,6 +144,63 @@
             "views": 1250,
             "unique_visitors": 890,
             "date": "2024-06-01"
+        }
+    ],
+    "projects": [
+        {
+            "id": "proj_001",
+            "title": "Logo - Electron Business",
+            "slug": "logo-electron-business",
+            "category": "Logo",
+            "client": "Electron Business",
+            "description": "Creation d'un logo moderne et professionnel pour une entreprise technologique.",
+            "image": "/images/portfolio-1.jpg",
+            "status": "completed",
+            "year": "2024"
+        },
+        {
+            "id": "proj_002",
+            "title": "Site Web - Agence Immo",
+            "slug": "site-agence-immo",
+            "category": "Web Design",
+            "client": "Agence Immo Benin",
+            "description": "Design et developpement d'un site web responsive pour une agence immobiliere.",
+            "image": "/images/portfolio-2.jpg",
+            "status": "completed",
+            "year": "2024"
+        },
+        {
+            "id": "proj_003",
+            "title": "Identite Visuelle - Restaurant",
+            "slug": "identite-restaurant",
+            "category": "Branding",
+            "client": "Le Gourmet",
+            "description": "Creation complete de l'identite visuelle d'un restaurant.",
+            "image": "/images/portfolio-3.jpg",
+            "status": "completed",
+            "year": "2024"
+        },
+        {
+            "id": "proj_004",
+            "title": "UI/UX - Application Mobile",
+            "slug": "app-mobile",
+            "category": "UI/UX",
+            "client": "TechApp",
+            "description": "Design d'interface pour application mobile de gestion.",
+            "image": "/images/portfolio-4.jpg",
+            "status": "completed",
+            "year": "2025"
+        },
+        {
+            "id": "proj_005",
+            "title": "Motion Design - Video Promo",
+            "slug": "video-promo",
+            "category": "Motion Design",
+            "client": "BrandCo",
+            "description": "Creation d'une video promotionnelle pour reseaux sociaux.",
+            "image": "/images/portfolio-5.jpg",
+            "status": "completed",
+            "year": "2025"
         }
     ]
 }
