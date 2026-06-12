@@ -237,5 +237,43 @@
     <script src="js/notifications.js" defer></script>
     <script src="js/ai-engine.js"></script>
     <script src="js/ai-widget.js"></script>
+    
+    <script>
+        // Contact form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const service = document.getElementById('service').value;
+            const budget = document.getElementById('budget').value;
+            
+            // Show success message
+            alert('Merci ' + name + '!\n\nVotre message a été envoyé avec succès.\n\nSujet: ' + subject + '\nService: ' + (service || 'Non spécifié') + '\n\nNous vous répondrons sous 24h à ' + email);
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Contact info click handlers
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', function() {
+                const title = this.querySelector('h4')?.textContent;
+                if (title?.includes('Email')) {
+                    window.location.href = 'mailto:electronbusiness07@gmail.com';
+                } else if (title?.includes('Téléphone')) {
+                    window.location.href = 'tel:+2290197700347';
+                } else if (title?.includes('WhatsApp')) {
+                    window.location.href = 'https://wa.me/2290197700347';
+                } else if (title?.includes('Adresse')) {
+                    window.location.href = 'contact.html';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

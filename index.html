@@ -531,15 +531,11 @@
                             <p>electronbusiness07@gmail.com</p>
                         </div>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-item" onclick="window.location.href='tel:+2290197700347'">
                         <i class="fas fa-phone"></i>
                         <div>
                             <h4>Téléphone</h4>
-<<<<<<< HEAD
-                            <p>+229 01 977 003 47 47 / 01 498 022 02</p>
-=======
-                            <p>+229 01 977 003 47</p>
->>>>>>> 45c735b8664914a71ed7ef816a63d5788db42a40
+                            <p>+229 01 977 003 47 / 01 498 022 02</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -667,6 +663,33 @@
                     window.location.href = 'studio.html';
                 } else {
                     window.location.href = 'services.html';
+                }
+            });
+        });
+        
+        // Contact form on index page
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = this.querySelector('input[name="name"]')?.value;
+                const email = this.querySelector('input[name="email"]')?.value;
+                alert('Merci ' + name + '!\n\nVotre message a été envoyé.\nNous vous répondrons sous 24h à ' + email);
+                this.reset();
+            });
+        }
+        
+        // Contact info click on index
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', function() {
+                const h4 = this.querySelector('h4')?.textContent;
+                if (h4?.includes('Email')) {
+                    window.location.href = 'mailto:electronbusiness07@gmail.com';
+                } else if (h4?.includes('Téléphone')) {
+                    window.location.href = 'tel:+2290197700347';
+                } else if (h4?.includes('Adresse')) {
+                    window.location.href = 'contact.html';
                 }
             });
         });
