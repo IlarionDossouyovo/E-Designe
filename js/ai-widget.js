@@ -586,7 +586,7 @@ Je peux vous appeler pour discuter ou收到 un email.`;
         
         if (lower.includes('contact') || lower.includes('appeler')) {
             return `Bien sûr ! Vous pouvez nous contacter au :
-📞 +229 01 977 003
+📞 +229 01 977 003 47
 📧 contact@e-graphisme.com
 📍 Cotonou, {Bénin
 

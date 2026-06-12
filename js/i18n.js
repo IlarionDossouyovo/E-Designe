@@ -61,7 +61,7 @@ const translations = {
             message: 'Votre message',
             send: 'Envoyer',
             address: '123 Rue de la Créativité, Paris',
-            phone: '+33 1 23 45 67 89'
+            phone: '+229 01 977 003 47'
         },
         faq: {
             title: 'Questions Fréquentes',
@@ -129,7 +129,7 @@ const translations = {
             message: 'Your message',
             send: 'Send',
             address: '123 Creativity Street, Paris',
-            phone: '+33 1 23 45 67 89'
+            phone: '+229 01 977 003 47'
         },
         faq: {
             title: 'Frequently Asked Questions',
@@ -197,7 +197,7 @@ const translations = {
             message: 'Tu mensaje',
             send: 'Enviar',
             address: '123 Calle Creatividad, París',
-            phone: '+33 1 23 45 67 89'
+            phone: '+229 01 977 003 47'
         },
         faq: {
             title: 'Preguntas Frecuentes',
@@ -265,7 +265,7 @@ const translations = {
             message: 'Ihre Nachricht',
             send: 'Senden',
             address: '123 Kreativstraße, Paris',
-            phone: '+33 1 23 45 67 89'
+            phone: '+229 01 977 003 47'
         },
         faq: {
             title: 'Häufig Gestellte Fragen',
@@ -333,7 +333,7 @@ const translations = {
             message: 'A sua mensagem',
             send: 'Enviar',
             address: '123 Rua Criatividade, Paris',
-            phone: '+33 1 23 45 67 89'
+            phone: '+229 01 977 003 47'
         },
         faq: {
             title: 'Perguntas Frequentes',

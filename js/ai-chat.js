@@ -44,7 +44,7 @@ const AI_KNOWLEDGE = {
         { pattern: /price|cost|quote/i, response: "Our prices vary by project. A logo starts at €299, a website at €699. Get a free quote!" },
         { pattern: /delay|delivery/i, response: "Our timelines: logo 5-7 days, showcase site 2-3 weeks, e-commerce 4-6 weeks." },
         { pattern: /studio|AI|video/i, response: "E-Studio is our AI-powered video production service. Create professional videos in minutes!" },
-        { pattern: /contact|email|phone/i, response: "Contact us: contact@e-graphisme.com or +33 1 23 45 67 89" },
+        { pattern: /contact|email|phone/i, response: "Contact us: contact@e-graphisme.com or +229 01 977 003 47" },
         { pattern: /thanks|thank you/i, response: "You're welcome! Feel free to ask if you have more questions." }
     ]
 };
