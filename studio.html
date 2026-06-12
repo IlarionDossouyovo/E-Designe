@@ -620,6 +620,140 @@
             box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
         }
         
+        /* Demo Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a15 100%);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 60px rgba(0, 212, 255, 0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 35px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+            line-height: 1;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary);
+        }
+        
+        .modal-header {
+            text-align: center;
+            padding: 40px 40px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .modal-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+        
+        .modal-body {
+            padding: 30px 40px;
+        }
+        
+        .demo-video {
+            margin-bottom: 30px;
+        }
+        
+        .demo-placeholder {
+            background: linear-gradient(135deg, #2a2a4e 0%, #1a1a2e 100%);
+            border-radius: 15px;
+            padding: 60px 40px;
+            text-align: center;
+            border: 2px dashed rgba(0, 212, 255, 0.3);
+        }
+        
+        .demo-placeholder i {
+            font-size: 60px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .demo-placeholder p {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .demo-placeholder span {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .demo-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .demo-feature {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .demo-feature:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .demo-feature i {
+            font-size: 35px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .demo-feature h4 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .demo-feature p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        .modal-footer {
+            padding: 20px 40px 40px;
+            text-align: center;
+        }
+        
         /* CTA Section */
         .cta {
             padding: 120px 50px;
@@ -852,8 +986,51 @@
             <li><a href="#pricing">Tarifs</a></li>
         </ul>
         
-        <button class="nav-cta">Commencer</button>
+        <button class="nav-cta" onclick="openDemoGenerator()">Essai Gratuit</button>
     </nav>
+    
+    <!-- Demo Modal -->
+    <div id="demo-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeDemo()">&times;</span>
+            <div class="modal-header">
+                <h2><i class="fas fa-play-circle"></i> Démonstration E-Studio</h2>
+                <p>Découvrez comment créer des vidéos professionnelles avec l'IA</p>
+            </div>
+            <div class="modal-body">
+                <div class="demo-video">
+                    <div class="demo-placeholder">
+                        <i class="fas fa-film"></i>
+                        <p>Vidéo de démonstration</p>
+                        <span>Découvrez les fonctionnalités E-Studio</span>
+                    </div>
+                </div>
+                <div class="demo-features">
+                    <div class="demo-feature">
+                        <i class="fas fa-robot"></i>
+                        <h4>IA Générative</h4>
+                        <p>Générez des scripts automatiquement</p>
+                    </div>
+                    <div class="demo-feature">
+                        <i class="fas fa-magic"></i>
+                        <h4>Montage Auto</h4>
+                        <p>Montage intelligent en un clic</p>
+                    </div>
+                    <div class="demo-feature">
+                        <i class="fas fa-video"></i>
+                        <h4>Export Multi-Format</h4>
+                        <p>720p, 1080p, 4K</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="closeDemo(); openDemoGenerator();">
+                    <i class="fas fa-rocket"></i>
+                    Essayer Gratuitement
+                </button>
+            </div>
+        </div>
+    </div>
     
     <!-- Hero Section -->
     <section class="hero">
@@ -874,11 +1051,11 @@
             </p>
             
             <div class="hero-buttons">
-                <button class="btn-primary">
+                <button class="btn-primary" onclick="openDemoGenerator()">
                     <i class="fas fa-rocket"></i>
-                    Démarrer Gratuitement
+                    Essai Gratuit
                 </button>
-                <button class="btn-secondary">
+                <button class="btn-secondary" onclick="openDemo()">
                     <i class="fas fa-play"></i>
                     Voir la Démo
                 </button>
@@ -1161,6 +1338,36 @@
                 effects: true
             }
         };
+
+        // Demo Modal Functions
+        function openDemo() {
+            document.getElementById('demo-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeDemo() {
+            document.getElementById('demo-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        function openDemoGenerator() {
+            const generator = document.getElementById('ai-generator');
+            if (generator) {
+                generator.style.display = 'block';
+                generator.scrollIntoView({ behavior: 'smooth' });
+                toast.info('Générateur IA', 'Créez votre première vidéo avec l\'IA!');
+            } else {
+                // Scroll to pricing or contact
+                window.location.href = 'contact.html';
+            }
+        }
+        
+        function closeAIGenerator() {
+            const generator = document.getElementById('ai-generator');
+            if (generator) {
+                generator.style.display = 'none';
+            }
+        }
 
         // Check Ollama availability
         async function checkOllamaStatus() {
