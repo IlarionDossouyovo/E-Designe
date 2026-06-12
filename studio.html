@@ -1114,20 +1114,20 @@
                         <span>Découvrez les fonctionnalités E-Studio</span>
                     </div>
                 </div>
-                <div class="demo-features">
-                    <div class="demo-feature" onclick="playDemoFeature('ai')">
+                <div class="demo-features" id="demo-features-list">
+                    <div class="demo-feature" data-feature="ai">
                         <i class="fas fa-robot"></i>
                         <h4>IA Générative</h4>
                         <p>Générez des scripts automatiquement</p>
                         <span class="feature-click">Cliquez pour voir</span>
                     </div>
-                    <div class="demo-feature" onclick="playDemoFeature('montage')">
+                    <div class="demo-feature" data-feature="montage">
                         <i class="fas fa-magic"></i>
                         <h4>Montage Auto</h4>
                         <p>Montage intelligent en un clic</p>
                         <span class="feature-click">Cliquez pour voir</span>
                     </div>
-                    <div class="demo-feature" onclick="playDemoFeature('export')">
+                    <div class="demo-feature" data-feature="export">
                         <i class="fas fa-video"></i>
                         <h4>Export Multi-Format</h4>
                         <p>720p, 1080p, 4K</p>
@@ -1149,7 +1149,7 @@
                         </div>
                     </div>
                     <div class="player-controls">
-                        <button class="btn-secondary" onclick="closeDemoPlayer()">
+                        <button class="btn-secondary" onclick="window.closeDemoPlayer()">
                             <i class="fas fa-arrow-left"></i> Retour
                         </button>
                         <button class="btn-primary" onclick="closeDemo(); openDemoGenerator();">
@@ -1512,14 +1512,21 @@
             }
         };
         
-        // Legacy function names
-        function playDemoFeature(feature) {
-            window.playDemoFeature(feature);
-        }
-        
-        function closeDemoPlayer() {
-            window.closeDemoPlayer();
-        }
+        // Event delegation for demo features
+        document.addEventListener('DOMContentLoaded', function() {
+            const featuresContainer = document.getElementById('demo-features-list');
+            if (featuresContainer) {
+                featuresContainer.addEventListener('click', function(e) {
+                    const featureEl = e.target.closest('.demo-feature');
+                    if (featureEl) {
+                        const feature = featureEl.getAttribute('data-feature');
+                        if (feature) {
+                            window.playDemoFeature(feature);
+                        }
+                    }
+                });
+            }
+        });
         
         function openDemoGenerator() {
             const generator = document.getElementById('ai-generator');
