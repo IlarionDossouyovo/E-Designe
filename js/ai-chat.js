@@ -412,6 +412,12 @@ function setupChatEvents(widget, labels) {
     // Voice recognition
     if (chatState.voiceEnabled) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+        if (!SpeechRecognition) {
+            console.warn("Speech recognition not supported in this browser");
+            return;
+        }
+        
         const recognition = new SpeechRecognition();
         
         recognition.lang = getVoiceLang();
