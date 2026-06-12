@@ -768,6 +768,10 @@
             opacity: 1;
         }
         
+        .demo-feature {
+            cursor: pointer;
+        }
+        
         .demo-feature:hover {
             cursor: pointer;
             transform: translateY(-5px);
@@ -1133,7 +1137,7 @@
                 <div id="demo-player" class="demo-player" style="display: none;">
                     <div class="player-header">
                         <h4 id="player-title"><i class="fas fa-play"></i> Démonstration</h4>
-                        <button onclick="closeDemoPlayer()"><i class="fas fa-times"></i></button>
+                        <button onclick="window.closeDemoPlayer()"><i class="fas fa-times"></i></button>
                     </div>
                     <div class="player-content">
                         <div class="player-placeholder">
@@ -1481,8 +1485,8 @@
             document.body.style.overflow = 'auto';
         }
         
-        // Demo Player Functions
-        function playDemoFeature(feature) {
+        // Demo Player Functions - Global scope
+        window.playDemoFeature = function(feature) {
             const player = document.getElementById('demo-player');
             const title = document.getElementById('player-title');
             const features = {
@@ -1491,15 +1495,30 @@
                 'export': { icon: 'fa-video', title: 'Export Multi-Format - 720p/1080p/4K' }
             };
             
-            if (features[feature]) {
+            if (features[feature] && player) {
                 title.innerHTML = '<i class="fas ' + features[feature].icon + '"></i> ' + features[feature].title;
                 player.style.display = 'block';
-                toast.info('Démo', 'Démarrage de la démonstration...');
+                // Show toast notification
+                if (window.toast) {
+                    toast.info('Démo', 'Démarrage de la démonstration: ' + features[feature].title);
+                }
             }
+        };
+        
+        window.closeDemoPlayer = function() {
+            const player = document.getElementById('demo-player');
+            if (player) {
+                player.style.display = 'none';
+            }
+        };
+        
+        // Legacy function names
+        function playDemoFeature(feature) {
+            window.playDemoFeature(feature);
         }
         
         function closeDemoPlayer() {
-            document.getElementById('demo-player').style.display = 'none';
+            window.closeDemoPlayer();
         }
         
         function openDemoGenerator() {
