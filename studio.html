@@ -1265,7 +1265,7 @@
         </div>
         
         <div class="features-grid">
-            <div class="feature-card">
+            <div class="feature-card" onclick="showFeatureInfo('Montage Intelligent', 'L IA analyse votre contenu et propose automatiquement les meilleures transitions et effets.')">
                 <div class="feature-icon">
                     <i class="fas fa-magic"></i>
                 </div>
@@ -1273,7 +1273,7 @@
                 <p>L'IA analyse votre contenu et propose automatiquement les meilleures transitions et effets.</p>
             </div>
             
-            <div class="feature-card">
+            <div class="feature-card" onclick="showFeatureInfo('Effets Avancés', 'Accédez à des effets visuels professionnels générés par l IA en un seul clic.')">
                 <div class="feature-icon">
                     <i class="fas fa-wand-magic-sparkles"></i>
                 </div>
@@ -1281,7 +1281,7 @@
                 <p>Accédez à des effets visuels professionnels générés par l'IA en un seul clic.</p>
             </div>
             
-            <div class="feature-card">
+            <div class="feature-card" onclick="showFeatureInfo('Audio Intelligent', 'Amélioration automatique de l audio, suppression du bruit et mixage intelligent.')">
                 <div class="feature-icon">
                     <i class="fas fa-microphone"></i>
                 </div>
@@ -1289,7 +1289,7 @@
                 <p>Amélioration automatique de l'audio, suppression du bruit et mixage intelligent.</p>
             </div>
             
-            <div class="feature-card">
+            <div class="feature-card" onclick="showFeatureInfo('Sous-titres Automatiques', 'Génération automatique de sous-titres dans toutes les langues avec synchronisation parfaite.')">
                 <div class="feature-icon">
                     <i class="fas fa-language"></i>
                 </div>
@@ -1297,7 +1297,7 @@
                 <p>Génération automatique de sous-titres dans toutes les langues avec synchronisation parfaite.</p>
             </div>
             
-            <div class="feature-card">
+            <div class="feature-card" onclick="showFeatureInfo('Étalonnage Couleur', 'L IA applique automatiquement les meilleurs calibres colorimétriques pour un rendu professionnel.')">
                 <div class="feature-icon">
                     <i class="fas fa-palette"></i>
                 </div>
@@ -1305,7 +1305,7 @@
                 <p>L'IA applique automatiquement les meilleurs calibres colorimétriques pour un rendu professionnel.</p>
             </div>
             
-            <div class="feature-card">
+            <div class="feature-card" onclick="showFeatureInfo('Rendu Cloud', 'Profitez d un rendu ultra-rapide sur nos serveurs haute performance.')">
                 <div class="feature-icon">
                     <i class="fas fa-cloud-arrow-up"></i>
                 </div>
@@ -1497,6 +1497,22 @@
     </section>
 
     <script src="js/toast.js"></script>
+    <script>
+        // Show feature info function
+        function showFeatureInfo(title, description) {
+            const modal = document.getElementById('demo-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                // Update modal content
+                const playerTitle = document.getElementById('player-title');
+                if (playerTitle) {
+                    playerTitle.innerHTML = '<i class="fas fa-star"></i> ' + title;
+                }
+            }
+            // Also show alert for now
+            alert('🚧 ' + title + '\n\n' + description + '\n\nCette fonctionnalité sera bientôt disponible!');
+        }
+    </script>
     <script>
         // E-Studio AI Configuration
         const STUDIO_AI_CONFIG = {

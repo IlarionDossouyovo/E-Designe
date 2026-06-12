@@ -422,6 +422,32 @@
     line-height: 1.7;
 }
 
+/* Feature Card - Studio */
+.feature-card {
+    text-align: center;
+    padding: 40px 30px;
+    background: var(--light-color);
+    border-radius: 20px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    transform: translateY(-5px);
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: var(--gray-color);
+    line-height: 1.7;
+}
+
 /* Process Steps */
 .process {
     padding: 100px 0;
