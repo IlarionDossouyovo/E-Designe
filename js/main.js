@@ -237,6 +237,36 @@ document.querySelectorAll(".service-card").forEach(card => {
     });
 });
 
+// Click handlers for service cards
+document.querySelectorAll(".service-card").forEach(card => {
+    card.style.cursor = "pointer";
+    card.addEventListener("click", () => {
+        const serviceTitle = card.querySelector("h3")?.textContent || card.textContent.trim().substring(0, 30);
+        console.log("Service clicked:", serviceTitle);
+        
+        // Scroll to services section or open modal
+        const servicesSection = document.getElementById("services");
+        if (servicesSection) {
+            servicesSection.scrollIntoView({ behavior: "smooth" });
+        }
+    });
+});
+
+// Click handlers for portfolio items
+document.querySelectorAll(".portfolio-item").forEach(item => {
+    item.style.cursor = "pointer";
+    item.addEventListener("click", () => {
+        const projectTitle = item.querySelector("h4")?.textContent || "Projet";
+        console.log("Portfolio item clicked:", projectTitle);
+        
+        // Show project details (can be expanded to modal)
+        const img = item.querySelector("img");
+        if (img) {
+            alert("Projet: " + projectTitle + "\nImage: " + img.src);
+        }
+    });
+});
+
 // Price Calculator
 const serviceType = document.getElementById("serviceType");
 const pageCount = document.getElementById("pageCount");
