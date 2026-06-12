@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250">
+<defs><linearGradient id="g3" x1="0" y1="0" x2="400" y2="250"><stop offset="0" stop-color="#4facfe"/><stop offset="1" stop-color="#00f2fe"/></linearGradient></defs>
+<rect width="400" height="250" fill="url(#g3)"/>
+<circle cx="200" cy="100" r="50" fill="white" opacity="0.3"/>
+<path d="M170 120 L200 80 L230 120 L200 150 Z" fill="white" opacity="0.5"/>
+<text x="200" y="210" fill="white" font-family="Arial" font-size="20" text-anchor="middle">Marketing</text>
+</svg>

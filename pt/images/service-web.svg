@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250">
+<defs><linearGradient id="g1" x1="0" y1="0" x2="400" y2="250"><stop offset="0" stop-color="#11998e"/><stop offset="1" stop-color="#38ef7d"/></linearGradient></defs>
+<rect width="400" height="250" fill="url(#g1)"/>
+<rect x="100" y="60" width="200" height="130" rx="10" fill="white" opacity="0.3"/>
+<circle cx="160" cy="110" r="15" fill="white" opacity="0.5"/>
+<circle cx="200" cy="110" r="15" fill="white" opacity="0.5"/>
+<circle cx="240" cy="110" r="15" fill="white" opacity="0.5"/>
+<text x="200" y="210" fill="white" font-family="Arial" font-size="20" text-anchor="middle">Web Design</text>
+</svg>

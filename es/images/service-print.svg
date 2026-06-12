@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="250">
+<defs><linearGradient id="g2" x1="0" y1="0" x2="400" y2="250"><stop offset="0" stop-color="#f093fb"/><stop offset="1" stop-color="#f5576c"/></linearGradient></defs>
+<rect width="400" height="250" fill="url(#g2)"/>
+<rect x="80" y="50" width="240" height="150" rx="5" fill="white" opacity="0.3"/>
+<line x1="100" y1="90" x2="300" y2="90" stroke="white" stroke-width="2" opacity="0.5"/>
+<line x1="100" y1="120" x2="280" y2="120" stroke="white" stroke-width="2" opacity="0.5"/>
+<line x1="100" y1="150" x2="260" y2="150" stroke="white" stroke-width="2" opacity="0.5"/>
+<text x="200" y="220" fill="white" font-family="Arial" font-size="20" text-anchor="middle">Print Design</text>
+</svg>
