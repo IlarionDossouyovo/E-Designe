@@ -1155,3 +1155,59 @@
     border-radius: 30px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
+
+/* Blog responsive */
+@media (max-width: 768px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .blog-card {
+        padding: 20px;
+    }
+    
+    .blog-card h3 {
+        font-size: 1.3rem;
+    }
+}
+
+/* About responsive */
+@media (max-width: 768px) {
+    .about-hero {
+        padding: 60px 0;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .team-member {
+        padding: 20px;
+    }
+}
+
+/* Inscription responsive */
+@media (max-width: 768px) {
+    .inscription-container {
+        padding: 30px 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .account-type-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .social-login {
+        flex-direction: column;
+    }
+}
