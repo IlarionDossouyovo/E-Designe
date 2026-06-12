@@ -1,5 +1,5 @@
 {
-  "name": "AI Chat",
+  "name": "E-Graphisme AI Chat",
   "nodes": [
     {
       "parameters": {
@@ -10,59 +10,30 @@
       "id": "w1",
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
-      "typeVersion": 1,
-      "position": [
-        100,
-        300
-      ]
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "ai-chat"
     },
     {
       "parameters": {
-        "model": "llama3",
-        "options": {
-          "temperature": 0.7
-        }
-      },
-      "id": "a1",
-      "name": "Ollama",
-      "type": "ollama",
-      "typeVersion": 1,
-      "position": [
-        300,
-        300
-      ]
-    },
-    {
-      "parameters": {
+        "data": {
+          "data": "={{ $json }}"
+        },
         "options": {}
       },
       "id": "r1",
       "name": "Respond",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [
-        500,
-        300
-      ]
+      "position": [450, 300]
     }
   ],
   "connections": {
-    "w1": {
+    "Webhook": {
       "main": [
         [
           {
-            "node": "a1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "a1": {
-      "main": [
-        [
-          {
-            "node": "r1",
+            "node": "Respond",
             "type": "main",
             "index": 0
           }
@@ -71,8 +42,5 @@
     }
   },
   "active": false,
-  "settings": {
-    "executionOrder": "v1"
-  },
   "id": "eg_ai_chat"
 }

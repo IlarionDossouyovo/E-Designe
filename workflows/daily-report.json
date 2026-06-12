@@ -1,46 +1,39 @@
 {
-  "name": "Daily Report",
+  "name": "E-Graphisme Daily Report",
   "nodes": [
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "minutes",
-              "minutes": 30
-            }
-          ]
-        }
+        "httpMethod": "POST",
+        "path": "daily-report",
+        "options": {}
       },
-      "id": "t1",
-      "name": "Every 30min",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1,
-      "position": [
-        100,
-        300
-      ]
+      "id": "w1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "daily-report"
     },
     {
       "parameters": {
+        "data": {
+          "data": "={{ $json }}"
+        },
         "options": {}
       },
-      "id": "l1",
-      "name": "Log",
-      "type": "n8n-nodes-base.noOp",
+      "id": "r1",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [
-        300,
-        300
-      ]
+      "position": [450, 300]
     }
   ],
   "connections": {
-    "t1": {
+    "Webhook": {
       "main": [
         [
           {
-            "node": "l1",
+            "node": "Respond",
             "type": "main",
             "index": 0
           }
@@ -49,8 +42,5 @@
     }
   },
   "active": false,
-  "settings": {
-    "executionOrder": "v1"
-  },
   "id": "eg_daily_report"
 }

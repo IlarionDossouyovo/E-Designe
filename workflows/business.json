@@ -1,5 +1,5 @@
 {
-  "name": "E-Graphisme Business",
+  "name": "E-Graphisme Business Lead",
   "nodes": [
     {
       "parameters": {
@@ -8,191 +8,32 @@
         "options": {}
       },
       "id": "w1",
-      "name": "Lead Webhook",
+      "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
-      "typeVersion": 1,
-      "position": [
-        100,
-        200
-      ],
-      "webhookId": "lead"
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "contact"
     },
     {
       "parameters": {
-        "operation": "append",
-        "fileName": "db/contacts.json",
-        "options": {}
-      },
-      "id": "s1",
-      "name": "Save Contact",
-      "type": "n8n-nodes-base.writeBinaryFile",
-      "typeVersion": 1,
-      "position": [
-        300,
-        200
-      ]
-    },
-    {
-      "parameters": {
-        "subject": "Nouveau lead",
-        "additionalFields": {}
-      },
-      "id": "e1",
-      "name": "Email Admin",
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 1,
-      "position": [
-        300,
-        100
-      ]
-    },
-    {
-      "parameters": {
+        "data": {
+          "data": "={{ $json }}"
+        },
         "options": {}
       },
       "id": "r1",
       "name": "Respond",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [
-        500,
-        200
-      ]
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "ai-chat",
-        "options": {}
-      },
-      "id": "w2",
-      "name": "AI Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 1,
-      "position": [
-        100,
-        400
-      ],
-      "webhookId": "ai-chat"
-    },
-    {
-      "parameters": {
-        "url": "http://localhost:11434/api/generate",
-        "method": "POST",
-        "sendBody": true,
-        "options": {}
-      },
-      "id": "http1",
-      "name": "Ollama API",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 3,
-      "position": [
-        300,
-        400
-      ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "r2",
-      "name": "AI Respond",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1,
-      "position": [
-        500,
-        400
-      ]
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "minutes",
-              "minutes": 30
-            }
-          ]
-        }
-      },
-      "id": "t1",
-      "name": "Every 30min",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1,
-      "position": [
-        100,
-        600
-      ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "l1",
-      "name": "Log",
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
-      "position": [
-        300,
-        600
-      ]
+      "position": [450, 300]
     }
   ],
   "connections": {
-    "w1": {
+    "Webhook": {
       "main": [
         [
           {
-            "node": "s1",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "e1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "s1": {
-      "main": [
-        [
-          {
-            "node": "r1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "w2": {
-      "main": [
-        [
-          {
-            "node": "http1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "http1": {
-      "main": [
-        [
-          {
-            "node": "r2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "t1": {
-      "main": [
-        [
-          {
-            "node": "l1",
+            "node": "Respond",
             "type": "main",
             "index": 0
           }
@@ -201,8 +42,5 @@
     }
   },
   "active": false,
-  "settings": {
-    "executionOrder": "v1"
-  },
-  "id": "eg_e_graphisme_business"
+  "id": "eg_business"
 }

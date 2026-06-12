@@ -1,22 +1,46 @@
 {
-  "name": "AI Agent",
+  "name": "E-Graphisme AI Agent",
   "nodes": [
     {
-      "parameters": {},
-      "id": "n1",
-      "name": "NoOp",
-      "type": "n8n-nodes-base.noOp",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ai-agent",
+        "options": {}
+      },
+      "id": "w1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "ai-agent"
+    },
+    {
+      "parameters": {
+        "data": {
+          "data": "={{ $json }}"
+        },
+        "options": {}
+      },
+      "id": "r1",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [
-        300,
-        300
-      ]
+      "position": [450, 300]
     }
   ],
-  "connections": {},
-  "active": false,
-  "settings": {
-    "executionOrder": "v1"
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
+  "active": false,
   "id": "eg_ai_agent"
 }
