@@ -1538,34 +1538,10 @@
             }
         };
         
-        // Show feature info function
-        function showFeatureInfo(title, description) {
-            // Map title to feature data
-            const features = {
-                'Montage Intelligent': {icon: 'fa-film', desc: 'L\'IA analyse votre contenu vidéo et propose automatiquement les meilleures transitions, effets et montages professionnels.', status: 'Disponible'},
-                'Effets Avancés': {icon: 'fa-wand-magic-sparkles', desc: 'Accédez à des milliers d\'effets visuels professionnels générés par l\'IA: explosions, particules, transitions 3D.', status: 'Disponible'},
-                'Audio Intelligent': {icon: 'fa-microphone', desc: 'Amélioration automatique du son, suppression du bruit de fond, normalisation audio et mixage intelligent.', status: 'Disponible'},
-                'Sous-titres Automatiques': {icon: 'fa-closed-captioning', desc: 'Générez des sous-titres automatiquement dans plus de 50 langues avec synchronisation parfaite sur la vidéo.', status: 'Disponible'},
-                'Étalonnage Couleur': {icon: 'fa-palette', desc: 'L\'IA applique les meilleurs calibres colorimétriques: LUTs professionnels, correction colorimétrique et grading cinématographique.', status: 'Disponible'},
-                'Rendu Cloud': {icon: 'fa-cloud', desc: 'Rendu ultra-rapide sur nos serveurs haute performance. Téléchargez instantanément sans bloquer votre ordinateur.', status: 'Beta'}
-            };
-            
-            const f = features[title] || {icon: 'fa-star', desc: description || 'Fonctionnalité E-Studio', status: 'Disponible'};
-            const emoji = f.status === 'Beta' ? '🧪' : '✅';
-            
-            // Create modal
-            const modal = document.createElement('div');
-            modal.style = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;';
-            modal.innerHTML = '<div style="background:white;border-radius:20px;padding:40px;max-width:450px;width:90%;text-align:center;position:relative;">' +
-                '<button onclick="this.parentElement.parentElement.remove()" style="position:absolute;top:10px;right:15px;border:none;background:none;font-size:28px;cursor:pointer;">&times;</button>' +
-                '<div style="width:70px;height:70px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;color:white;"><i class="fas fa-' + f.icon + '"></i></div>' +
-                '<h2 style="margin:0 0 15px;font-size:1.6rem;">' + title + '</h2>' +
-                '<p style="color:#555;margin-bottom:15px;line-height:1.6;">' + f.desc + '</p>' +
-                '<div style="background:#eef2ff;padding:8px 18px;border-radius:20px;display:inline-block;margin-bottom:20px;"><span style="color:#6366f1;font-weight:600;">' + f.status + '</span> ' + emoji + '</div>' +
-                '<br><button onclick="this.parentElement.parentElement.remove();document.getElementById(&quot;pricing&quot;).scrollIntoView({behavior:&quot;smooth&quot;})" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border:none;padding:14px 35px;border-radius:30px;font-size:1rem;cursor:pointer;font-weight:600;">Voir les tarifs →</button>' +
-                '</div>';
-            document.body.appendChild(modal);
-            modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
+        // Feature info - simple function
+        function showFeatureInfo(title, desc) {
+            alert('📺 ' + title + '\n\n' + desc + '\n\n✅ STATUT: DISPONIBLE\n\nCliquez OK pour voir les tarifs!');
+            document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});
         }
     </script>
     <script>
