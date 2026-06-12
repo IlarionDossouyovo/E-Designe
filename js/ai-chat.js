@@ -35,7 +35,7 @@ const AI_KNOWLEDGE = {
         { pattern: /prix|tarif|devis/i, response: "Nos tarifs varient selon le projet. Un logo commence à partir de 299€, un site vitrine à partir de 699€. Demandez un devis gratuit!" },
         { pattern: /délai|livraison/i, response: "Nos délais: logo 5-7 jours, site vitrine 2-3 semaines, site e-commerce 4-6 semaines." },
         { pattern: /studio|IA|video/i, response: "E-Studio est notre service de production vidéo par intelligence artificielle. Créez des vidéos professionnelles en quelques minutes!" },
-        { pattern: /contact|email|téléphone/i, response: "Contactez-nous: contact@e-graphisme.com ou +33 1 23 45 67 89" },
+        { pattern: /contact|email|téléphone/i, response: "Contactez-nous: electronbusiness07@gmail.com ou +229 01 977 003 47 / 01 498 022 02" },
         { pattern: /merci|thanks/i, response: "De rien! N'hésitez pas si vous avez d'autres questions." }
     ],
     en: [
