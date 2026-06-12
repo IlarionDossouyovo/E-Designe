@@ -84,4 +84,28 @@
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
+    
+    <!-- English Version -->
+    <url>
+        <loc>https://ilariondossouyovo.github.io/E-Graphisme/en/</loc>
+        <hreflang>en</hreflang>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Spanish Version -->
+    <url>
+        <loc>https://ilariondossouyovo.github.io/E-Graphisme/es/</loc>
+        <hreflang>es</hreflang>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Portuguese Version -->
+    <url>
+        <loc>https://ilariondossouyovo.github.io/E-Graphisme/pt/</loc>
+        <hreflang>pt</hreflang>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
 </urlset>
