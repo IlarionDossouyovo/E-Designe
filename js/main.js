@@ -317,6 +317,36 @@ if (themeToggle) {
     });
 }
 
+// Language selector functionality
+const langSelect = document.getElementById("langSelect");
+if (langSelect) {
+    langSelect.addEventListener("change", (e) => {
+        const selectedLang = e.target.value;
+        localStorage.setItem("egraphisme-lang", selectedLang);
+        
+        // Dispatch event for other modules
+        window.dispatchEvent(new CustomEvent("languageChange", { detail: { lang: selectedLang } }));
+        
+        // Update hreflang links (for SEO)
+        const langLinks = document.querySelectorAll("link[rel='alternate']");
+        langLinks.forEach(link => {
+            const hrefLang = link.getAttribute("hreflang");
+            if (hrefLang === selectedLang || hrefLang === "x-default") {
+                link.setAttribute("href", `https://ilariondossouyovo.github.io/E-Graphisme/${hrefLang === "x-default" ? "" : hrefLang + "/"}`);
+            }
+        });
+        
+        // Reload page to apply translations
+        location.reload();
+    });
+}
+
+// Initialize language from localStorage
+const savedLang = localStorage.getItem("egraphisme-lang");
+if (savedLang && langSelect) {
+    langSelect.value = savedLang;
+}
+
 // Newsletter form submission
 const newsletterForm = document.querySelector(".newsletter-form");
 if (newsletterForm) {

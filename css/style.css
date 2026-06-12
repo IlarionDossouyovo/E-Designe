@@ -256,6 +256,29 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--white);
 }
 
+/* Language Selector */
+.lang-select {
+    padding: 8px 12px;
+    border-radius: 20px;
+    background: var(--light-color);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--dark-color);
+    margin-left: 10px;
+    transition: var(--transition);
+}
+
+.lang-select:hover {
+    background: var(--white);
+    border-color: var(--primary-color);
+}
+
+.lang-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
 /* Hero Section */
 .hero {
     min-height: 100vh;
