@@ -1,0 +1,20 @@
+{
+    "name": "E-Graphisme By ELECTRON",
+    "short_name": "E-Graphisme",
+    "description": "Agence créative spécialisée en design graphique et web",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#6366f1",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "images/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["business", "design"],
+    "lang": "fr"
+}
