@@ -955,6 +955,18 @@
             color: var(--primary);
         }
         
+        .footer-links a.highlight {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .footer-links a.highlight:hover {
+            background: var(--light);
+        }
+        
         .social-links {
             display: flex;
             gap: 15px;
@@ -1119,7 +1131,7 @@
             <li><a href="#pricing">Tarifs</a></li>
         </ul>
         
-        <button class="nav-cta" onclick="openDemoGenerator()">Essai Gratuit</button>
+        <button class="nav-cta" onclick="window.location.href='inscription.html'">Essai Gratuit</button>
     </nav>
     
     <!-- Demo Modal -->
@@ -1177,16 +1189,16 @@
                         <button class="btn-secondary" onclick="window.closeDemoPlayer()">
                             <i class="fas fa-arrow-left"></i> Retour
                         </button>
-                        <button class="btn-primary" onclick="closeDemo(); openDemoGenerator();">
-                            <i class="fas fa-rocket"></i> Essayer
+                        <button class="btn-primary" onclick="window.location.href='inscription.html'">
+                            <i class="fas fa-rocket"></i> S'inscrire
                         </button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn-primary" onclick="closeDemo(); openDemoGenerator();">
+                <button class="btn-primary" onclick="window.location.href='inscription.html'">
                     <i class="fas fa-rocket"></i>
-                    Essayer Gratuitement
+                    S'inscrire Gratuitement
                 </button>
             </div>
         </div>
@@ -1211,7 +1223,7 @@
             </p>
             
             <div class="hero-buttons">
-                <button class="btn-primary" onclick="openDemoGenerator()">
+                <button class="btn-primary" onclick="window.location.href='inscription.html'">
                     <i class="fas fa-rocket"></i>
                     Essai Gratuit
                 </button>
@@ -1406,6 +1418,7 @@
                 <a href="privacy.html">Confidentialité</a>
                 <a href="terms.html">Conditions</a>
                 <a href="contact.html">Contact</a>
+                <a href="inscription.html" class="highlight">Inscription</a>
             </div>
             
             <div class="social-links">
