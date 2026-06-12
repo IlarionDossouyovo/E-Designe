@@ -191,18 +191,57 @@ git revert HEAD
 | Action | Commande |
 |--------|---------|
 | **Cloner** | `git clone https://github.com/IlarionDossouyovo/E-Graphisme.git` |
-| **Mettre à jour** | `git pull origin main` |
-| **Lancer (Python)** | `python3 -m http.server 8000` |
-| **Lancer (Node)** | `npx serve .` |
-| **Commit** | `git add . && git commit -m "msg" && git push origin main` |
+| **Mettre à jour** | `git pull origin mai` |
+| **Lancer (PHP)** | `php -S 127.0.0.1:8000 -t .` |
+| **Lancer N8N** | `n8n start` |
+| **Auto-start** | `./AUTO-START-SYSTEM.sh` |
+| **Commit** | `git add . && git commit -m "msg" && git push origin mai` |
 | **Statut** | `git status` |
 
 ---
 
 ## 🌐 Accès au site
 
-- **Local:** http://localhost:8000
-- **GitHub Pages:** https://ilariondossouyovo.github.io/E-Graphisme/
+| Service | URL |
+|---------|-----|
+| **Site Local** | http://127.0.0.1:8000 |
+| **N8N Local** | http://127.0.0.1:5678 |
+| **GitHub Pages** | https://ilariondossouyovo.github.io/E-Graphisme/ |
+
+---
+
+## 🔄 Mise à Jour Complete
+
+```bash
+# 1. Mettre à jour le code
+cd E-Graphisme
+git pull origin mai
+
+# 2. Démarrer tous les services
+./AUTO-START-SYSTEM.sh
+
+# 3. Tester
+curl http://127.0.0.1:8000
+curl http://127.0.0.1:5678
+```
+
+---
+
+## 🤖 Import Workflows N8N
+
+Dans N8N (http://127.0.0.1:5678):
+1. Login: admin@e-graphisme.com / egraphisme2026
+2. Workflows → Import from URL
+
+```
+https://raw.githubusercontent.com/IlarionDossouyovo/E-Graphisme/mai/workflows/ai-chat.json
+https://raw.githubusercontent.com/IlarionDossouyovo/E-Graphisme/mai/workflows/ai-agent.json
+https://raw.githubusercontent.com/IlarionDossouyovo/E-Graphisme/mai/workflows/business.json
+https://raw.githubusercontent.com/IlarionDossouyovo/E-Graphisme/mai/workflows/leads.json
+https://raw.githubusercontent.com/IlarionDossouyovo/E-Graphisme/mai/workflows/enterprise.json
+https://raw.githubusercontent.com/IlarionDossouyovo/E-Graphisme/mai/workflows/daily-report.json
+https://raw.githubusercontent.com/IlarionDossouyovo/E-Graphisme/mai/workflows/ai-complete.json
+```
 
 ---
 
