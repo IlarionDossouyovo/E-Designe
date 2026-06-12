@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <!-- Medical website -->
+  <rect x="30" y="40" width="340" height="220" rx="5" fill="#1a1a2e" stroke="#00FF00" stroke-width="1"/>
+  <!-- Header with cross -->
+  <rect x="30" y="40" width="340" height="50" fill="#15152a"/>
+  <rect x="190" y="50" width="20" height="30" rx="3" fill="#00FF00"/>
+  <rect x="180" y="60" width="40" height="10" rx="2" fill="#00FF00"/>
+  <!-- Hero section -->
+  <rect x="30" y="90" width="340" height="100" fill="#0f0f1a"/>
+  <circle cx="200" cy="140" r="35" fill="none" stroke="#00FF00" stroke-width="2"/>
+  <path d="M200 115 L200 165 M175 140 L225 140" stroke="#00FF00" stroke-width="3"/>
+  <!-- Info cards -->
+  <rect x="50" y="200" width="90" height="50" rx="3" fill="#15152a"/>
+  <rect x="155" y="200" width="90" height="50" rx="3" fill="#15152a"/>
+  <rect x="260" y="200" width="90" height="50" rx="3" fill="#15152a"/>
+  <text x="200" y="285" text-anchor="middle" fill="#00FF00" font-size="12">CLINIQUE SANTÉ - SITE RESPONSIVE</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <!-- E-commerce website mockup -->
+  <rect x="30" y="40" width="340" height="220" rx="5" fill="#1a1a2e" stroke="#00D4FF" stroke-width="1"/>
+  <rect x="30" y="40" width="340" height="20" fill="#0f0f1a"/>
+  <circle cx="45" cy="50" r="5" fill="#FF006E"/>
+  <circle cx="60" cy="50" r="5" fill="#FFD700"/>
+  <circle cx="75" cy="50" r="5" fill="#00FF00"/>
+  <!-- Header -->
+  <rect x="30" y="60" width="340" height="40" fill="#15152a"/>
+  <rect x="40" y="70" width="80" height="20" rx="3" fill="url(#00D4FF)" opacity="0.5"/>
+  <rect x="250" y="70" width="30" height="20" rx="3" fill="#333"/>
+  <rect x="285" y="70" width="30" height="20" rx="3" fill="#333"/>
+  <!-- Hero image -->
+  <rect x="50" y="110" width="150" height="80" rx="5" fill="#0f0f1a" stroke="#333"/>
+  <rect x="60" y="120" width="130" height="60" rx="3" fill="#1a1a2e"/>
+  <circle cx="120" cy="150" r="20" fill="none" stroke="#7B2FFF" stroke-width="2"/>
+  <!-- Sidebar -->
+  <rect x="210" y="110" width="140" height="80" rx="3" fill="#0f0f1a"/>
+  <rect x="220" y="120" width="60" height="8" rx="2" fill="#333"/>
+  <rect x="220" y="135" width="80" height="6" rx="1" fill="#444"/>
+  <rect x="220" y="148" width="70" height="6" rx="1" fill="#444"/>
+  <rect x="220" y="161" width="60" height="6" rx="1" fill="#444"/>
+  <!-- Products -->
+  <rect x="50" y="200" width="80" height="50" rx="3" fill="#15152a"/>
+  <circle cx="90" cy="215" r="15" fill="#00D4FF" opacity="0.3"/>
+  <rect x="140" y="200" width="80" height="50" rx="3" fill="#15152a"/>
+  <circle cx="180" cy="215" r="15" fill="#7B2FFF" opacity="0.3"/>
+  <rect x="230" y="200" width="80" height="50" rx="3" fill="#15152a"/>
+  <circle cx="270" cy="215" r="15" fill="#FF006E" opacity="0.3"/>
+  <!-- Label -->
+  <text x="200" y="285" text-anchor="middle" fill="#fff" font-size="14" font-family="Arial">Boutique Mode</text>
+</svg>

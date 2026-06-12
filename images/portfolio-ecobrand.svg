@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00FF00"/>
+      <stop offset="100%" style="stop-color:#00AA00"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <!-- EcoBrand Logo - Leaf design -->
+  <g transform="translate(200, 120)">
+    <path d="M0 40 Q-30 0 0 -40 Q30 0 0 40" fill="url(#leaf)" opacity="0.8"/>
+    <path d="M0 40 Q-20 10 0 -30" fill="none" stroke="#fff" stroke-width="2"/>
+    <path d="M0 20 Q15 10 20 -10" fill="none" stroke="#fff" stroke-width="1"/>
+    <path d="M0 20 Q-15 10 -20 -10" fill="none" stroke="#fff" stroke-width="1"/>
+  </g>
+  <text x="200" y="200" text-anchor="middle" fill="#00FF00" font-size="20" font-family="Arial">EcoBrand</text>
+  <text x="200" y="220" text-anchor="middle" fill="#00FF00" font-size="10" opacity="0.7">IDENTITÉ ÉCOLOGIQUE</text>
+  <!-- Nature elements -->
+  <circle cx="50" cy="250" r="30" fill="#00FF00" opacity="0.1"/>
+  <circle cx="350" cy="50" r="40" fill="#00FF00" opacity="0.1"/>
+</svg>

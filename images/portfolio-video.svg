@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"/>
+  <!-- Video player frame -->
+  <rect x="50" y="50" width="300" height="180" rx="8" fill="#1a1a2e" stroke="#00D4FF" stroke-width="2"/>
+  <!-- Play button -->
+  <circle cx="200" cy="140" r="40" fill="#00D4FF" opacity="0.2"/>
+  <circle cx="200" cy="140" r="30" fill="none" stroke="#00D4FF" stroke-width="2"/>
+  <polygon points="190,125 190,155 215,140" fill="#00D4FF"/>
+  <!-- Progress bar -->
+  <rect x="70" y="245" width="260" height="6" rx="3" fill="#333"/>
+  <rect x="70" y="245" width="150" height="6" rx="3" fill="#00D4FF"/>
+  <!-- Time labels -->
+  <text x="70" y="275" fill="#666" font-size="10">0:00</text>
+  <text x="320" y="275" fill="#666" font-size="10">2:30</text>
+  <text x="200" y="285" text-anchor="middle" fill="#00D4FF" font-size="14">INTRO VIDÉO - MOTION DESIGN</text>
+</svg>
