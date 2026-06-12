@@ -770,6 +770,20 @@
         
         .demo-feature {
             cursor: pointer;
+            padding: 15px;
+        }
+        
+        .demo-feature-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .demo-feature:hover .demo-feature-img {
+            transform: scale(1.02);
         }
         
         .demo-feature:hover {
@@ -777,6 +791,24 @@
             transform: translateY(-5px);
             border-color: var(--primary);
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Player Video */
+        .player-video {
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: #0f0f1a;
+            display: block;
+        }
+        
+        .player-placeholder {
+            display: none;
+        }
+        
+        .player-placeholder.show {
+            display: block;
         }
         
         /* Demo Player */
@@ -1116,19 +1148,19 @@
                 </div>
                 <div class="demo-features" id="demo-features-list">
                     <div class="demo-feature" data-feature="ai">
-                        <i class="fas fa-robot"></i>
+                        <img src="images/demo-ai.svg" alt="IA Générative" class="demo-feature-img">
                         <h4>IA Générative</h4>
                         <p>Générez des scripts automatiquement</p>
                         <span class="feature-click">Cliquez pour voir</span>
                     </div>
                     <div class="demo-feature" data-feature="montage">
-                        <i class="fas fa-magic"></i>
+                        <img src="images/demo-montage.svg" alt="Montage Auto" class="demo-feature-img">
                         <h4>Montage Auto</h4>
                         <p>Montage intelligent en un clic</p>
                         <span class="feature-click">Cliquez pour voir</span>
                     </div>
                     <div class="demo-feature" data-feature="export">
-                        <i class="fas fa-video"></i>
+                        <img src="images/demo-export.svg" alt="Export" class="demo-feature-img">
                         <h4>Export Multi-Format</h4>
                         <p>720p, 1080p, 4K</p>
                         <span class="feature-click">Cliquez pour voir</span>
@@ -1140,7 +1172,8 @@
                         <button onclick="window.closeDemoPlayer()"><i class="fas fa-times"></i></button>
                     </div>
                     <div class="player-content">
-                        <div class="player-placeholder">
+                        <img id="player-video" src="" alt="Demo" class="player-video">
+                        <div class="player-placeholder" id="player-placeholder" style="display: none;">
                             <div class="play-animation">
                                 <i class="fas fa-play-circle"></i>
                                 <p>Démonstration en cours</p>
@@ -1489,18 +1522,26 @@
         window.playDemoFeature = function(feature) {
             const player = document.getElementById('demo-player');
             const title = document.getElementById('player-title');
+            const playerVideo = document.getElementById('player-video');
+            const playerPlaceholder = document.getElementById('player-placeholder');
             const features = {
-                'ai': { icon: 'fa-robot', title: 'IA Générative - Génération de script' },
-                'montage': { icon: 'fa-magic', title: 'Montage Auto - Édition intelligente' },
-                'export': { icon: 'fa-video', title: 'Export Multi-Format - 720p/1080p/4K' }
+                'ai': { icon: 'fa-robot', title: 'IA Générative - Génération de script', img: 'images/demo-ai.svg' },
+                'montage': { icon: 'fa-magic', title: 'Montage Auto - Édition intelligente', img: 'images/demo-montage.svg' },
+                'export': { icon: 'fa-video', title: 'Export Multi-Format - 720p/1080p/4K', img: 'images/demo-export.svg' }
             };
             
             if (features[feature] && player) {
                 title.innerHTML = '<i class="fas ' + features[feature].icon + '"></i> ' + features[feature].title;
                 player.style.display = 'block';
+                // Show the image
+                if (playerVideo && features[feature].img) {
+                    playerVideo.src = features[feature].img;
+                    playerVideo.style.display = 'block';
+                    if (playerPlaceholder) playerPlaceholder.style.display = 'none';
+                }
                 // Show toast notification
                 if (window.toast) {
-                    toast.info('Démo', 'Démarrage de la démonstration: ' + features[feature].title);
+                    toast.info('Démo', 'Démonstration: ' + features[feature].title);
                 }
             }
         };
