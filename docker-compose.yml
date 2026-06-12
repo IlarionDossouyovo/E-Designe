@@ -1,43 +1,34 @@
-version: '3.8'
-
 services:
   # Site Web E-Graphisme
   web:
     build: .
-    ports:
-      - "8000:8000"
+    network_mode: host
     volumes:
       - ./db:/workspace/project/E-Graphisme/db
       - ./php:/workspace/project/E-Graphisme/php
     environment:
-      - OLLAMA_HOST=http://host.docker.internal:11434
-      - N8N_WEBHOOK_URL=http://host.docker.internal:5678/webhook
-    command: php -S 0.0.0.0:8000 -t /workspace/project/E-Graphisme
-    networks:
-      - egraphisme-net
+      - OLLAMA_HOST=http://127.0.0.1:11434
+      - N8N_WEBHOOK_URL=http://127.0.0.1:5678/webhook
+    command: php -S 127.0.0.1:8000 -t /workspace/project/E-Graphisme
 
   # N8N pour automatisation
   n8n:
     image: n8nio/n8n:latest
-    ports:
-      - "5678:5678"
+    network_mode: host
     environment:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_EMAIL=admin@e-graphisme.com
       - N8N_PASSWORD=egraphisme2026
-      - N8N_HOST=http://localhost:5678
-      - WEBHOOK_URL=http://n8n:5678
+      - N8N_HOST=http://127.0.0.1:5678
+      - WEBHOOK_URL=http://127.0.0.1:5678
       - GENERIC_TIMEZONE=Africa/Cotonou
     volumes:
       - n8n-data:/home/node/.n8n
-    networks:
-      - egraphisme-net
 
   # Database (MariaDB pour production)
   database:
     image: mariadb:10.11
-    ports:
-      - "3306:3306"
+    network_mode: host
     environment:
       - MYSQL_ROOT_PASSWORD=egraphisme_root
       - MYSQL_DATABASE=egraphisme
@@ -45,12 +36,6 @@ services:
       - MYSQL_PASSWORD=egraphisme_pass
     volumes:
       - db-data:/var/lib/mysql
-    networks:
-      - egraphisme-net
-
-networks:
-  egraphisme-net:
-    driver: bridge
 
 volumes:
   n8n-data:
