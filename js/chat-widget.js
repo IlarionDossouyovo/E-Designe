@@ -6,7 +6,7 @@
 
     // Configuration - À personnaliser
     const config = {
-        whatsappNumber: '+33123456789', // Votre numéro WhatsApp
+        whatsappNumber: '+2290197700347', // Votre numéro WhatsApp
         companyName: 'E-Graphisme',
         position: 'bottom-right', // bottom-right, bottom-left
         primaryColor: '#6366f1',
