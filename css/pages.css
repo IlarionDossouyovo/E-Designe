@@ -731,6 +731,50 @@
         font-size: 2rem;
     }
     
+    /* Services page mobile */
+    .service-row {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .service-image {
+        height: 250px;
+    }
+    
+    .service-image img {
+        height: 250px;
+    }
+    
+    .service-text h2 {
+        font-size: 1.8rem;
+    }
+    
+    .service-list {
+        padding-left: 0;
+    }
+    
+    /* Portfolio page mobile */
+    .portfolio-filters {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+    
+    /* Pricing mobile */
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .pricing-card {
+        padding: 20px;
+    }
+    
+    /* Timeline mobile */
     .timeline::before {
         left: 20px;
     }

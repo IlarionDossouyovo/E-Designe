@@ -581,6 +581,21 @@ h1, h2, h3, h4, h5, h6 {
     .section-header h2 { font-size: 2rem; }
     .stats { justify-content: center; }
     .footer-content { grid-template-columns: 1fr; }
+    
+    /* Services responsive */
+    .services-grid { grid-template-columns: 1fr; gap: 20px; }
+    .service-card { padding: 25px; }
+    a.service-card { display: block; }
+    
+    /* Portfolio responsive */
+    .portfolio-grid { grid-template-columns: 1fr; gap: 20px; }
+    .portfolio-item { min-height: 200px; }
+    .portfolio-filters { flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .filter-btn { padding: 8px 16px; font-size: 0.9rem; }
+    
+    /* Contact responsive */
+    .contact-wrapper { grid-template-columns: 1fr; }
+    .contact-form { padding: 20px; }
 }
 
 @media (max-width: 480px) {

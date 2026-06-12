@@ -56,7 +56,7 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item" data-category="branding">
                     <div class="portfolio-image">
-                        <img src="images/portfolio-techcorp.svg" alt="TechCorp" style="width:100%;height:100%;object-fit:cover;">
+                        <img loading="lazy" src="images/portfolio-techcorp.svg" alt="TechCorp" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
                         <div class="portfolio-overlay">
                             <a href="#" class="view-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
@@ -70,7 +70,7 @@
 
                 <div class="portfolio-item" data-category="web">
                     <div class="portfolio-image">
-                        <img src="images/portfolio-boutique.svg" alt="Boutique" style="width:100%;height:100%;object-fit:cover;">
+                        <img loading="lazy" src="images/portfolio-boutique.svg" alt="Boutique" style="width:100%;height:100%;object-fit:cover;">
                         <div class="portfolio-overlay">
                             <a href="#" class="view-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
@@ -84,7 +84,7 @@
 
                 <div class="portfolio-item" data-category="print">
                     <div class="portfolio-image">
-                        <img src="images/portfolio-print.svg" alt="Print" style="width:100%;height:100%;object-fit:cover;">
+                        <img loading="lazy" src="images/portfolio-print.svg" alt="Print" style="width:100%;height:100%;object-fit:cover;">
                         <div class="portfolio-overlay">
                             <a href="#" class="view-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
@@ -98,7 +98,7 @@
 
                 <div class="portfolio-item" data-category="branding">
                     <div class="portfolio-image">
-                        <img src="images/portfolio-cafe.svg" alt="Cafe" style="width:100%;height:100%;object-fit:cover;">
+                        <img loading="lazy" src="images/portfolio-cafe.svg" alt="Cafe" style="width:100%;height:100%;object-fit:cover;">
                         <div class="portfolio-overlay">
                             <a href="#" class="view-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
@@ -112,7 +112,7 @@
 
                 <div class="portfolio-item" data-category="web">
                     <div class="portfolio-image">
-                        <img src="images/portfolio-restaurant.svg" alt="Restaurant" style="width:100%;height:100%;object-fit:cover;">
+                        <img loading="lazy" src="images/portfolio-restaurant.svg" alt="Restaurant" style="width:100%;height:100%;object-fit:cover;">
                         <div class="portfolio-overlay">
                             <a href="#" class="view-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
@@ -126,7 +126,7 @@
 
                 <div class="portfolio-item" data-category="motion">
                     <div class="portfolio-image">
-                        <img src="images/portfolio-video.svg" alt="Video" style="width:100%;height:100%;object-fit:cover;">
+                        <img loading="lazy" src="images/portfolio-video.svg" alt="Video" style="width:100%;height:100%;object-fit:cover;">
                         <div class="portfolio-overlay">
                             <a href="#" class="view-btn"><i class="fas fa-play"></i></a>
                         </div>
@@ -140,7 +140,7 @@
 
                 <div class="portfolio-item" data-category="print">
                     <div class="portfolio-image">
-                        <img src="images/portfolio-magazine.svg" alt="Magazine" style="width:100%;height:100%;object-fit:cover;">
+                        <img loading="lazy" src="images/portfolio-magazine.svg" alt="Magazine" style="width:100%;height:100%;object-fit:cover;">
                         <div class="portfolio-overlay">
                             <a href="#" class="view-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
@@ -154,7 +154,7 @@
 
                 <div class="portfolio-item" data-category="web">
                     <div class="portfolio-image">
-                        <img src="images/portfolio-clinique.svg" alt="Clinique" style="width:100%;height:100%;object-fit:cover;">
+                        <img loading="lazy" src="images/portfolio-clinique.svg" alt="Clinique" style="width:100%;height:100%;object-fit:cover;">
                         <div class="portfolio-overlay">
                             <a href="#" class="view-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
@@ -168,7 +168,7 @@
 
                 <div class="portfolio-item" data-category="branding">
                     <div class="portfolio-image">
-                        <img src="images/portfolio-ecobrand.svg" alt="EcoBrand" style="width:100%;height:100%;object-fit:cover;">
+                        <img loading="lazy" src="images/portfolio-ecobrand.svg" alt="EcoBrand" style="width:100%;height:100%;object-fit:cover;">
                         <div class="portfolio-overlay">
                             <a href="#" class="view-btn"><i class="fas fa-external-link-alt"></i></a>
                         </div>
@@ -229,22 +229,13 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/lightbox.js"></script>
     <script src="js/ai-engine.js" defer></script>
     <script src="js/ai-widget.js" defer></script>
     <script src="js/api.js" defer></script>
     <script src="js/notifications.js" defer></script>
     
     <script>
-        // Portfolio click handlers
-        document.querySelectorAll('.portfolio-item').forEach(item => {
-            item.style.cursor = 'pointer';
-            item.addEventListener('click', function() {
-                const title = this.querySelector('h4').textContent;
-                const category = this.querySelector('p').textContent;
-                alert('Projet: ' + title + '\nCatégorie: ' + category + '\n\nCe projet sera bientôt disponible en ligne!');
-            });
-        });
-        
         // Filter buttons
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
