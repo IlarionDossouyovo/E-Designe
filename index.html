@@ -657,5 +657,18 @@
                 alert('Projet: ' + title + '\nCatégorie: ' + category + '\n\nCe projet sera bientôt disponible en ligne!');
             });
         });
+        
+        // Service card click handlers - redirect to services page
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function() {
+                const service = this.querySelector('h3')?.textContent || this.querySelector('.studio-link')?.textContent;
+                if (this.classList.contains('studio-card')) {
+                    window.location.href = 'studio.html';
+                } else {
+                    window.location.href = 'services.html';
+                }
+            });
+        });
     </script>
 </body>

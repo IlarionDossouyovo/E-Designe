@@ -254,5 +254,29 @@
     <script src="js/ai-engine.js"></script>
     <script src="js/ai-widget.js"></script>
     <script src="js/data-loader.js"></script>
+    
+    <script>
+        // Service row click handlers
+        document.querySelectorAll('.service-row').forEach(row => {
+            row.style.cursor = 'pointer';
+            row.addEventListener('click', function() {
+                const title = this.querySelector('h2')?.textContent || 'Service';
+                if (title.includes('E-Studio') || title.includes('Vidéo')) {
+                    window.location.href = 'studio.html';
+                } else {
+                    window.location.href = 'contact.html';
+                }
+            });
+        });
+        
+        // Pricing card click handlers
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function() {
+                const plan = this.querySelector('h3')?.textContent;
+                window.location.href = 'contact.html';
+            });
+        });
+    </script>
 </body>
 </html>
