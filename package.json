@@ -1,24 +1,22 @@
 {
-    "name": "e-graphisme",
-    "version": "1.0.0",
-    "description": "E-Graphisme - Agence créative de design graphique et web",
-    "main": "index.html",
-    "scripts": {
-        "start": "python3 -m http.server 8000",
-        "dev": "python3 -m http.server 3000",
-        "serve": "python3 -m http.server 8000 --bind 0.0.0.0",
-        "preview": "npx serve ."
-    },
-    "keywords": [
-        "design",
-        "branding",
-        "web-design",
-        "portfolio",
-        "agency"
-    ],
-    "author": "E-Graphisme",
-    "license": "MIT",
-    "devDependencies": {
-        "serve": "^14.2.0"
-    }
+  "name": "e-graphisme",
+  "version": "2.0.0",
+  "description": "E-Graphisme AI - Plateforme SaaS de design graphique et production vidéo",
+  "main": "index.html",
+  "scripts": {
+    "start": "php -S localhost:8080",
+    "server": "python -m http.server 8080",
+    "dev": "php -S localhost:8080 -t .",
+    "serve": "python -m http.server 8080 --bind 0.0.0.0",
+    "deploy": "vercel --prod",
+    "update": "git pull origin mai"
+  },
+  "keywords": ["design", "ai", "branding", "video", "saas", "n8n", "ollama"],
+  "author": "E-Graphisme By ELECTRON",
+  "license": "MIT",
+  "homepage": "https://e-graphisme.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IlarionDossouyovo/E-Graphisme.git"
+  }
 }
