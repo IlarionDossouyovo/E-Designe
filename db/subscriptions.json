@@ -1,0 +1,34 @@
+[
+  {
+    "id": "sub_free",
+    "name": "Gratuit",
+    "price": 0,
+    "currency": "EUR",
+    "features": ["3 projets", "Analyse basique", "Export PNG"],
+    "projects": 3,
+    "ai": false,
+    "templates": false
+  },
+  {
+    "id": "sub_pro",
+    "name": "Pro",
+    "price": 29,
+    "currency": "EUR",
+    "features": ["Projets illimités", "Analyse IA complète", "Export PNG/PDF/SVG", "Générateur IA", "50+ templates", "Support email"],
+    "projects": -1,
+    "ai": true,
+    "templates": 50
+  },
+  {
+    "id": "sub_enterprise",
+    "name": "Enterprise",
+    "price": 99,
+    "currency": "EUR",
+    "features": ["Tout inclus Pro", "Équipe (10 users)", "API access", "Intégrations N8N", "Branding personnalisé", "Support 24/7"],
+    "projects": -1,
+    "ai": true,
+    "templates": -1,
+    "team": 10,
+    "api": true
+  }
+]

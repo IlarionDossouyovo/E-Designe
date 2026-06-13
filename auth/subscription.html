@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abonnement | E-Graphisme</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #00D4FF; --secondary: #7B2FFF; --accent: #FF006E; --dark: #0a0a0f; --light: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--light); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 40px; }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--primary); text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--light); text-decoration: none; }
+        .nav-links a:hover { color: var(--primary); }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 32px; margin-bottom: 10px; text-align: center; }
+        .subtitle { text-align: center; color: #888; margin-bottom: 40px; }
+        .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px; }
+        .plan-card { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; border: 2px solid rgba(255,255,255,0.1); transition: all 0.3s; }
+        .plan-card.featured { border-color: var(--primary); position: relative; }
+        .plan-card.featured::before { content: 'Populaire'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: var(--dark); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .plan-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .plan-name { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+        .plan-price { font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
+        .plan-price span { font-size: 16px; color: #888; }
+        .plan-period { color: #888; margin-bottom: 20px; }
+        .plan-features { list-style: none; margin-bottom: 30px; }
+        .plan-features li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .plan-features li i { color: var(--primary); margin-right: 10px; }
+        .plan-features li.unavailable { color: #666; }
+        .plan-features li.unavailable i { color: #666; }
+        .btn-plan { width: 100%; padding: 15px; border-radius: 10px; border: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--dark); font-size: 16px; font-weight: 600; cursor: pointer; }
+        .btn-plan:disabled { background: #333; color: #666; cursor: not-allowed; }
+        .current-plan { background: rgba(0, 212, 255, 0.1); border: 1px solid var(--primary); }
+        .current-plan .btn-plan { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        @media (max-width: 900px) { .plans-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">E-Graphisme <span>AI</span></a>
+            <nav class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="auth/profile.html">Profil</a>
+                <a href="auth/subscription.html">Abonnement</a>
+            </nav>
+        </header>
+        
+        <h1>Choisissez votre <span style="color: var(--primary);">plan</span></h1>
+        <p class="subtitle">Sélectionnez l'abonnement qui correspond le mieux à vos besoins</p>
+        
+        <div class="plans-grid">
+            <div class="plan-card">
+                <h3 class="plan-name">Gratuit</h3>
+                <div class="plan-price">0<span>€</span></div>
+                <p class="plan-period">Pour toujours</p>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> 3 projets</li>
+                    <li><i class="fas fa-check"></i> Analyse de marque basique</li>
+                    <li><i class="fas fa-check"></i> Export PNG</li>
+                    <li class="unavailable"><i class="fas fa-times"></i> IA avancées</li>
+                    <li class="unavailable"><i class="fas fa-times"></i> Templates premium</li>
+                    <li class="unavailable"><i class="fas fa-times"></i> Support prioritaire</li>
+                </ul>
+                <button class="btn-plan" disabled>Plan actuel</button>
+            </div>
+            
+            <div class="plan-card featured">
+                <h3 class="plan-name">Pro</h3>
+                <div class="plan-price">29<span>€</span></div>
+                <p class="plan-period">Par mois</p>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Projets illimités</li>
+                    <li><i class="fas fa-check"></i> Analyse IA complète</li>
+                    <li><i class="fas fa-check"></i> Export PNG, PDF, SVG</li>
+                    <li><i class="fas fa-check"></i> Générateur IA</li>
+                    <li><i class="fas fa-check"></i> 50+ templates</li>
+                    <li><i class="fas fa-check"></i> Support email</li>
+                </ul>
+                <button class="btn-plan" onclick="subscribe('pro')">Choisir Pro</button>
+            </div>
+            
+            <div class="plan-card">
+                <h3 class="plan-name">Enterprise</h3>
+                <div class="plan-price">99<span>€</span></div>
+                <p class="plan-period">Par mois</p>
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Tout inclus Pro</li>
+                    <li><i class="fas fa-check"></i> Équipe (10 users)</li>
+                    <li><i class="fas fa-check"></i> API access</li>
+                    <li><i class="fas fa-check"></i> Intégrations N8N</li>
+                    <li><i class="fas fa-check"></i> Branding personnalisé</li>
+                    <li><i class="fas fa-check"></i> Support 24/7</li>
+                </ul>
+                <button class="btn-plan" onclick="subscribe('enterprise')">Choisir Enterprise</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function subscribe(plan) {
+            if (!localStorage.getItem('authToken')) {
+                window.location.href = 'auth/login.html';
+                return;
+            }
+            
+            // Simuler le paiement
+            const confirmed = confirm(`Confirmer l'abonnement ${plan.toUpperCase()}?`);
+            if (confirmed) {
+                const response = await fetch('/php/auth.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'subscribe', plan: plan })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Abonnement activé!');
+                    window.location.href = 'dashboard.html';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
