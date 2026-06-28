@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Studio - E-Graphisme AI Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --dark-secondary: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
+        }
+
+        .login-container {
+            background: var(--dark-secondary);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-logo p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Main Dashboard */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: var(--dark-secondary);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+        }
+
+        .nav-menu {
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .user-info {
+            padding: 1rem;
+            background: var(--dark);
+            border-radius: 8px;
+            margin-top: auto;
+        }
+
+        .user-info .name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .user-info .role {
+            font-size: 0.875rem;
+            color: var(--secondary);
+        }
+
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .stat-card .label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stat-card .value.primary { color: var(--primary); }
+        .stat-card .value.secondary { color: var(--secondary); }
+        .stat-card .value.accent { color: var(--accent); }
+
+        /* Agents Grid */
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .agent-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .agent-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.3);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .agent-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .agent-icon.design { background: rgba(236, 72, 153, 0.2); }
+        .agent-icon.web { background: rgba(99, 102, 241, 0.2); }
+        .agent-icon.video { background: rgba(239, 68, 68, 0.2); }
+        .agent-icon.content { background: rgba(16, 185, 129, 0.2); }
+        .agent-icon.marketing { background: rgba(245, 158, 11, 0.2); }
+        .agent-icon seo { background: rgba(59, 130, 246, 0.2); }
+        .agent-icon.analysis { background: rgba(139, 92, 246, 0.2); }
+
+        .agent-name {
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .agent-status {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            margin-top: 0.25rem;
+        }
+
+        .agent-description {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .agent-capabilities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .capability-tag {
+            background: var(--dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            display: none;
+            background: var(--dark-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            height: 600px;
+            flex-direction: column;
+        }
+
+        .chat-container.active {
+            display: flex;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            background: var(--primary);
+            margin-left: auto;
+        }
+
+        .message.ai {
+            background: var(--dark);
+        }
+
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .chat-input button {
+            padding: 0.875rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .chat-input button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Settings */
+        .settings-form {
+            background: var(--dark-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .logout-btn:hover {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-container">
+            <div class="login-logo">
+                <h1>🚀 Stack Studio</h1>
+                <p>E-Graphisme AI Platform - Founder Access</p>
+            </div>
+            <div class="error-message" id="loginError">
+                Access denied. Invalid credentials.
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="founderToken">Founder Access Token</label>
+                    <input type="password" id="founderToken" placeholder="Enter your access token" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Access Stack Studio</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <aside class="sidebar">
+            <div class="logo">🚀 Stack Studio</div>
+            <nav class="nav-menu">
+                <div class="nav-item active" data-section="overview">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Overview
+                </div>
+                <div class="nav-item" data-section="agents">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+                    AI Agents
+                </div>
+                <div class="nav-item" data-section="chat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    AI Chat
+                </div>
+                <div class="nav-item" data-section="analytics">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+                    Analytics
+                </div>
+                <div class="nav-item" data-section="settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings
+                </div>
+            </nav>
+            <div class="user-info">
+                <div class="name">Founder</div>
+                <div class="role">Admin Access</div>
+                <button class="logout-btn" onclick="StackStudio.logout()" style="margin-top: 0.5rem; width: 100%;">Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section class="section active" id="overview">
+                <div class="page-header">
+                    <h1>Dashboard Overview</h1>
+                    <p>Welcome to Stack Studio - Your AI-powered agency management platform</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="label">Active AI Agents</div>
+                        <div class="value primary">16</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Conversations Today</div>
+                        <div class="value secondary" id="conversationCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Projects Analyzed</div>
+                        <div class="value accent" id="projectCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">API Status</div>
+                        <div class="value secondary" id="apiStatus">Online</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Agents Section -->
+            <section class="section" id="agents">
+                <div class="page-header">
+                    <h1>AI Agents</h1>
+                    <p>Manage and interact with your specialized AI agents</p>
+                </div>
+                <div class="agents-grid">
+                    <!-- Design Agents -->
+                    <div class="agent-card" data-agent="design">
+                        <div class="agent-header">
+                            <div class="agent-icon design">🎨</div>
+                            <div>
+                                <div class="agent-name">Design Agent</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Specialized in logo design, brand identity, visual identity, and graphic design projects.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Logo Design</span>
+                            <span class="capability-tag">Brand Identity</span>
+                            <span class="capability-tag">Visual Identity</span>
+                            <span class="capability-tag">Charte Graphique</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="brand">
+                        <div class="agent-header">
+                            <div class="agent-icon design">💎</div>
+                            <div>
+                                <div class="agent-name">Brand Strategist</div>
+                                <div class="agent-status">● Active - llama3.1:8b</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Strategic brand positioning, market analysis, and competitive differentiation.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Brand Strategy</span>
+                            <span class="capability-tag">Market Analysis</span>
+                            <span class="capability-tag">Positioning</span>
+                            <span class="capability-tag">Competitors</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="web">
+                        <div class="agent-header">
+                            <div class="agent-icon web">🌐</div>
+                            <div>
+                                <div class="agent-name">Web Agent</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Expert in website creation, SEO optimization, and web development.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Website</span>
+                            <span class="capability-tag">SEO</span>
+                            <span class="capability-tag">E-commerce</span>
+                            <span class="capability-tag">Landing Page</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="dev">
+                        <div class="agent-header">
+                            <div class="agent-icon web">⚡</div>
+                            <div>
+                                <div class="agent-name">Dev Agent</div>
+                                <div class="agent-status">● Active - qwen2.5-coder:7b</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Code generation, development assistance, and technical implementation.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Frontend</span>
+                            <span class="capability-tag">Backend</span>
+                            <span class="capability-tag">APIs</span>
+                            <span class="capability-tag">Debug</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="video">
+                        <div class="agent-header">
+                            <div class="agent-icon video">🎬</div>
+                            <div>
+                                <div class="agent-name">Video Agent</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Professional video production, motion design, and AI-generated video content.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Video Production</span>
+                            <span class="capability-tag">Motion Design</span>
+                            <span class="capability-tag">AI Video</span>
+                            <span class="capability-tag">Montage</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="motion">
+                        <div class="agent-header">
+                            <div class="agent-icon video">✨</div>
+                            <div>
+                                <div class="agent-name">Motion Designer</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Animation, motion graphics, and visual effects for digital content.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">2D Animation</span>
+                            <span class="capability-tag">3D Animation</span>
+                            <span class="capability-tag">VFX</span>
+                            <span class="capability-tag">Transitions</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="content">
+                        <div class="agent-header">
+                            <div class="agent-icon content">📝</div>
+                            <div>
+                                <div class="agent-name">Content Agent</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Content creation, copywriting, blog posts, and social media content.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Copywriting</span>
+                            <span class="capability-tag">Blog</span>
+                            <span class="capability-tag">Social Media</span>
+                            <span class="capability-tag">Newsletter</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="writer">
+                        <div class="agent-header">
+                            <div class="agent-icon content">✍️</div>
+                            <div>
+                                <div class="agent-name">Copywriter Pro</div>
+                                <div class="agent-status">● Active - llama3.1:8b</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Professional copywriting for ads, landing pages, and marketing campaigns.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Ads Copy</span>
+                            <span class="capability-tag">Landing Pages</span>
+                            <span class="capability-tag">Email Sequences</span>
+                            <span class="capability-tag">CTAs</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="marketing">
+                        <div class="agent-header">
+                            <div class="agent-icon marketing">📢</div>
+                            <div>
+                                <div class="agent-name">Marketing Agent</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Digital marketing strategy, advertising campaigns, and lead generation.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Strategy</span>
+                            <span class="capability-tag">Ads</span>
+                            <span class="capability-tag">Leads</span>
+                            <span class="capability-tag">Analytics</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="social">
+                        <div class="agent-header">
+                            <div class="agent-icon marketing">📱</div>
+                            <div>
+                                <div class="agent-name">Social Media Manager</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Social media management, content planning, and engagement strategies.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Planning</span>
+                            <span class="capability-tag">Engagement</span>
+                            <span class="capability-tag">Scheduling</span>
+                            <span class="capability-tag">Growth</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="seo">
+                        <div class="agent-header">
+                            <div class="agent-icon seo">🔍</div>
+                            <div>
+                                <div class="agent-name">SEO Agent</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            SEO optimization, search rankings, and technical SEO audits.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Audit</span>
+                            <span class="capability-tag">Keywords</span>
+                            <span class="capability-tag">Backlinks</span>
+                            <span class="capability-tag">Technical</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="ads">
+                        <div class="agent-header">
+                            <div class="agent-icon seo">💰</div>
+                            <div>
+                                <div class="agent-name">Ads Specialist</div>
+                                <div class="agent-status">● Active - phi3:mini</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Google Ads, Meta Ads, and paid campaign optimization.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Google Ads</span>
+                            <span class="capability-tag">Meta Ads</span>
+                            <span class="capability-tag">Budget Optim</span>
+                            <span class="capability-tag">A/B Testing</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="analysis">
+                        <div class="agent-header">
+                            <div class="agent-icon analysis">📊</div>
+                            <div>
+                                <div class="agent-name">Analysis Agent</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Project analysis, quotes, budgeting, and timeline planning.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Quotes</span>
+                            <span class="capability-tag">Budget</span>
+                            <span class="capability-tag">Timeline</span>
+                            <span class="capability-tag">Analysis</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="sales">
+                        <div class="agent-header">
+                            <div class="agent-icon analysis">💼</div>
+                            <div>
+                                <div class="agent-name">Sales Assistant</div>
+                                <div class="agent-status">● Active - llama3.1:8b</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Sales support, client follow-ups, and conversion optimization.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Follow-up</span>
+                            <span class="capability-tag">Closing</span>
+                            <span class="capability-tag">Negotiation</span>
+                            <span class="capability-tag">CRM</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="support">
+                        <div class="agent-header">
+                            <div class="agent-icon analysis">🎧</div>
+                            <div>
+                                <div class="agent-name">Support Agent</div>
+                                <div class="agent-status">● Active - phi3:mini</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Customer support, FAQs, and ticket management.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Tickets</span>
+                            <span class="capability-tag">FAQs</span>
+                            <span class="capability-tag">Escalation</span>
+                            <span class="capability-tag">Satisfaction</span>
+                        </div>
+                    </div>
+                    <div class="agent-card" data-agent="data">
+                        <div class="agent-header">
+                            <div class="agent-icon analysis">🧠</div>
+                            <div>
+                                <div class="agent-name">Data Analyst</div>
+                                <div class="agent-status">● Active - llama3.2</div>
+                            </div>
+                        </div>
+                        <div class="agent-description">
+                            Data analysis, reporting, and business intelligence.
+                        </div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">Reports</span>
+                            <span class="capability-tag">Forecasting</span>
+                            <span class="capability-tag">Visualization</span>
+                            <span class="capability-tag">KPIs</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Section -->
+            <section class="section" id="chat">
+                <div class="page-header">
+                    <h1>AI Chat</h1>
+                    <p>Chat with any of your AI agents</p>
+                    <div style="margin-top: 1rem;">
+                        <label style="color: var(--text-muted); font-size: 0.875rem;">Model:</label>
+                        <select id="modelSelector" onchange="StackStudio.changeModel(this.value)" style="margin-left: 0.5rem; padding: 0.5rem; background: var(--dark-secondary); border: 1px solid var(--border); color: var(--text); border-radius: 6px;">
+                            <option value="llama3.2">llama3.2 (General)</option>
+                            <option value="llama3.1:8b">llama3.1:8b (Advanced)</option>
+                            <option value="qwen2.5-coder:7b">qwen2.5-coder:7b (Code)</option>
+                            <option value="phi3:mini">phi3:mini (Fast)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chat-container active" id="chatContainer">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai">
+                            <strong>Stack Studio:</strong><br>
+                            Welcome! I'm Stack Studio, your AI agency assistant. How can I help you today?
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Type your message...">
+                        <button onclick="StackStudio.sendMessage()">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section class="section" id="analytics">
+                <div class="page-header">
+                    <h1>Analytics</h1>
+                    <p>Track AI performance and usage metrics</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="label">Total Requests</div>
+                        <div class="value primary" id="totalRequests">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Success Rate</div>
+                        <div class="value secondary">98.5%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Avg Response Time</div>
+                        <div class="value accent">1.2s</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="section" id="settings">
+                <div class="page-header">
+                    <h1>Settings</h1>
+                    <p>Configure Stack Studio</p>
+                </div>
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label>API Configuration</label>
+                        <input type="text" value="http://127.0.0.1:11434" readonly style="opacity: 0.7;">
+                    </div>
+                    <div class="form-group">
+                        <label>Available AI Models</label>
+                        <div style="background: var(--dark); padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;"><span>🦙</span> <strong>llama3.2</strong> <span style="color: var(--secondary); font-size: 0.75rem;">2.0 Go - Latest general purpose</span></div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;"><span>🦙</span> <strong>llama3.1:8b</strong> <span style="color: var(--secondary); font-size: 0.75rem;">4.9 Go - Advanced reasoning</span></div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;"><span>🔢</span> <strong>qwen2.5-coder:7b</strong> <span style="color: var(--secondary); font-size: 0.75rem;">4.7 Go - Code specialized</span></div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;"><span>⚡</span> <strong>phi3:mini</strong> <span style="color: var(--secondary); font-size: 0.75rem;">2.2 Go - Fast & lightweight</span></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Default Model</label>
+                        <input type="text" value="llama3.2" readonly style="opacity: 0.7;">
+                    </div>
+                    <div class="form-group">
+                        <label>Access Token</label>
+                        <input type="password" id="tokenDisplay" value="••••••••" readonly style="opacity: 0.7;">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+    /**
+     * Stack Studio - Principal AI Agent Platform
+     * E-Graphisme by ELECTRON
+     */
+    const StackStudio = {
+        // Configuration
+        config: {
+            founderToken: 'egraphisme-founder-2026',
+            apiEndpoint: 'http://127.0.0.1:11434',
+            model: 'llama3.2',
+            availableModels: [
+                { name: 'llama3.2', size: '2.0 Go', description: 'Latest Llama model - General purpose' },
+                { name: 'llama3.1:8b', size: '4.9 Go', description: '8B parameters - Advanced reasoning' },
+                { name: 'qwen2.5-coder:7b', size: '4.7 Go', description: 'Code specialized - Development' },
+                { name: 'phi3:mini', size: '2.2 Go', description: 'Lightweight - Fast responses' }
+            ]
+        },
+
+        // State
+        state: {
+            isAuthenticated: false,
+            conversationCount: 0,
+            projectCount: 0,
+            totalRequests: 0
+        },
+
+        /**
+         * Initialize Stack Studio
+         */
+        init() {
+            // Check for existing session
+            const session = localStorage.getItem('stack_studio_session');
+            if (session && session === this.config.founderToken) {
+                this.showDashboard();
+            }
+
+            // Setup event listeners
+            this.setupEventListeners();
+        },
+
+        /**
+         * Setup Event Listeners
+         */
+        setupEventListeners() {
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.login();
+            });
+
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const section = item.dataset.section;
+                    this.showSection(section);
+                });
+            });
+
+            // Agent cards
+            document.querySelectorAll('.agent-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const agent = card.dataset.agent;
+                    this.selectAgent(agent);
+                });
+            });
+
+            // Chat input
+            document.getElementById('chatInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.sendMessage();
+                }
+            });
+        },
+
+        /**
+         * Login with founder token
+         */
+        login() {
+            const token = document.getElementById('founderToken').value;
+            
+            if (token === this.config.founderToken) {
+                this.state.isAuthenticated = true;
+                localStorage.setItem('stack_studio_session', token);
+                this.showDashboard();
+            } else {
+                document.getElementById('loginError').classList.add('show');
+                setTimeout(() => {
+                    document.getElementById('loginError').classList.remove('show');
+                }, 3000);
+            }
+        },
+
+        /**
+         * Show Dashboard
+         */
+        showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            this.loadStats();
+        },
+
+        /**
+         * Logout
+         */
+        logout() {
+            localStorage.removeItem('stack_studio_session');
+            this.state.isAuthenticated = false;
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('founderToken').value = '';
+        },
+
+        /**
+         * Show Section
+         */
+        showSection(sectionId) {
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.section === sectionId) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Show section
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        },
+
+        /**
+         * Change AI Model
+         */
+        changeModel(modelName) {
+            this.config.model = modelName;
+            this.addMessage('system', `🤖 Model changed to ${modelName}. Ready for new conversations.`);
+        },
+
+        /**
+         * Select Agent
+         */
+        selectAgent(agentType) {
+            this.showSection('chat');
+            
+            const agentNames = {
+                design: 'Design Agent',
+                brand: 'Brand Strategist',
+                web: 'Web Agent',
+                dev: 'Dev Agent',
+                video: 'Video Agent',
+                motion: 'Motion Designer',
+                content: 'Content Agent',
+                writer: 'Copywriter Pro',
+                marketing: 'Marketing Agent',
+                social: 'Social Media Manager',
+                seo: 'SEO Agent',
+                ads: 'Ads Specialist',
+                analysis: 'Analysis Agent',
+                sales: 'Sales Assistant',
+                support: 'Support Agent',
+                data: 'Data Analyst'
+            };
+
+            const agentModels = {
+                design: 'llama3.2',
+                brand: 'llama3.1:8b',
+                web: 'llama3.2',
+                dev: 'qwen2.5-coder:7b',
+                video: 'llama3.2',
+                motion: 'llama3.2',
+                content: 'llama3.2',
+                writer: 'llama3.1:8b',
+                marketing: 'llama3.2',
+                social: 'llama3.2',
+                seo: 'llama3.2',
+                ads: 'phi3:mini',
+                analysis: 'llama3.2',
+                sales: 'llama3.1:8b',
+                support: 'phi3:mini',
+                data: 'llama3.2'
+            };
+
+            this.config.model = agentModels[agentType] || 'llama3.2';
+            this.addMessage('system', `🤖 Selected ${agentNames[agentType]} (Model: ${this.config.model}). You can now chat with this agent.`);
+        },
+
+        /**
+         * Send Chat Message
+         */
+        async sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            this.addMessage('user', message);
+            input.value = '';
+
+            // Update stats
+            this.state.conversationCount++;
+            this.state.totalRequests++;
+            this.updateStats();
+
+            // Get AI response
+            try {
+                const response = await this.getAIResponse(message);
+                this.addMessage('ai', response);
+            } catch (error) {
+                this.addMessage('ai', 'Sorry, I encountered an error. Please try again.');
+            }
+        },
+
+        /**
+         * Add Message to Chat
+         */
+        addMessage(type, text) {
+            const messages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `<strong>${type === 'user' ? 'You' : 'Stack Studio'}:</strong><br>${text}`;
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        },
+
+        /**
+         * Get AI Response
+         */
+        async getAIResponse(prompt) {
+            try {
+                const response = await fetch(`${this.config.apiEndpoint}/api/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: this.config.model,
+                        prompt: prompt,
+                        stream: false
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+                return data.response || 'I received your message. How can I help you further?';
+            } catch (error) {
+                // Fallback to local AI engine
+                return this.getLocalAIResponse(prompt);
+            }
+        },
+
+        /**
+         * Local AI Response (Fallback)
+         */
+        getLocalAIResponse(prompt) {
+            const lowerPrompt = prompt.toLowerCase();
+            
+            if (lowerPrompt.includes('design') || lowerPrompt.includes('logo')) {
+                return `Je serais ravi de vous aider avec votre projet de design ! Chez E-Graphisme, nous proposons :
+                
+🎨 **Services Design** :
+- Logo et identité visuelle
+- Charte graphique complète
+- Supports de communication
+- Design packaging
+
+Contactez notre équipe pour un devis personnalisé !`;
+            } else if (lowerPrompt.includes('site') || lowerPrompt.includes('web') || lowerPrompt.includes('seo')) {
+                return `Pour votre projet web, je recommande une approche moderne :
+                
+🌐 **Services Web** :
+- Création site web professionnel
+- SEO et référencement
+- E-commerce
+- Maintenance
+
+Demandez un audit gratuit de votre site existant !`;
+            } else if (lowerPrompt.includes('video') || lowerPrompt.includes('video')) {
+                return `Nos services vidéo incluent :
+                
+🎬 **Production Vidéo** :
+- Vidéo corporate
+- Motion design
+- Animation 2D/3D
+- Montage professionnel
+
+Contactez-nous pour votre projet !`;
+            } else if (lowerPrompt.includes('marketing')) {
+                return `Stratégie marketing recommandée :
+                
+📢 **Marketing Digital** :
+- Google Ads, Meta Ads
+- Stratégie de contenu
+- Lead generation
+- Analytics
+
+Planifions une réunion stratégique !`;
+            } else {
+                return `Merci pour votre message ! Je suis Stack Studio, l'IA de E-Graphisme By ELECTRON.
+
+Je peux vous aider avec :
+🎨 Design - 🌐 Web - 🎬 Vidéo - 📝 Content - 📢 Marketing - 🔍 SEO
+
+Décrivez-moi votre projet et je vous guiderai vers la meilleure solution !`;
+            }
+        },
+
+        /**
+         * Load Statistics
+         */
+        loadStats() {
+            const stats = localStorage.getItem('stack_studio_stats');
+            if (stats) {
+                const parsed = JSON.parse(stats);
+                this.state.conversationCount = parsed.conversationCount || 0;
+                this.state.projectCount = parsed.projectCount || 0;
+                this.state.totalRequests = parsed.totalRequests || 0;
+            }
+            this.updateStats();
+        },
+
+        /**
+         * Update Statistics Display
+         */
+        updateStats() {
+            document.getElementById('conversationCount').textContent = this.state.conversationCount;
+            document.getElementById('projectCount').textContent = this.state.projectCount;
+            document.getElementById('totalRequests').textContent = this.state.totalRequests;
+
+            // Save stats
+            localStorage.setItem('stack_studio_stats', JSON.stringify({
+                conversationCount: this.state.conversationCount,
+                projectCount: this.state.projectCount,
+                totalRequests: this.state.totalRequests
+            }));
+        },
+
+        /**
+         * Version
+         */
+        version: '1.0.0'
+    };
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => StackStudio.init());
+    </script>
+</body>
+</html>

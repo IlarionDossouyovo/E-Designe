@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Graphisme - E-Graphisme Creative Suite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #db2777;
+            --secondary: #8b5cf6;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --dark-secondary: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        
+        /* Login */
+        .login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%); }
+        .login-container { background: var(--dark-secondary); padding: 2.5rem; border-radius: 16px; border: 1px solid var(--border); width: 100%; max-width: 420px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        .login-logo { text-align: center; margin-bottom: 2rem; }
+        .login-logo h1 { font-size: 2rem; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .login-logo p { color: var(--text-muted); margin-top: 0.5rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        .form-group input { width: 100%; padding: 0.875rem 1rem; background: var(--dark); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem; }
+        .form-group input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(236,72,153,0.2); }
+        .btn { padding: 0.875rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: white; width: 100%; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .error-message { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); color: var(--danger); padding: 0.75rem; border-radius: 8px; margin-bottom: 1rem; display: none; }
+        .error-message.show { display: block; }
+
+        /* Dashboard */
+        .dashboard { display: none; }
+        .dashboard.active { display: block; }
+        
+        /* Sidebar */
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: var(--dark-secondary); border-right: 1px solid var(--border); padding: 1.5rem; display: flex; flex-direction: column; }
+        .logo { font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; }
+        .nav-menu { flex: 1; }
+        .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1rem; color: var(--text-muted); text-decoration: none; border-radius: 8px; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.2s; }
+        .nav-item:hover, .nav-item.active { background: rgba(236,72,153,0.1); color: var(--primary); }
+        .nav-item svg { width: 20px; height: 20px; }
+        .user-info { padding: 1rem; background: var(--dark); border-radius: 8px; margin-top: auto; }
+        .user-info .name { font-weight: 600; }
+        .user-info .role { font-size: 0.875rem; color: var(--primary); }
+        .logout-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.875rem; width: 100%; margin-top: 0.5rem; }
+        .logout-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+        /* Main */
+        .main-content { margin-left: 260px; padding: 2rem; }
+        .page-header { margin-bottom: 2rem; }
+        .page-header h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+        .page-header p { color: var(--text-muted); }
+
+        /* Sections */
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--dark-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+        .stat-card .label { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; }
+        .stat-card .value { font-size: 1.75rem; font-weight: 700; }
+        .stat-card .value.primary { color: var(--primary); }
+        .stat-card .value.secondary { color: var(--secondary); }
+        .stat-card .value.accent { color: var(--accent); }
+        .stat-card .value.success { color: var(--success); }
+
+        /* Tools Grid */
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+        .tool-card { background: var(--dark-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; }
+        .tool-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 40px -10px rgba(236,72,153,0.3); }
+        .tool-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .tool-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .tool-icon.design { background: rgba(236,72,153,0.2); }
+        .tool-icon.web { background: rgba(139,92,246,0.2); }
+        .tool-icon.video { background: rgba(239,68,68,0.2); }
+        .tool-icon.brand { background: rgba(245,158,11,0.2); }
+        .tool-icon.print { background: rgba(16,185,129,0.2); }
+        .tool-icon.social { background: rgba(59,130,246,0.2); }
+        .tool-icon.analytics { background: rgba(139,92,246,0.2); }
+        .tool-name { font-weight: 600; font-size: 1.125rem; }
+        .tool-status { font-size: 0.75rem; color: var(--success); margin-top: 0.25rem; }
+        .tool-description { color: var(--text-muted); font-size: 0.875rem; line-height: 1.5; margin-bottom: 1rem; }
+        .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tool-tag { background: var(--dark); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Chat */
+        .chat-container { background: var(--dark-secondary); border: 1px solid var(--border); border-radius: 12px; height: 500px; display: flex; flex-direction: column; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 1.5rem; }
+        .message { margin-bottom: 1rem; padding: 1rem; border-radius: 12px; max-width: 80%; }
+        .message.user { background: var(--primary); margin-left: auto; }
+        .message.ai { background: var(--dark); }
+        .message.system { background: rgba(139,92,246,0.2); border: 1px solid var(--secondary); }
+        .chat-input { padding: 1rem; border-top: 1px solid var(--border); display: flex; gap: 0.75rem; }
+        .chat-input input { flex: 1; padding: 0.875rem 1rem; background: var(--dark); border: 1px solid var(--border); border-radius: 8px; color: var(--text); }
+        .chat-input input:focus { outline: none; border-color: var(--primary); }
+        .chat-input button { padding: 0.875rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .chat-input button:hover { background: var(--primary-dark); }
+
+        /* Model Selector */
+        .model-selector { margin-top: 1rem; }
+        .model-selector label { color: var(--text-muted); font-size: 0.875rem; margin-right: 0.5rem; }
+        .model-selector select { padding: 0.5rem; background: var(--dark-secondary); border: 1px solid var(--border); color: var(--text); border-radius: 6px; }
+
+        /* Links Bar */
+        .links-bar { display: flex; gap: 1rem; padding: 1rem; background: var(--dark-secondary); border-radius: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .links-bar a { color: var(--primary); text-decoration: none; padding: 0.5rem 1rem; background: var(--dark); border-radius: 6px; font-size: 0.875rem; }
+        .links-bar a:hover { background: var(--primary); color: white; }
+
+        /* Settings */
+        .settings-form { background: var(--dark-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; max-width: 600px; }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-container">
+            <div class="login-logo">
+                <h1>🎨 Stack Graphisme</h1>
+                <p>E-Graphisme Creative Suite - Designer Access</p>
+            </div>
+            <div class="error-message" id="loginError">Access denied. Invalid credentials.</div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="accessToken">Access Token</label>
+                    <input type="password" id="accessToken" placeholder="Enter your access token" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Access Stack Graphisme</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <aside class="sidebar">
+            <div class="logo">🎨 Stack Graphisme</div>
+            <nav class="nav-menu">
+                <div class="nav-item active" data-section="home">🏠 Home</div>
+                <div class="nav-item" data-section="design">🎨 Design Tools</div>
+                <div class="nav-item" data-section="brand">💎 Brand</div>
+                <div class="nav-item" data-section="web">🌐 Web</div>
+                <div class="nav-item" data-section="video">🎬 Video</div>
+                <div class="nav-item" data-section="print">🖨️ Print</div>
+                <div class="nav-item" data-section="social">📱 Social</div>
+                <div class="nav-item" data-section="chat">💬 AI Chat</div>
+                <div class="nav-item" data-section="analytics">📊 Analytics</div>
+                <div class="nav-item" data-section="studio">🚀 Stack Studio</div>
+                <div class="nav-item" data-section="settings">⚙️ Settings</div>
+            </nav>
+            <div class="user-info">
+                <div class="name">Creative Team</div>
+                <div class="role">Designer Access</div>
+                <button class="logout-btn" onclick="StackGraphisme.logout()">Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Quick Links -->
+            <div class="links-bar">
+                <a href="index.html">🏠 Site Principal</a>
+                <a href="studio.html">🚀 E-Studio</a>
+                <a href="stack-studio.html">⚡ Stack Studio</a>
+                <a href="dashboard.html">📊 Dashboard</a>
+                <a href="contact.html">📧 Contact</a>
+            </div>
+
+            <!-- Home Section -->
+            <section class="section active" id="home">
+                <div class="page-header">
+                    <h1>🎨 Creative Dashboard</h1>
+                    <p>E-Graphisme Creative Suite - Tous vos outils de création</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="label">Design Tools</div>
+                        <div class="value primary">6</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Active Projects</div>
+                        <div class="value secondary" id="projectCount">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">AI Models</div>
+                        <div class="value accent">4</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Status</div>
+                        <div class="value success">Online</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design Section -->
+            <section class="section" id="design">
+                <div class="page-header">
+                    <h1>🎨 Design Tools</h1>
+                    <p>Outils de design et création graphique</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="logo">
+                        <div class="tool-header">
+                            <div class="tool-icon design">✏️</div>
+                            <div>
+                                <div class="tool-name">Logo Creator</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des logos professionnels avec IA. Branding, icônes, typographies.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Logo</span>
+                            <span class="tool-tag">Icon</span>
+                            <span class="tool-tag">Branding</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="identity">
+                        <div class="tool-header">
+                            <div class="tool-icon brand">🎨</div>
+                            <div>
+                                <div class="tool-name">Identity Builder</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez votre identité visuelle complète. Couleurs, typographies, charte.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Colors</span>
+                            <span class="tool-tag">Fonts</span>
+                            <span class="tool-tag">Guidelines</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="mockup">
+                        <div class="tool-header">
+                            <div class="tool-icon design">📱</div>
+                            <div>
+                                <div class="tool-name">Mockup Generator</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Générez des mockups professionnels. Téléphone, laptop, carte de visite.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">3D</span>
+                            <span class="tool-tag">Presentation</span>
+                            <span class="tool-tag">Product</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="illustration">
+                        <div class="tool-header">
+                            <div class="tool-icon design">🖼️</div>
+                            <div>
+                                <div class="tool-name">Illustration AI</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des illustrations uniques. Art digital, vector, style artistique.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Vector</span>
+                            <span class="tool-tag">Art</span>
+                            <span class="tool-tag">Creative</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="banner">
+                        <div class="tool-header">
+                            <div class="tool-icon design">🖼️</div>
+                            <div>
+                                <div class="tool-name">Banner Designer</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des bannières et header pour réseaux sociaux.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Social</span>
+                            <span class="tool-tag">Header</span>
+                            <span class="tool-tag">Cover</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="presenter">
+                        <div class="tool-header">
+                            <div class="tool-icon design">📊</div>
+                            <div>
+                                <div class="tool-name">Presentation Maker</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des présentations professionnelles. Slides, pitch deck.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Slides</span>
+                            <span class="tool-tag">Pitch</span>
+                            <span class="tool-tag">Business</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brand Section -->
+            <section class="section" id="brand">
+                <div class="page-header">
+                    <h1>💎 Brand Strategy</h1>
+                    <p>Stratégie de marque et positionnement</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="brand-strategy">
+                        <div class="tool-header">
+                            <div class="tool-icon brand">💡</div>
+                            <div>
+                                <div class="tool-name">Brand Strategy</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Développez votre stratégie de marque. Mission, vision, valeurs.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Strategy</span>
+                            <span class="tool-tag">Positioning</span>
+                            <span class="tool-tag">Story</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="competitor">
+                        <div class="tool-header">
+                            <div class="tool-icon brand">🔍</div>
+                            <div>
+                                <div class="tool-name">Competitor Analysis</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Analysez vos concurrents. Forces, faiblesses, opportunités.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">SWOT</span>
+                            <span class="tool-tag">Benchmark</span>
+                            <span class="tool-tag">Market</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="naming">
+                        <div class="tool-header">
+                            <div class="tool-icon brand">📝</div>
+                            <div>
+                                <div class="tool-name">Naming Tool</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Générez des noms de marque. Disponible, mémorable, significatif.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Names</span>
+                            <span class="tool-tag">Domains</span>
+                            <span class="tool-tag">Slogan</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="brand-guide">
+                        <div class="tool-header">
+                            <div class="tool-icon brand">📖</div>
+                            <div>
+                                <div class="tool-name">Brand Guide</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez votre guide de marque complet. Standards, règles, exemples.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Guidelines</span>
+                            <span class="tool-tag">Rules</span>
+                            <span class="tool-tag">Templates</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Web Section -->
+            <section class="section" id="web">
+                <div class="page-header">
+                    <h1>🌐 Web Design</h1>
+                    <p>Création web et UI/UX</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="ui-design">
+                        <div class="tool-header">
+                            <div class="tool-icon web">🎯</div>
+                            <div>
+                                <div class="tool-name">UI Designer</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des interfaces utilisateur modernes. Buttons, forms, cards.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">UI</span>
+                            <span class="tool-tag">Components</span>
+                            <span class="tool-tag">Design System</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="landing">
+                        <div class="tool-header">
+                            <div class="tool-icon web">🚀</div>
+                            <div>
+                                <div class="tool-name">Landing Page</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des landing pages convertisseuses. Hero, features, CTA.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Conversion</span>
+                            <span class="tool-tag">A/B Test</span>
+                            <span class="tool-tag">Optimization</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="email">
+                        <div class="tool-header">
+                            <div class="tool-icon web">✉️</div>
+                            <div>
+                                <div class="tool-name">Email Designer</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des emails professionnels. Newsletters, promotions.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">HTML</span>
+                            <span class="tool-tag">Templates</span>
+                            <span class="tool-tag">Mobile</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="icon">
+                        <div class="tool-header">
+                            <div class="tool-icon web">⭐</div>
+                            <div>
+                                <div class="tool-name">Icon Generator</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Générez des icônes. SVG, PNG, favicon, app icons.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">SVG</span>
+                            <span class="tool-tag">Favicon</span>
+                            <span class="tool-tag">App Icon</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video Section -->
+            <section class="section" id="video">
+                <div class="page-header">
+                    <h1>🎬 Video Production</h1>
+                    <p>Production vidéo et motion design</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="script">
+                        <div class="tool-header">
+                            <div class="tool-icon video">📜</div>
+                            <div>
+                                <div class="tool-name">Script Writer</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Écrivez des scripts vidéo professionnels. Narrations, dialogues.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Script</span>
+                            <span class="tool-tag">Storyboard</span>
+                            <span class="tool-tag">Scene</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="thumbnail">
+                        <div class="tool-header">
+                            <div class="tool-icon video">🖼️</div>
+                            <div>
+                                <div class="tool-name">Thumbnail Creator</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des miniatures accrocheuses. YouTube, Vimeo, social.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">YouTube</span>
+                            <span class="tool-tag">Clickbait</span>
+                            <span class="tool-tag">CTR</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="motion">
+                        <div class="tool-header">
+                            <div class="tool-icon video">✨</div>
+                            <div>
+                                <div class="tool-name">Motion Graphics</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des animations. Logo animate, transitions, lower thirds.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Animation</span>
+                            <span class="tool-tag">Effects</span>
+                            <span class="tool-tag">Intro</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="subtitle">
+                        <div class="tool-header">
+                            <div class="tool-icon video">📝</div>
+                            <div>
+                                <div class="tool-name">Subtitle Generator</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Générez des sous-titres. SRT, VTT, translation.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">SRT</span>
+                            <span class="tool-tag">Translation</span>
+                            <span class="tool-tag">CC</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Print Section -->
+            <section class="section" id="print">
+                <div class="page-header">
+                    <h1>🖨️ Print Design</h1>
+                    <p>Design print et packaging</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="card">
+                        <div class="tool-header">
+                            <div class="tool-icon print">💳</div>
+                            <div>
+                                <div class="tool-name">Business Card</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des cartes de visite professionnelles.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Standard</span>
+                            <span class="tool-tag">Premium</span>
+                            <span class="tool-tag">QR Code</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="brochure">
+                        <div class="tool-header">
+                            <div class="tool-icon print">📄</div>
+                            <div>
+                                <div class="tool-name">Brochure Maker</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des brochures et dépliants.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Tri-fold</span>
+                            <span class="tool-tag">Bi-fold</span>
+                            <span class="tool-tag">Multi-page</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="poster">
+                        <div class="tool-header">
+                            <div class="tool-icon print">🎭</div>
+                            <div>
+                                <div class="tool-name">Poster Designer</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des affiches et posters événementiels.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Event</span>
+                            <span class="tool-tag">Promo</span>
+                            <span class="tool-tag">Affiche</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="packaging">
+                        <div class="tool-header">
+                            <div class="tool-icon print">📦</div>
+                            <div>
+                                <div class="tool-name">Packaging Design</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des designs d'emballage. Box, label, sticker.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Box</span>
+                            <span class="tool-tag">Label</span>
+                            <span class="tool-tag">Sticker</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Social Section -->
+            <section class="section" id="social">
+                <div class="page-header">
+                    <h1>📱 Social Media</h1>
+                    <p>Gestion des réseaux sociaux</p>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="post">
+                        <div class="tool-header">
+                            <div class="tool-icon social">📝</div>
+                            <div>
+                                <div class="tool-name">Post Creator</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des posts pour réseaux sociaux.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Instagram</span>
+                            <span class="tool-tag">Facebook</span>
+                            <span class="tool-tag">LinkedIn</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="story">
+                        <div class="tool-header">
+                            <div class="tool-icon social">📱</div>
+                            <div>
+                                <div class="tool-name">Story Maker</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Créez des stories et reels. Instagram, Facebook, Snapchat.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Story</span>
+                            <span class="tool-tag">Reels</span>
+                            <span class="tool-tag">Short</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="calendar">
+                        <div class="tool-header">
+                            <div class="tool-icon social">📅</div>
+                            <div>
+                                <div class="tool-name">Content Calendar</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Planifiez votre contenu. Scheduling, planification.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Planning</span>
+                            <span class="tool-tag">Schedule</span>
+                            <span class="tool-tag">Automation</span>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="hashtag">
+                        <div class="tool-header">
+                            <div class="tool-icon social">#️⃣</div>
+                            <div>
+                                <div class="tool-name">Hashtag Tool</div>
+                                <div class="tool-status">● Active</div>
+                            </div>
+                        </div>
+                        <div class="tool-description">Générez des hashtags performants.</div>
+                        <div class="tool-tags">
+                            <span class="tool-tag">Research</span>
+                            <span class="tool-tag">Trending</span>
+                            <span class="tool-tag">Analytics</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Section -->
+            <section class="section" id="chat">
+                <div class="page-header">
+                    <h1>💬 AI Creative Chat</h1>
+                    <p>Chat avec l'IA créative</p>
+                    <div class="model-selector">
+                        <label>Model:</label>
+                        <select id="modelSelector" onchange="StackGraphisme.changeModel(this.value)">
+                            <option value="llama3.2">llama3.2 (General)</option>
+                            <option value="llama3.1:8b">llama3.1:8b (Advanced)</option>
+                            <option value="qwen2.5-coder:7b">qwen2.5-coder:7b (Code)</option>
+                            <option value="phi3:mini">phi3:mini (Fast)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chat-container" id="chatContainer">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai">
+                            <strong>🎨 Stack Graphisme:</strong><br>
+                            Bienvenue! Je suis votre assistant créatif. Décrivez-moi votre projet et je vous aiderai!
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Décrivez votre projet créatif...">
+                        <button onclick="StackGraphisme.sendMessage()">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section class="section" id="analytics">
+                <div class="page-header">
+                    <h1>📊 Analytics</h1>
+                    <p>Statistiques et performances</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="label">Total Designs</div>
+                        <div class="value primary" id="totalDesigns">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Projects Completed</div>
+                        <div class="value secondary">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Client Satisfaction</div>
+                        <div class="value success">95%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Active Tools</div>
+                        <div class="value accent">28</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Studio Section -->
+            <section class="section" id="studio">
+                <div class="page-header">
+                    <h1>🚀 Stack Studio</h1>
+                    <p>Administration complète</p>
+                </div>
+                <div style="background: var(--dark-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center;">
+                    <p style="margin-bottom: 1rem;">Accédez à Stack Studio pour la gestion complète de l'entreprise.</p>
+                    <a href="stack-studio.html" class="btn btn-primary" style="display: inline-block; width: auto;">Ouvrir Stack Studio</a>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="section" id="settings">
+                <div class="page-header">
+                    <h1>⚙️ Settings</h1>
+                    <p>Configuration Stack Graphisme</p>
+                </div>
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label>API Ollama</label>
+                        <input type="text" value="http://127.0.0.1:11434" readonly style="opacity: 0.7;">
+                    </div>
+                    <div class="form-group">
+                        <label>Default Model</label>
+                        <input type="text" value="llama3.2" readonly style="opacity: 0.7;">
+                    </div>
+                    <div class="form-group">
+                        <label>Access Token</label>
+                        <input type="password" value="••••••••" readonly style="opacity: 0.7;">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+    const StackGraphisme = {
+        config: {
+            accessToken: 'egraphisme-creative-2026',
+            apiEndpoint: 'http://127.0.0.1:11434',
+            model: 'llama3.2'
+        },
+        state: {
+            isAuthenticated: false,
+            projectCount: 0,
+            totalDesigns: 0
+        },
+        init() {
+            const session = localStorage.getItem('stack_graphisme_session');
+            if (session && session === this.config.accessToken) {
+                this.showDashboard();
+            }
+            this.setupEventListeners();
+        },
+        setupEventListeners() {
+            document.getElementById('loginForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.login();
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    this.showSection(item.dataset.section);
+                });
+            });
+            document.querySelectorAll('.tool-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    this.selectTool(card.dataset.tool);
+                });
+            });
+            document.getElementById('chatInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.sendMessage();
+            });
+        },
+        login() {
+            const token = document.getElementById('accessToken').value;
+            if (token === this.config.accessToken) {
+                this.state.isAuthenticated = true;
+                localStorage.setItem('stack_graphisme_session', token);
+                this.showDashboard();
+            } else {
+                document.getElementById('loginError').classList.add('show');
+                setTimeout(() => document.getElementById('loginError').classList.remove('show'), 3000);
+            }
+        },
+        showDashboard() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+        },
+        logout() {
+            localStorage.removeItem('stack_graphisme_session');
+            this.state.isAuthenticated = false;
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('accessToken').value = '';
+        },
+        showSection(sectionId) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.section === sectionId) item.classList.add('active');
+            });
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        },
+        selectTool(toolName) {
+            this.showSection('chat');
+            const tools = {
+                logo: 'Logo Creator - Créez des logos professionnels',
+                identity: 'Identity Builder - Identité visuelle complète',
+                mockup: 'Mockup Generator - Présentations 3D',
+                brand: 'Brand Strategy - Stratégie de marque',
+                ui: 'UI Designer - Interfaces utilisateur',
+                landing: 'Landing Page - Pages de conversion',
+                video: 'Video Production - Production vidéo',
+                motion: 'Motion Graphics - Animations',
+                social: 'Social Media - Gestion réseaux sociaux',
+                print: 'Print Design - Design print'
+            };
+            this.addMessage('system', `🎨 Outil sélectionné: ${tools[toolName] || toolName}. Décrivez votre projet!`);
+        },
+        changeModel(modelName) {
+            this.config.model = modelName;
+            this.addMessage('system', `🤖 Modèle changé: ${modelName}`);
+        },
+        async sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            this.addMessage('user', message);
+            input.value = '';
+            this.state.projectCount++;
+            this.state.totalDesigns++;
+            this.updateStats();
+            try {
+                const response = await this.getAIResponse(message);
+                this.addMessage('ai', response);
+            } catch (error) {
+                this.addMessage('ai', this.getLocalResponse(message));
+            }
+        },
+        addMessage(type, text) {
+            const messages = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            const labels = { user: 'Vous', ai: '🎨 Stack Graphisme', system: '⚡ Système' };
+            div.innerHTML = `<strong>${labels[type]}:</strong><br>${text}`;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        },
+        async getAIResponse(prompt) {
+            try {
+                const res = await fetch(`${this.config.apiEndpoint}/api/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ model: this.config.model, prompt, stream: false })
+                });
+                const data = await res.json();
+                return data.response || 'JeTraitre votre demande...';
+            } catch (e) {
+                throw e;
+            }
+        },
+        getLocalResponse(prompt) {
+            const p = prompt.toLowerCase();
+            if (p.includes('logo')) return 'Je peux vous aider à créer un logo! Décrivez votre entreprise, vos couleurs préférées et le style souhaité.';
+            if (p.includes('site') || p.includes('web')) return 'Pour votre projet web, je recommande une approche moderne et responsive.';
+            if (p.includes('video')) return 'Créez votre vidéo! Donnez-moi les détails: durée, style, message à transmettre.';
+            if (p.includes('marque') || p.includes('brand')) return 'Développons votre stratégie de marque! Quelle est votre mission et vision?';
+            return 'Je suis prêt à vous aider! Décrivez votre projet créatif en détail.';
+        },
+        updateStats() {
+            document.getElementById('projectCount').textContent = this.state.projectCount;
+            document.getElementById('totalDesigns').textContent = this.state.totalDesigns;
+            localStorage.setItem('stack_graphisme_stats', JSON.stringify({
+                projectCount: this.state.projectCount,
+                totalDesigns: this.state.totalDesigns
+            }));
+        },
+        version: '1.0.0'
+    };
+    document.addEventListener('DOMContentLoaded', () => {
+        const stats = localStorage.getItem('stack_graphisme_stats');
+        if (stats) {
+            const s = JSON.parse(stats);
+            StackGraphisme.state.projectCount = s.projectCount || 0;
+            StackGraphisme.state.totalDesigns = s.totalDesigns || 0;
+            StackGraphisme.updateStats();
+        }
+        StackGraphisme.init();
+    });
+    </script>
+</body>
+</html>

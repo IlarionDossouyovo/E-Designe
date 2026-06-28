@@ -1,79 +1,90 @@
-# E-Graphisme - Complete AI Agents System
+# E-Graphisme - Complete AI Platform
 
-## 🚀 Démarrage Rapide
+## 🚀 Pages Disponibles
 
-```powershell
-git pull origin mai
-.\LAUNCH.bat
+| Page | Description | Accès |
+|------|-------------|-------|
+| **index.html** | Site principal | Public |
+| **studio.html** | E-Studio AI | Public |
+| **stack-studio.html** | Administration (16 agents) | Token: `egraphisme-founder-2026` |
+| **stack-graphisme.html** | Creative Suite (28 outils) | Token: `egraphisme-creative-2026` |
+| **dashboard.html** | Dashboard analytics | Public |
+| **contact.html** | Formulaire contact | Public |
+
+---
+
+## 🌐 Stack Studio - Agent Principal (16 AI Agents)
+
+**URL**: http://localhost/stack-studio.html
+
+**Token**: `egraphisme-founder-2026`
+
+### Agents:
+- Design Agent, Brand Strategist, Web Agent, Dev Agent
+- Video Agent, Motion Designer, Content Agent, Copywriter Pro
+- Marketing Agent, Social Media Manager, SEO Agent, Ads Specialist
+- Analysis Agent, Sales Assistant, Support Agent, Data Analyst
+
+---
+
+## 🎨 Stack Graphisme - Creative Suite (28 Tools)
+
+**URL**: http://localhost/stack-graphisme.html
+
+**Token**: `egraphisme-creative-2026`
+
+### Outils:
+- Logo Creator, Identity Builder, Mockup Generator, Illustration AI
+- Brand Strategy, Competitor Analysis, Naming Tool, Brand Guide
+- UI Designer, Landing Page, Email Designer, Icon Generator
+- Script Writer, Thumbnail Creator, Motion Graphics, Subtitle Generator
+- Business Card, Brochure, Poster, Packaging
+- Post Creator, Story Maker, Content Calendar, Hashtag Tool
+
+---
+
+## 🤖 Modèles Ollama
+
+- llama3.2 (2.0 Go) - Usage général
+- llama3.1:8b (4.9 Go) - Raisonnement avancé
+- qwen2.5-coder:7b (4.7 Go) - Code
+- phi3:mini (2.2 Go) - Rapide
+
+---
+
+## 🚀 Installation Locale
+
+```bash
+# Clone le projet
+git clone https://github.com/votre-repo/E-Graphisme.git
+cd E-Graphisme
+
+# Lance Docker
+docker compose up -d
+
+# Ollama sur Windows
+ollama serve
+
+# Accède aux pages
+# http://localhost/stack-studio.html
+# http://localhost/stack-graphisme.html
 ```
 
 ---
 
-## 📊 Dashboard IA
-
-Ouvrez: **http://127.0.0.1:8000/dashboard.html**
-
----
-
-## 🤖 Agents IA
-
-| Agent | Description | Status |
-|-------|-------------|---------|
-| **Lead Analyzer** | Analyse les leads | ✅ Actif |
-| **Support IA** | Chatbot support | ✅ Actif |
-| **Email Automator** | Emails automatisés | ✅ Actif |
-| **Analytics** | Rapports quotidiens | ✅ Actif |
-| **Design Copilot** | Suggestions design | ⚠️ En pause |
-| **Notifications** | Alertes et rappels | ✅ Actif |
-
----
-
-## 🌐 Services
-
-| Service | URL | Port |
-|--------|-----|-----|
-| **Web Server** | http://localhost:8000 | 8000 |
-| **N8n** | http://localhost:5678 | 5678 |
-| **Ollama** | http://localhost:11434 | 11434 |
-| **Open WebUI** | http://localhost:3001 | 3001 |
-
----
-
-## 📁 Fichiers Importants
+## 📁 Structure
 
 ```
 E-Graphisme/
-├── dashboard.html      # Dashboard IA
-├── SERVER.bat        # Lance serveur web
-├── LAUNCH.bat       # Lance tous les services
-├── verify.bat      # Vérifie les services
-├── workflows/      # Workflows N8n
-│   ├── leads.json
-│   ├── ai-chat.json
-│   ├── daily-report.json
-│   └── ai-agent.json
-└── php/           # APIs
-    ├── ai-api.php
-    └── leads-api.php
+├── index.html
+├── studio.html
+├── stack-studio.html      # Admin AI
+├── stack-graphisme.html # Creative AI
+├── dashboard.html
+├── contact.html
+├── docker-compose.yml
+├── db/init.sql
+├── php/*.php
+├── js/*.js
+└── css/*.css
 ```
-
----
-
-## 🔧 Commandes
-
-```powershell
-.\SERVER.bat      # Lance le serveur web
-.\LAUNCH.bat    # Lance tous les services
-.\verify.bat    # Vérifie les services
-.\IMPORT-ALL.bat # Importe les workflows N8n
-```
-
----
-
-## 📥 Import N8n
-
-Allez sur http://localhost:5678 puis importez:
-- http://127.0.0.1:8000/workflows/leads.json
-- http://127.0.0.1:8000/workflows/ai-chat.json
-- http://127.0.0.1:8000/workflows/daily-report.json
-- http://127.0.0.1:8000/workflows/ai-agent.json

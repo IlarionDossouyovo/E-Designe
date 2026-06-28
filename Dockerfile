@@ -7,10 +7,10 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli
 RUN a2enmod rewrite
 
 # Set working directory
-WORKDIR /workspace/project/E-Graphisme
+WORKDIR /var/www/html
 
 # Copy project files
-COPY . /workspace/project/E-Graphisme
+COPY . /var/www/html/
 
-# Expose port
-EXPOSE 8000
+# Expose ports
+EXPOSE 80 8000
