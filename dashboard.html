@@ -9,8 +9,10 @@
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #fff; }
         
         .nav-buttons { position: fixed; top: 20px; left: 20px; display: flex; gap: 10px; z-index: 1000; }
-        .nav-btn { background: rgba(0,212,255,0.2); border: 1px solid #00d4ff; color: #00d4ff; padding: 10px 20px; border-radius: 8px; cursor: pointer; text-decoration: none; font-size: 14px; transition: all 0.3s; }
+        .nav-btn { background: rgba(0,212,255,0.2); border: 1px solid #00d4ff; color: #00d4ff; padding: 10px 20px; border-radius: 8px; cursor: pointer; text-decoration: none; font-size: 14px; transition: all 0.3s; z-index: 1001; position: relative; }
         .nav-btn:hover { background: #00d4ff; color: #000; }
+        
+        .nav-buttons a { pointer-events: auto; }
         
         .header { background: rgba(0,0,0,0.3); padding: 70px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
         .header h1 { font-size: 28px; color: #00d4ff; margin-bottom: 5px; }
@@ -35,14 +37,18 @@
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         
         .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .service-card { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .service-card { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.3s; }
+        .service-card:hover { background: rgba(0,212,255,0.1); border-color: #00d4ff; transform: translateY(-2px); }
+        .service-card a { color: inherit; text-decoration: none; display: block; }
         .service-card .icon { font-size: 28px; margin-bottom: 10px; }
         .service-card h4 { font-size: 14px; margin-bottom: 5px; }
         .service-card .url { font-size: 11px; color: #00d4ff; margin-bottom: 8px; }
         .service-card .status { font-size: 12px; }
         
         .agents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .agent-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .agent-card { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.3s; }
+        .agent-card:hover { background: rgba(0,212,255,0.1); border-color: #00d4ff; }
+        .agent-card a { color: inherit; text-decoration: none; display: block; }
         .agent-card .header { display: flex; justify-content: space-between; align-items: center; padding: 0; margin-bottom: 10px; border: none; background: none; }
         .agent-card h3 { font-size: 16px; }
         .agent-card .description { font-size: 13px; color: #888; margin: 10px 0; }
@@ -94,23 +100,23 @@
         <div class="section">
             <h2><span class="status-dot active"></span> Services Connectes</h2>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card" onclick="window.open('http://localhost:8000', '_blank')">
                     <div class="icon">🌐</div>
                     <h4>Web Server</h4>
                     <div class="url">localhost:8000</div>
                     <div class="status" id="status-web"><span class="status-dot checking"></span> Verification...</div>
                 </div>
-                <div class="service-card">
+                <div class="service-card" onclick="window.open('http://localhost:8001/api/contact', '_blank')">
+                    <div class="icon">🔌</div>
+                    <h4>API Server</h4>
+                    <div class="url">localhost:8001</div>
+                    <div class="status" id="status-api"><span class="status-dot checking"></span> Verification...</div>
+                </div>
+                <div class="service-card" onclick="window.open('http://localhost:11434', '_blank')">
                     <div class="icon">🧠</div>
                     <h4>Ollama</h4>
                     <div class="url">localhost:11434</div>
                     <div class="status" id="status-ollama"><span class="status-dot checking"></span> Verification...</div>
-                </div>
-                <div class="service-card">
-                    <div class="icon">🤖</div>
-                    <h4>OpenHands</h4>
-                    <div class="url">localhost:3000</div>
-                    <div class="status" id="status-openhands"><span class="status-dot checking"></span> Verification...</div>
                 </div>
             </div>
         </div>
@@ -152,8 +158,8 @@
     <script>
         const services = [
             { id: 'web', name: 'Web', url: 'http://127.0.0.1:8000' },
-            { id: 'ollama', name: 'Ollama', url: 'http://localhost:11434' },
-            { id: 'openhands', name: 'OpenHands', url: 'http://localhost:3000' }
+            { id: 'api', name: 'API', url: 'http://127.0.0.1:8001/api/contact' },
+            { id: 'ollama', name: 'Ollama', url: 'http://localhost:11434' }
         ];
         
         let stats = { leads: 0, chats: 0, analytics: 0 };
