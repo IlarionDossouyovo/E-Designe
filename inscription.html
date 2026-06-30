@@ -685,6 +685,15 @@
                 showToast('Compte créé avec succès!', 'success');
                 btn.innerHTML = '<i class="fas fa-check"></i> Compte créé!';
                 
+                // Save user session
+                const userData = {
+                    name: document.getElementById("nom").value,
+                    email: document.getElementById("email").value,
+                    type: typeCompte,
+                    created: new Date().toISOString()
+                };
+                localStorage.setItem("estudio_user", JSON.stringify(userData));
+
                 // Redirect to studio dashboard
                 setTimeout(() => {
                     window.location.href = 'studio-dashboard.html';
