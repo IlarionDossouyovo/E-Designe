@@ -504,6 +504,7 @@
         <div class="header-links">
             <a href="index.html">Accueil</a>
             <a href="studio.html">E-Studio</a>
+            <a href="studio-dashboard.html">Dashboard</a>
             <a href="contact.html">Contact</a>
         </div>
     </header>
@@ -684,13 +685,9 @@
                 showToast('Compte créé avec succès!', 'success');
                 btn.innerHTML = '<i class="fas fa-check"></i> Compte créé!';
                 
-                // Redirect based on account type
+                // Redirect to studio dashboard
                 setTimeout(() => {
-                    if (typeCompte === 'gratuit') {
-                        window.location.href = 'studio.html';
-                    } else {
-                        window.location.href = 'studio.html#pricing';
-                    }
+                    window.location.href = 'studio-dashboard.html';
                 }, 1500);
             }, 2000);
         });
