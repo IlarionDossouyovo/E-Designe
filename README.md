@@ -28,10 +28,12 @@ Plateforme de design graphique et production vidéo nouvelle génération.
 - **HTML5** - Structure sémantique
 - **CSS3** - Design moderne avec variables et animations
 - **JavaScript** - Interactivité
-- **PHP** - Backend et API
+- **Python** - API backend
+- **PHP** - Backend et API (optionnel)
 - **SVG** - Logos vectoriels
 - **Font Awesome** - Icônes
 - **Google Fonts** - Orbitron, Inter, Poppins, Playfair Display
+- **Ollama** - IA locale (optionnel)
 
 ## 📁 Structure du Projet
 

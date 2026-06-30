@@ -58,14 +58,18 @@ http://localhost:8080
 1. Créer compte sur [vercel.com](https://vercel.com)
 2. Installer Vercel CLI:
 ```bash
-npm i -g vercel
+npm install vercel
 ```
 
-3. Déployer:
+3. Se connecter et déployer:
 ```bash
-vercel login
-vercel --prod
+npx vercel login
+npx vercel --prod
 ```
+
+4. Suivre les instructions à l'écran
+
+**Note**: Pour le déploiement automatique via GitHub, connecter le dépôt dans le dashboard Vercel.
 
 ### Option 2: Netlify (Gratuit)
 
@@ -104,21 +108,15 @@ Créer fichier `.env`:
 # API Keys (optionnel)
 OLLAMA_HOST=http://localhost:11434
 OLLAMA_MODEL=llama3
-N8N_WEBHOOK_URL=votre_webhook_n8n
 
 # Base de données (optionnel - sinon JSON local)
 DB_PATH=./db
 ```
 
-### Configuration N8N
 
-1. Installer N8N:
 ```bash
-npm i -g n8n
-n8n
 ```
 
-2. Créer webhooks dans N8N:
 - `/webhook/analyze-brand`
 - `/webhook/generate-prompt`
 - `/webhook/generate-image`

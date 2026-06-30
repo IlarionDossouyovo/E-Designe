@@ -170,8 +170,7 @@ class AuthClient {
                 templates: -1,
                 support: '24/7',
                 team: 10,
-                api: true,
-                n8n: true
+                api: true
             }
         };
         

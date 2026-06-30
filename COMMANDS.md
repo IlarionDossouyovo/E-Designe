@@ -193,7 +193,6 @@ git revert HEAD
 | **Cloner** | `git clone https://github.com/IlarionDossouyovo/E-Graphisme.git` |
 | **Mettre à jour** | `git pull origin mai` |
 | **Lancer (PHP)** | `php -S 127.0.0.1:8000 -t .` |
-| **Lancer N8N** | `n8n start` |
 | **Auto-start** | `./AUTO-START-SYSTEM.sh` |
 | **Commit** | `git add . && git commit -m "msg" && git push origin mai` |
 | **Statut** | `git status` |
@@ -205,7 +204,6 @@ git revert HEAD
 | Service | URL |
 |---------|-----|
 | **Site Local** | http://127.0.0.1:8000 |
-| **N8N Local** | http://127.0.0.1:5678 |
 | **GitHub Pages** | https://ilariondossouyovo.github.io/E-Graphisme/ |
 
 ---
@@ -222,16 +220,12 @@ git pull origin mai
 
 # 3. Tester
 curl http://127.0.0.1:8000
-curl http://127.0.0.1:5678
 ```
 
 ---
 
-## 🤖 Import Workflows N8N
 
-Dans N8N (http://127.0.0.1:5678):
 1. Login: admin@e-graphisme.com / egraphisme2026
-2. Workflows → Import from URL
 
 ```
 https://raw.githubusercontent.com/IlarionDossouyovo/E-Graphisme/mai/workflows/ai-chat.json

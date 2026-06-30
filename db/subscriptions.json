@@ -24,7 +24,7 @@
     "name": "Enterprise",
     "price": 99,
     "currency": "EUR",
-    "features": ["Tout inclus Pro", "Équipe (10 users)", "API access", "Intégrations N8N", "Branding personnalisé", "Support 24/7"],
+    "features": ["Tout inclus Pro", "Équipe (10 users)", "API access",  "Branding personnalisé", "Support 24/7"],
     "projects": -1,
     "ai": true,
     "templates": -1,

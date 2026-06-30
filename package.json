@@ -11,12 +11,25 @@
     "deploy": "vercel --prod",
     "update": "git pull origin mai"
   },
-  "keywords": ["design", "ai", "branding", "video", "saas", "n8n", "ollama"],
+  "keywords": [
+    "design",
+    "ai",
+    "branding",
+    "video",
+    "saas",
+    "ollama"
+  ],
   "author": "E-Graphisme By ELECTRON",
   "license": "MIT",
   "homepage": "https://e-graphisme.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IlarionDossouyovo/E-Graphisme.git"
+    "url": "git+https://github.com/IlarionDossouyovo/E-Graphisme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IlarionDossouyovo/E-Graphisme/issues"
+  },
+  "dependencies": {
+    "vercel": "^54.18.5"
   }
 }

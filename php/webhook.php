@@ -1,6 +1,6 @@
 <?php
 /**
- * E-Graphisme - Webhook Endpoints for N8N/Ollama Integration
+ * E-Graphisme - Webhook Endpoints for Ollama Integration
  * 
  * Architecture: Frontend -> Webhook -> Ollama -> JSON -> Frontend
  * 
@@ -219,12 +219,11 @@ function handleGenerateVideo($input) {
 }
 
 /**
- * Call Ollama API
- * Uses N8N webhook as proxy to avoid calling localhost from browser
+ * Call Ollama API directly
  */
 function callOllama($task, $data) {
-    // N8N webhook URL - configure in environment
-    $n8nWebhook = getenv('N8N_WEBHOOK_URL') ?: 'http://localhost:5678/webhook/ollama';
+    // Ollama API URL - configure in environment
+    $ollamaUrl = getenv('OLLAMA_HOST') ?: 'http://localhost:11434';
     
     $payload = [
         'task' => $task,
@@ -232,7 +231,7 @@ function callOllama($task, $data) {
         'timestamp' => date('Y-m-d H:i:s')
     ];
     
-    $ch = curl_init($n8nWebhook);
+    $ch = curl_init($ollamaUrl . '/api/chat');
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);

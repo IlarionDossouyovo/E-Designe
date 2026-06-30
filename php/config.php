@@ -22,9 +22,18 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
 
-// Configuration email
+// Configuration email (SMTP)
 define('EMAIL_FROM', 'noreply@e-graphisme.com');
 define('EMAIL_TO', 'electronbusiness07@gmail.com');
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_PORT', 587);
+define('SMTP_USER', 'electronbusiness07@gmail.com');
+define('SMTP_PASS', ''); // Mot de passe d'application Gmail
+define('SMTP_ENCRYPTION', 'tls');
+
+// Configuration Ollama (IA)
+define('OLLAMA_HOST', 'http://localhost:11434');
+define('OLLAMA_MODEL', 'llama3');
 
 // Fuseau horaire
 date_default_timezone_set('Europe/Paris');
