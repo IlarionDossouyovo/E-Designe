@@ -22,29 +22,43 @@ export const brandsConfig = {
           title: 'Homme',
           icon: '👨',
           subcategories: [
-            { id: 'nike-homme-chaussures', name: 'Chaussures', products: 45 },
-            { id: 'nike-homme-vetements', name: 'Vêtements', products: 38 },
-            { id: 'nike-homme-accessoires', name: 'Accessoires', products: 22 }
+            { id: 'nike-homme-chaussures', name: 'Chaussures', products: 45, route: '/products?brand=nike&category=chaussures&gender=homme' },
+            { id: 'nike-homme-vetements', name: 'Vêtements', products: 38, route: '/products?brand=nike&category=vetements&gender=homme' },
+            { id: 'nike-homme-accessoires', name: 'Accessoires', products: 22, route: '/products?brand=nike&category=accessoires&gender=homme' }
           ]
         },
         femme: {
           title: 'Femme',
           icon: '👩',
           subcategories: [
-            { id: 'nike-femme-chaussures', name: 'Chaussures', products: 42 },
-            { id: 'nike-femme-vetements', name: 'Vêtements', products: 35 },
-            { id: 'nike-femme-accessoires', name: 'Accessoires', products: 18 }
+            { id: 'nike-femme-chaussures', name: 'Chaussures', products: 42, route: '/products?brand=nike&category=chaussures&gender=femme' },
+            { id: 'nike-femme-vetements', name: 'Vêtements', products: 35, route: '/products?brand=nike&category=vetements&gender=femme' },
+            { id: 'nike-femme-accessoires', name: 'Accessoires', products: 18, route: '/products?brand=nike&category=accessoires&gender=femme' }
           ]
         },
         enfants: {
           title: 'Enfants',
           icon: '👶',
           subcategories: [
-            { id: 'nike-enfants-chaussures', name: 'Chaussures', products: 28 },
-            { id: 'nike-enfants-vetements', name: 'Vêtements', products: 25 },
-            { id: 'nike-enfants-accessoires', name: 'Accessoires', products: 12 }
+            { id: 'nike-enfants-chaussures', name: 'Chaussures', products: 28, route: '/products?brand=nike&category=chaussures&gender=enfants' },
+            { id: 'nike-enfants-vetements', name: 'Vêtements', products: 25, route: '/products?brand=nike&category=vetements&gender=enfants' },
+            { id: 'nike-enfants-accessoires', name: 'Accessoires', products: 12, route: '/products?brand=nike&category=accessoires&gender=enfants' }
           ]
         }
+      },
+      // Catégorie Accessoires principale
+      accessories: {
+        title: 'Accessoires',
+        icon: '🎒',
+        description: 'Tous les accessoires Nike',
+        subcategories: [
+          { id: 'nike-acc-sacs', name: 'Sacs à dos', products: 15, route: '/products?brand=nike&category=sacs' },
+          { id: 'nike-acc-sacs', name: 'Sacs de sport', products: 12, route: '/products?brand=nike&category=sacs-sport' },
+          { id: 'nike-acc-balles', name: 'Ballons', products: 8, route: '/products?brand=nike&category=balles' },
+          { id: 'nike-acc-gants', name: 'Gants', products: 10, route: '/products?brand=nike&category=gants' },
+          { id: 'nike-acc-bandes', name: 'Bandes sportif', products: 6, route: '/products?brand=nike&category=bandes' },
+          { id: 'nike-acc-casquettes', name: 'Casquettes', products: 18, route: '/products?brand=nike&category=casquettes' }
+        ]
       },
       blogTemplates: {
         homme: [

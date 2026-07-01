@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import brandsConfig from '../data/brandsConfig'
 
 export default function BrandPage() {
   const { brandId } = useParams()
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('homme')
   const [activeSubcategory, setActiveSubcategory] = useState(null)
   
@@ -19,7 +20,11 @@ export default function BrandPage() {
     )
   }
   
-  const categories = brand.categories
+  // Ajouter la catégorie accessoires si elle existe
+  const categories = {
+    ...brand.categories,
+    ...(brand.accessories && { accessories: brand.accessories })
+  }
   const currentCategory = categories[activeTab]
   
   return (
@@ -109,7 +114,7 @@ export default function BrandPage() {
         {currentCategory?.subcategories.map((sub) => (
           <div 
             key={sub.id}
-            onClick={() => setActiveSubcategory(sub.id)}
+            onClick={() => sub.route ? navigate(sub.route) : setActiveSubcategory(sub.id)}
             style={{ 
               background: '#16161f', 
               padding: '20px', 
@@ -119,7 +124,10 @@ export default function BrandPage() {
               transition: 'all 0.2s'
             }}
           >
-            <h3 style={{ color: '#fff', margin: 0 }}>{sub.name}</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h3 style={{ color: '#fff', margin: 0 }}>{sub.name}</h3>
+              {sub.route && <span style={{ color: '#22c55e', fontSize: '1.2rem' }}>→</span>}
+            </div>
             <p style={{ color: '#6B8DD6', margin: '8px 0 0' }}>{sub.products} produits</p>
           </div>
         ))}
