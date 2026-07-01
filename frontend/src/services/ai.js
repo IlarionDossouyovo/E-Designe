@@ -1,12 +1,12 @@
 // AI Service for connecting to Ollama or other LLM APIs
 // 
 // Configuration: Set your Ollama endpoint in environment variables
-// REACT_APP_OLLAMA_URL=http://localhost:11434/api/generate
-// REACT_APP_OLLAMA_MODEL=llama2 (or mistral, codellama, etc.)
+// VITE_OLLAMA_URL=http://localhost:11434/api/generate
+// VITE_OLLAMA_MODEL=llama2 (or mistral, codellama, etc.)
 
-const OLLAMA_URL = process.env.REACT_APP_OLLAMA_URL || 'http://localhost:11434/api/generate'
-const OLLAMA_MODEL = process.env.REACT_APP_OLLAMA_MODEL || 'llama2'
-const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY || null
+const OLLAMA_URL = import.meta.env.VITE_OLLAMA_URL || 'http://localhost:11434/api/generate'
+const OLLAMA_MODEL = import.meta.env.VITE_OLLAMA_MODEL || 'llama2'
+const OPENAI_KEY = import.meta.env.VITE_OPENAI_KEY || null
 
 // Mock responses when no AI is available
 const mockResponses = [

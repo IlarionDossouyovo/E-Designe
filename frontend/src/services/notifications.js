@@ -2,8 +2,8 @@
 // For email/SMS notifications
 
 const NOTIF_CONFIG = {
-  EMAIL_API: process.env.REACT_APP_EMAIL_API || '',
-  SMS_API: process.env.REACT_APP_SMS_API || ''
+  EMAIL_API: import.meta.env.VITE_EMAIL_API || '',
+  SMS_API: import.meta.env.VITE_SMS_API || ''
 }
 
 export const notifications = {

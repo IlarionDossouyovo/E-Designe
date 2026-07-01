@@ -1,7 +1,7 @@
 // API Service for E-Designe
 // Handles all backend communications
 
-const API_BASE = process.env.REACT_APP_API_URL || ''
+const API_BASE = import.meta.env.VITE_API_URL || ''
 
 // Helper function for API calls
 async function apiCall(endpoint, options = {}) {

@@ -1,7 +1,7 @@
 // Analytics Service
 // Track user behavior
 
-const ANALYTICS_ID = process.env.REACT_APP_GA_ID || 'G-XXXXXXXXXX'
+const ANALYTICS_ID = import.meta.env.VITE_GA_ID || 'G-XXXXXXXXXX'
 
 export const analytics = {
   // Initialize analytics

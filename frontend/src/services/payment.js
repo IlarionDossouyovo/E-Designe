@@ -2,9 +2,9 @@
 // Multi-payment method integration
 
 const PAYMENT_CONFIG = {
-  STRIPE_KEY: process.env.REACT_APP_STRIPE_KEY,
-  PAYPAL_CLIENT: process.env.REACT_APP_PAYPAL_CLIENT,
-  MOBILE_MONEY: process.env.REACT_APP_MOBILE_MONEY // MTN/Moov
+  STRIPE_KEY: import.meta.env.VITE_STRIPE_KEY || '',
+  PAYPAL_CLIENT: import.meta.env.VITE_PAYPAL_CLIENT || '',
+  MOBILE_MONEY: import.meta.env.VITE_MOBILE_MONEY || '' // MTN/Moov
 }
 
 export const payment = {

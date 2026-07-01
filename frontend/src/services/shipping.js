@@ -2,9 +2,9 @@
 // Real carrier integrations
 
 const CARRIERS = {
-  DHL: { name: 'DHL', apiKey: process.env.REACT_APP_DHL_KEY },
-  FedEx: { name: 'FedEx', apiKey: process.env.REACT_APP_FEDEX_KEY },
-  UPS: { name: 'UPS', apiKey: process.env.REACT_APP_UPS_KEY }
+  DHL: { name: 'DHL', apiKey: import.meta.env.VITE_DHL_KEY || '' },
+  FedEx: { name: 'FedEx', apiKey: import.meta.env.VITE_FEDEX_KEY || '' },
+  UPS: { name: 'UPS', apiKey: import.meta.env.VITE_UPS_KEY || '' }
 }
 
 export const shipping = {
