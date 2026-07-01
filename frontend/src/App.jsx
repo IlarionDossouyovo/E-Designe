@@ -31,6 +31,7 @@ import Admin from './pages/Admin'
 import AISearch from './pages/AISearch'
 import BrandsDirectory from './pages/BrandsDirectory'
 import Affiliate from './pages/Affiliate'
+import AIDashboard from './pages/AIDashboard'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -90,6 +91,8 @@ export default function App() {
             <Route path="/marques" element={<BrandsDirectory />} />
             <Route path="/partenaire" element={<Affiliate />} />
             <Route path="/affiliate" element={<Affiliate />} />
+            <Route path="/admin-ai" element={<AIDashboard />} />
+            <Route path="/centre-ia" element={<AIDashboard />} />
           </Routes>
         </AnimatePresence>
       </main>
