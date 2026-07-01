@@ -347,6 +347,108 @@ app.post('/api/payment/paypal/create-order', (req, res) => {
   res.json({ id: 'PAY-' + Date.now(), status: 'CREATED' })
 })
 
+// ═══════════════════════════════════════════════════════════════
+// AI AGENTS API ENDPOINTS
+// ═══════════════════════════════════════════════════════════════
+
+// In-memory agent store (would connect to PostgreSQL in production)
+let aiAgents = [
+  { id: 1, name: 'Service Client IA', department: 'support', description: 'Assistant virtuel disponible 24/7 pour répondre aux questions des clients', instructions: 'Tu es l\'assistant virtuel d\'E-Désigne. Réponds toujours de manière professionnelle et chaleureuse en français.', capabilities: ['Réponses FAQ', 'Suivi commandes', 'Gestion retours'], status: 'active', model: 'llama2' },
+  { id: 2, name: 'Assistant Marketing', department: 'marketing', description: 'Agent IA chargé de la gestion du marketing automatisé', instructions: 'Tu es le responsable marketing IA d\'E-Désigne. Analyse les données et propose des stratégies.', capabilities: ['Analyse données', 'Contenu', 'Rapports'], status: 'active', model: 'llama2' },
+  { id: 3, name: 'Gestionnaire Commandes', department: 'orders', description: 'Coordinateur logistique pour la gestion des commandes', instructions: 'Tu valides les commandes, vérifies les stocks et suis les livraisons.', capabilities: ['Validation', 'Suivi', 'Retours'], status: 'active', model: 'llama2' },
+  { id: 4, name: 'Gestionnaire Catalogue', department: 'catalog', description: 'Responsable de la gestion du catalogue produits', instructions: 'Tu gères le catalogue, ajoutes des produits et mets à jour les prix.', capabilities: ['Ajout produits', 'Stocks', 'Prix'], status: 'active', model: 'llama2' },
+  { id: 5, name: 'Analyste Données', department: 'analytics', description: 'Expert en analyse de données et rapports', instructions: 'Tu génères des rapports détaillés et des prédictions basées sur les tendances.', capabilities: ['Rapports', 'Prévisions', 'KPIs'], status: 'active', model: 'llama2' },
+  { id: 6, name: 'Détective Fraude', department: 'security', description: 'Agent de détection des fraudes et anomalies', instructions: 'Tu analyses les transactions pour détecter les comportements suspects.', capabilities: ['Détection', 'Alertes', 'Prévention'], status: 'active', model: 'llama2' },
+  { id: 7, name: 'Expert Stocks', department: 'inventory', description: 'Gestionnaire des inventaires et alertes', instructions: 'Tu surveilles les niveaux de stock et génères des alertes.', capabilities: ['Surveillance', 'Alertes', 'Prévisions'], status: 'active', model: 'llama2' },
+  { id: 8, name: 'Assistant Social', department: 'social', description: 'Gestionnaire des réseaux sociaux', instructions: 'Tu crées et programmes des publications pour les réseaux sociaux.', capabilities: ['Posts', 'Planification', 'Engagement'], status: 'active', model: 'llama2' }
+]
+
+// Get all agents
+app.get('/api/ai/agents', (req, res) => {
+  res.json(aiAgents)
+})
+
+// Get single agent
+app.get('/api/ai/agents/:id', (req, res) => {
+  const agent = aiAgents.find(a => a.id === parseInt(req.params.id))
+  if (agent) {
+    res.json(agent)
+  } else {
+    res.status(404).json({ error: 'Agent non trouvé' })
+  }
+})
+
+// Create new agent
+app.post('/api/ai/agents', (req, res) => {
+  const newAgent = {
+    id: aiAgents.length + 1,
+    ...req.body,
+    status: req.body.status || 'active',
+    created_at: new Date().toISOString()
+  }
+  aiAgents.push(newAgent)
+  res.status(201).json(newAgent)
+})
+
+// Update agent
+app.put('/api/ai/agents/:id', (req, res) => {
+  const index = aiAgents.findIndex(a => a.id === parseInt(req.params.id))
+  if (index !== -1) {
+    aiAgents[index] = { ...aiAgents[index], ...req.body, updated_at: new Date().toISOString() }
+    res.json(aiAgents[index])
+  } else {
+    res.status(404).json({ error: 'Agent non trouvé' })
+  }
+})
+
+// Delete agent
+app.delete('/api/ai/agents/:id', (req, res) => {
+  const index = aiAgents.findIndex(a => a.id === parseInt(req.params.id))
+  if (index !== -1) {
+    aiAgents.splice(index, 1)
+    res.json({ success: true })
+  } else {
+    res.status(404).json({ error: 'Agent non trouvé' })
+  }
+})
+
+// Chat with specific agent
+app.post('/api/ai/agents/:id/chat', async (req, res) => {
+  const agent = aiAgents.find(a => a.id === parseInt(req.params.id))
+  if (!agent) {
+    return res.status(404).json({ error: 'Agent non trouvé' })
+  }
+
+  const { message } = req.body
+  const systemPrompt = `${agent.instructions || ''}
+
+Tu es ${agent.name}, un agent IA spécialisé dans ${agent.department}.
+Capacités: ${(agent.capabilities || []).join(', ')}.
+Réponds toujours en français de manière professionnelle.`
+
+  try {
+    const response = await chatWithOllama(message, { systemPrompt })
+    if (response) {
+      res.json({ response, agent: agent.name })
+    } else {
+      // Fallback response if Ollama not available
+      const fallbackResponses = {
+        support: "Je suis votre assistant Support E-Désigne. Je suis là pour vous aider. Comment puis-je vous assister?",
+        marketing: "Je suis votre Assistant Marketing E-Désigne. Je peux vous aider avec l'analyse de données et les stratégies marketing.",
+        orders: "Je gère vos commandes E-Désigne. Je peux vous aider avec le suivi et la validation des commandes.",
+        catalog: "Je gère le catalogue produits. Je peux ajouter des produits et mettre à jour les informations.",
+        analytics: "Je suis votre Analyste de données. Je peux générer des rapports et des prédictions.",
+        security: "Je suis le Détective Fraude. J'analyse les transactions pour votre sécurité.",
+        inventory: "Je suis l'Expert Stocks. Je surveille vos niveaux d'inventaire.",
+        social: "Je gère vos réseaux sociaux. Je peux créer des posts et planifier des publications."
+      }
+      res.json({ response: fallbackResponses[agent.department] || "Comment puis-je vous aider?", agent: agent.name })
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Erreur lors du traitement' })
+  }
+})
+
 // Start server
 app.listen(PORT, () => {
   console.log(`
