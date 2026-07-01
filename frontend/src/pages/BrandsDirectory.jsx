@@ -2,18 +2,18 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const brandsData = [
-  { id: 1, name: 'Gucci', category: 'Luxe', country: 'Italie', commission: '15%', products: 45, dropship: true, url: 'https://gucci.com', minOrder: 5 },
-  { id: 2, name: 'Prada', category: 'Luxe', country: 'Italie', commission: '12%', products: 38, dropship: true, url: 'https://prada.com', minOrder: 3 },
-  { id: 3, name: 'Louis Vuitton', category: 'Luxe', country: 'France', commission: '18%', products: 52, dropship: true, url: 'https://louisvuitton.com', minOrder: 2 },
-  { id: 4, name: 'Chanel', category: 'Luxe', country: 'France', commission: '16%', products: 41, dropship: true, url: 'https://chanel.com', minOrder: 3 },
-  { id: 5, name: 'Hermes', category: 'Luxe', country: 'France', commission: '20%', products: 35, dropship: false, url: 'https://hermes.com', minOrder: 1 },
-  { id: 6, name: 'Nike', category: 'Sport', country: 'USA', commission: '10%', products: 120, dropship: true, url: 'https://nike.com', minOrder: 10 },
-  { id: 7, name: 'Adidas', category: 'Sport', country: 'Allemagne', commission: '11%', products: 115, dropship: true, url: 'https://adidas.com', minOrder: 10 },
-  { id: 8, name: 'Zara', category: 'Mode', country: 'Espagne', commission: '8%', products: 85, dropship: true, url: 'https://zara.com', minOrder: 15 },
-  { id: 9, name: 'HM', category: 'Mode', country: 'Suede', commission: '7%', products: 92, dropship: true, url: 'https://hm.com', minOrder: 20 },
-  { id: 10, name: 'Versace', category: 'Luxe', country: 'Italie', commission: '14%', products: 42, dropship: true, url: 'https://versace.com', minOrder: 5 },
-  { id: 11, name: 'Dolce Gabbana', category: 'Luxe', country: 'Italie', commission: '13%', products: 38, dropship: true, url: 'https://dolcegabbana.com', minOrder: 4 },
-  { id: 12, name: 'Balenciaga', category: 'Luxe', country: 'France', commission: '17%', products: 35, dropship: true, url: 'https://balenciaga.com', minOrder: 3 },
+  { id: 1, name: 'Gucci', category: 'Luxe', country: 'Italie', commission: '15%', products: 45, dropship: true, url: 'https://gucci.com', minOrder: 5, brandId: 'gucci' },
+  { id: 2, name: 'Prada', category: 'Luxe', country: 'Italie', commission: '12%', products: 38, dropship: true, url: 'https://prada.com', minOrder: 3, brandId: 'prada' },
+  { id: 3, name: 'Louis Vuitton', category: 'Luxe', country: 'France', commission: '18%', products: 52, dropship: true, url: 'https://louisvuitton.com', minOrder: 2, brandId: 'louis-vuitton' },
+  { id: 4, name: 'Chanel', category: 'Luxe', country: 'France', commission: '16%', products: 41, dropship: true, url: 'https://chanel.com', minOrder: 3, brandId: 'chanel' },
+  { id: 5, name: 'Hermes', category: 'Luxe', country: 'France', commission: '20%', products: 35, dropship: false, url: 'https://hermes.com', minOrder: 1, brandId: 'hermes' },
+  { id: 6, name: 'Nike', category: 'Sport', country: 'USA', commission: '10%', products: 120, dropship: true, url: 'https://nike.com', minOrder: 10, brandId: 'nike' },
+  { id: 7, name: 'Adidas', category: 'Sport', country: 'Allemagne', commission: '11%', products: 115, dropship: true, url: 'https://adidas.com', minOrder: 10, brandId: 'adidas' },
+  { id: 8, name: 'Zara', category: 'Mode', country: 'Espagne', commission: '8%', products: 85, dropship: true, url: 'https://zara.com', minOrder: 15, brandId: 'zara' },
+  { id: 9, name: 'HM', category: 'Mode', country: 'Suede', commission: '7%', products: 92, dropship: true, url: 'https://hm.com', minOrder: 20, brandId: 'hm' },
+  { id: 10, name: 'Versace', category: 'Luxe', country: 'Italie', commission: '14%', products: 42, dropship: true, url: 'https://versace.com', minOrder: 5, brandId: 'versace' },
+  { id: 11, name: 'Dolce Gabbana', category: 'Luxe', country: 'Italie', commission: '13%', products: 38, dropship: true, url: 'https://dolcegabbana.com', minOrder: 4, brandId: 'dolce-gabbana' },
+  { id: 12, name: 'Balenciaga', category: 'Luxe', country: 'France', commission: '17%', products: 35, dropship: true, url: 'https://balenciaga.com', minOrder: 3, brandId: 'balenciaga' },
 ]
 
 const categories = ['Toutes', 'Luxe', 'Sport', 'Mode', 'Cosmetiques', 'Accessoires']
@@ -120,8 +120,11 @@ export default function BrandsDirectory() {
                 <a href={brand.url} target="_blank" rel="noopener" style={{ flex: 1, padding: '10px', background: '#4B6CB7', color: '#fff', borderRadius: '8px', textDecoration: 'none', textAlign: 'center', fontWeight: '600', fontSize: '14px' }}>
                   Site Officiel
                 </a>
+                <Link to={`/marque/${brand.brandId}`} style={{ flex: 1, padding: '10px', background: '#8b5cf6', color: '#fff', borderRadius: '8px', textDecoration: 'none', textAlign: 'center', fontWeight: '600', fontSize: '14px' }}>
+                  Voir la page →
+                </Link>
                 <a href={`mailto:electronbusiness07@gmail.com?subject=Demande devis ${brand.name}&body=Bonjour,%0D%0A%0D%0AJe souhaiterais obtenir un devis pour les produits ${brand.name}.%0D%0A%0D%0AMerci de votre réponse.%0D%0A%0D%0ACordialement`} style={{ padding: '10px 16px', background: '#22c55e', color: '#fff', borderRadius: '8px', textDecoration: 'none', fontWeight: '600', fontSize: '14px', display: 'inline-block', textAlign: 'center' }}>
-                  Demander Devis
+                  Devis
                 </a>
               </div>
             </div>
