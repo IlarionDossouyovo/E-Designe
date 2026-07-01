@@ -1,5 +1,19 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts'
+
+// Configuration des agents IA
+const agentsIA = [
+  { id: 'unified', name: 'Hub IA', icon: '🧠', description: 'Tableau de bord principal', route: '/agents', color: '#4B6CB7' },
+  { id: 'chatbot', name: 'Agent Chatbot', icon: '💬', description: 'Assistant conversationnel', route: '/agents/chatbot', color: '#22c55e' },
+  { id: 'analytics', name: 'Agent Analytics', icon: '📊', description: 'Analyse prédictive', route: '/agents/analytics', color: '#f59e0b' },
+  { id: 'inventory', name: 'Agent Inventaire', icon: '📦', description: 'Gestion des stocks', route: '/agents/inventory', color: '#8b5cf6' },
+  { id: 'emails', name: 'Agent Emails', icon: '✉️', description: 'Automatisation emails', route: '/agents/emails', color: '#06b6d4' },
+  { id: 'fraud', name: 'Agent Fraud', icon: '🛡️', description: 'Détection fraude', route: '/agents/fraud', color: '#ef4444' },
+  { id: 'social', name: 'Agent Social', icon: '📱', description: 'Gestion réseaux sociaux', route: '/agents/social', color: '#ec4899' },
+  { id: 'recommendations', name: 'Agent Recommandations', icon: '🎯', description: 'Système recommandations', route: '/agents/recommendations', color: '#14b8a6' },
+  { id: 'ollama', name: 'Diagnostic Ollama', icon: '🔧', description: 'Test connexion Ollama', route: '/agents/ollama', color: '#84cc16' },
+]
 
 const stats = {
   totalOrders: 1240,
@@ -119,6 +133,50 @@ export default function Admin() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Section Agents IA */}
+      <div style={{ marginTop: '40px' }}>
+        <h2 style={{ color: '#fff', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          🤖 Agents IA E-DÉSIGNE
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+          {agentsIA.map(agent => (
+            <Link 
+              key={agent.id} 
+              to={agent.route}
+              style={{ 
+                background: '#16161f', 
+                padding: '20px', 
+                borderRadius: '12px', 
+                border: `1px solid ${agent.color}40`,
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '15px',
+                transition: 'all 0.2s'
+              }}
+            >
+              <div style={{ 
+                fontSize: '2rem',
+                width: '50px',
+                height: '50px',
+                background: `${agent.color}20`,
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                {agent.icon}
+              </div>
+              <div>
+                <h3 style={{ color: '#fff', margin: 0, fontSize: '1rem' }}>{agent.name}</h3>
+                <p style={{ color: '#9ca3af', margin: '4px 0 0', fontSize: '0.85rem' }}>{agent.description}</p>
+              </div>
+              <span style={{ marginLeft: 'auto', color: agent.color }}>→</span>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )
