@@ -39,6 +39,7 @@ import AgentEmails from './pages/AgentEmails'
 import AgentFraud from './pages/AgentFraud'
 import AgentSocial from './pages/AgentSocial'
 import AgentRecommendations from './pages/AgentRecommendations'
+import UnifiedAgents from './pages/UnifiedAgents'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -98,7 +99,8 @@ export default function App() {
             <Route path="/marques" element={<BrandsDirectory />} />
             <Route path="/partenaire" element={<Affiliate />} />
             <Route path="/affiliate" element={<Affiliate />} />
-            <Route path="/agents" element={<Agents />} />
+            <Route path="/agents" element={<UnifiedAgents />} />
+            <Route path="/agents/hub" element={<Agents />} />
             <Route path="/agents/chatbot" element={<AgentChatbot />} />
             <Route path="/agents/analytics" element={<AgentAnalytics />} />
             <Route path="/agents/inventory" element={<AgentInventory />} />
