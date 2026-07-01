@@ -27,7 +27,8 @@ export default function Header({ cartCount, user }) {
           <Link to="/africain" style={{ color: '#d4af37', fontWeight: 600 }}>Africain 🌴</Link>
           <Link to="/bebe">Bebe 👶</Link>
           <Link to="/revendeurs" style={{ background: '#4B6CB7', color: 'white', padding: '6px 12px', borderRadius: '20px' }}>Revendeurs 💎</Link>
-          <Link to="/fournisseurs-textile">🏭 Textile</Link>
+          <Link to="/textile">🧵 TextileHub</Link>
+          <Link to="/fournisseurs-textile">🏭 Fournisseurs</Link>
           <Link to="/recherche-ia" style={{ color: '#22c55e' }}>🔍 IA</Link>
           <Link to="/partenaire" style={{ color: '#8b5cf6' }}>💰 Partenaire</Link>
           <Link to="/marques">🏢 Marques</Link>

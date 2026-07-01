@@ -42,6 +42,7 @@ import AgentRecommendations from './pages/AgentRecommendations'
 import UnifiedAgents from './pages/UnifiedAgents'
 import OllamaDiagnostics from './pages/OllamaDiagnostics'
 import BrandPage from './pages/BrandPage'
+import TextileHub from './pages/TextileHub'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -112,6 +113,8 @@ export default function App() {
             <Route path="/agents/recommendations" element={<AgentRecommendations />} />
             <Route path="/agents/ollama" element={<OllamaDiagnostics />} />
             <Route path="/marque/:brandId" element={<BrandPage />} />
+            <Route path="/textile" element={<TextileHub />} />
+            <Route path="/textile/:categoryId" element={<TextileHub />} />
           </Routes>
         </AnimatePresence>
       </main>
