@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Link, useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import brandsConfig from '../data/brandsConfig'
 
 export default function BrandPage() {

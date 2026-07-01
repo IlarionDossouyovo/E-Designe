@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { products, categories, qualityTiers } from '../data/products'
 
 // Flatten products for display
@@ -8,10 +8,26 @@ const flatProducts = Object.values(products).flatMap(cat => Object.values(cat).f
 // Hero background for Products page
 const heroBg = 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1400'
 
+// Extra filters
+const brands = ['Tous', 'Nike', 'Adidas', 'Zara', 'HM', 'Gucci', 'Prada', 'Chanel', 'Hermes', 'Versace']
+const priceRanges = [
+  { label: 'Tous', value: 'all' },
+  { label: 'Moins de 30€', value: '0-30' },
+  { label: '30€ - 60€', value: '30-60' },
+  { label: '60€ - 100€', value: '60-100' },
+  { label: '100€ - 200€', value: '100-200' },
+  { label: 'Plus de 200€', value: '200+' }
+]
+
 export default function Products() {
+  const [searchParams] = useSearchParams()
   const [allProds, setAllProds] = useState(flatProducts)
-  const [filterCat, setFilterCat] = useState('Tous')
+  const [filterCat, setFilterCat] = useState(searchParams.get('category') || 'Tous')
   const [filterQual, setFilterQual] = useState('Tous')
+  const [filterBrand, setFilterBrand] = useState(searchParams.get('brand') || 'Tous')
+  const [filterPrice, setFilterPrice] = useState('all')
+  const [sortBy, setSortBy] = useState('default')
+  const [viewMode, setViewMode] = useState('grid')
   
   // Get unique subcategories
   const subCats = ['Tous', ...new Set(allProds.map(p => p.sub))]
@@ -21,7 +37,21 @@ export default function Products() {
     if (filterCat !== 'Tous' && p.category !== filterCat) return false
     if (filterQual !== 'Tous' && p.quality !== filterQual) return false
     if (filterSub !== 'Tous' && p.sub !== filterSub) return false
+    if (filterBrand !== 'Tous') {
+      const brandMatch = p.name.toLowerCase().includes(filterBrand.toLowerCase()) || 
+                        (p.sub && p.sub.toLowerCase().includes(filterBrand.toLowerCase()))
+      if (!brandMatch) return false
+    }
+    if (filterPrice !== 'all') {
+      const [min, max] = filterPrice.split('-').map(v => v === '+' ? 10000 : parseInt(v))
+      if (p.price < min || (max && p.price > max)) return false
+    }
     return true
+  }).sort((a, b) => {
+    if (sortBy === 'price-asc') return a.price - b.price
+    if (sortBy === 'price-desc') return b.price - a.price
+    if (sortBy === 'name') return a.name.localeCompare(b.name)
+    return 0
   })
 
   const getQualityColor = (q) => {
@@ -88,6 +118,43 @@ export default function Products() {
               <option key={s} value={s}>{s}</option>
             ))}
           </select>
+        </div>
+        
+        <div>
+          <label style={{ display: 'block', marginBottom: '4px', fontWeight: 'bold', color: '#fff' }}>Marque:</label>
+          <select value={filterBrand} onChange={(e) => setFilterBrand(e.target.value)} style={{ padding: '10px 16px', borderRadius: '8px', border: '1px solid #2a2a35', minWidth: '150px', background: '#16161f', color: '#fff' }}>
+            {brands.map(b => (
+              <option key={b} value={b}>{b}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div>
+          <label style={{ display: 'block', marginBottom: '4px', fontWeight: 'bold', color: '#fff' }}>Prix:</label>
+          <select value={filterPrice} onChange={(e) => setFilterPrice(e.target.value)} style={{ padding: '10px 16px', borderRadius: '8px', border: '1px solid #2a2a35', minWidth: '150px', background: '#16161f', color: '#fff' }}>
+            {priceRanges.map(p => (
+              <option key={p.value} value={p.value}>{p.label}</option>
+            ))}
+          </select>
+        </div>
+        
+        <div>
+          <label style={{ display: 'block', marginBottom: '4px', fontWeight: 'bold', color: '#fff' }}>Trier:</label>
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} style={{ padding: '10px 16px', borderRadius: '8px', border: '1px solid #2a2a35', minWidth: '150px', background: '#16161f', color: '#fff' }}>
+            <option value="default">Par défaut</option>
+            <option value="price-asc">Prix: Croissant</option>
+            <option value="price-desc">Prix: Décroissant</option>
+            <option value="name">Nom: A-Z</option>
+          </select>
+        </div>
+      </div>
+      
+      {/* Results count & view toggle */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <span style={{ color: '#9ca3af' }}>{filtered.length} produits trouvés</span>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button onClick={() => setViewMode('grid')} style={{ padding: '8px 12px', background: viewMode === 'grid' ? '#4B6CB7' : '#16161f', color: '#fff', border: '1px solid #2a2a35', borderRadius: '6px', cursor: 'pointer' }}>Grille</button>
+          <button onClick={() => setViewMode('list')} style={{ padding: '8px 12px', background: viewMode === 'list' ? '#4B6CB7' : '#16161f', color: '#fff', border: '1px solid #2a2a35', borderRadius: '6px', cursor: 'pointer' }}>Liste</button>
         </div>
       </div>
 
