@@ -20,28 +20,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # n8n pour les automatisations
-  n8n:
-    image: n8nio/n8n
-    container_name: edesigne-n8n
-    environment:
-      - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=edesigne2024
-      - N8N_HOST=localhost:5678
-      - WEBHOOK_URL=http://localhost:5678
-      - EXECUTIONS_DATA_SAVE_ON_ERROR=all
-      - EXECUTIONS_DATA_SAVE_ON_SUCCESS=all
-      - QUEUES_BULL_ENABLED=true
-    ports:
-      - "5678:5678"
-    volumes:
-      - n8n_data:/home/node/.n8n
-      - ./n8n-workflows:/workflows
-    depends_on:
-      - postgres
-    restart: unless-stopped
-
   # API REST locale (connectée à Ollama)
   api:
     image: node:20-alpine
@@ -91,6 +69,5 @@ services:
 
 volumes:
   postgres_data:
-  n8n_data:
   redis_data:
   pgadmin_data:

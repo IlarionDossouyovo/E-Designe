@@ -12,8 +12,8 @@
 │                    Docker Stack                           │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐    │
-│  │PostgreSQL│  │   n8n   │  │  API   │  │ Redis  │    │
-│  │   :5432 │  │  :5678  │  │ :3000  │  │ :6379 │    │
+│  │PostgreSQL│  │ PgAdmin │  │  API   │  │ Redis  │    │
+│  │   :5432 │  │  :5050  │  │ :3000  │  │ :6379 │    │
 │  └─────────┘  └─────────┘  └─────────┘  └─────────┘    │
 ├─────────────────────────────────────────────────────────────┤
 │                    Services AI                          │
@@ -67,7 +67,7 @@ docker-compose logs -f
 | Service | URL | Identifiants |
 |---------|-----|--------------|
 | **API** | http://localhost:3000 | - |
-| **n8n** | http://localhost:5678 | admin / edesigne2024 |
+| **PgAdmin** | http://localhost:5050 | admin@e-designe.com / admin123 |
 | **PostgreSQL** | localhost:5432 | edesigne / edesigne_password_2024 |
 | **Redis** | localhost:6379 | - |
 
@@ -106,33 +106,12 @@ ollama pull llama3
 - **Base:** edesigne_db
 - **Utilisateur:** edesigne
 
-### n8n (Automatisations)
-- **Port:** 5678
-- **Identifiants:** admin / edesigne2024
-- **Workflows:** 9 workflows inclus dans `/n8n-workflows`
-
 ### API REST
 - **Port:** 3000
 - **Endpoints:** /api/produits, /api/commandes, /api/contact
 
 ### Redis (Cache)
 - **Port:** 6379
-
----
-
-## 🔌 Workflows n8n
-
-Importer depuis `/n8n-workflows/`:
-
-1. **chatbot-ia.json** - Chatbot AI
-2. **emails.json** - Gestion emails
-3. **orders.json** - Commandes
-4. **support-ia.json** - Support AI
-5. **inventory.json** - Stock
-6. **analytics.json** - Analytiques
-7. **recommendations.json** - Recommandations
-8. **fraud detection.json** - Détection fraude
-9. **social-media.json** - Réseaux sociaux
 
 ---
 
@@ -172,9 +151,8 @@ serve dist
 - [ ] Docker installé et lancé
 - [ ] Clé Groq API configurée
 - [ ] PostgreSQL démarré
-- [ ] n8n accessible
+- [ ] PgAdmin accessible
 - [ ] Frontend déployé
-- [ ] Workflows importés dans n8n
 - [ ] Ollama configuré (optionnel)
 
 ---
