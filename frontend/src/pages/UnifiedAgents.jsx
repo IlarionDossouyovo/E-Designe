@@ -12,41 +12,41 @@ const agentsConfig = {
       id: 'llama2', 
       name: 'Llama 2', 
       purpose: 'Chatbot principal - Conversation générale',
-      size: '7GB',
+      size: '3.8GB',
       status: 'required',
-      agents: ['Chatbot', 'Support']
+      agents: ['Chatbot', 'Analytics', 'Fraud']
     },
     { 
       id: 'mistral', 
       name: 'Mistral', 
       purpose: 'Réponses rapides - Recherche',
-      size: '4GB',
+      size: '4.4GB',
       status: 'required',
-      agents: ['Recherche IA', 'Recommandations']
+      agents: ['Recherche IA', 'Recommandations', 'Emails']
     },
     { 
       id: 'codellama', 
       name: 'CodeLlama', 
       purpose: 'Génération code - Automation',
-      size: '7GB',
-      status: 'optional',
-      agents: ['Automation', 'Scripts']
+      size: '3.8GB',
+      status: 'installed',
+      agents: ['Social', 'Automation']
     },
     { 
       id: 'nomic-embed-text', 
       name: 'Nomic Embed Text', 
       purpose: 'Embeddings - Recherche vectorielle',
-      size: '270MB',
-      status: 'required',
+      size: '274MB',
+      status: 'installed',
       agents: ['Recherche', 'Embeddings']
     },
     { 
-      id: 'orca-mini', 
-      name: 'Orca Mini', 
-      purpose: 'Alternative légère - Fallback',
-      size: '3GB',
-      status: 'optional',
-      agents: ['Fallback']
+      id: 'phi3', 
+      name: 'Phi-3', 
+      purpose: 'Gestion des stocks - Inventaire',
+      size: '2.2GB',
+      status: 'installed',
+      agents: ['Inventaire']
     }
   ],
   // Tous les agents avec leurs configurations

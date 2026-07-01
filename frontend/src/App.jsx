@@ -40,6 +40,7 @@ import AgentFraud from './pages/AgentFraud'
 import AgentSocial from './pages/AgentSocial'
 import AgentRecommendations from './pages/AgentRecommendations'
 import UnifiedAgents from './pages/UnifiedAgents'
+import OllamaDiagnostics from './pages/OllamaDiagnostics'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -108,6 +109,7 @@ export default function App() {
             <Route path="/agents/fraud" element={<AgentFraud />} />
             <Route path="/agents/social" element={<AgentSocial />} />
             <Route path="/agents/recommendations" element={<AgentRecommendations />} />
+            <Route path="/agents/ollama" element={<OllamaDiagnostics />} />
           </Routes>
         </AnimatePresence>
       </main>
