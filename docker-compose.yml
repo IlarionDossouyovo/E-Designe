@@ -74,7 +74,23 @@ services:
       - redis_data:/data
     restart: unless-stopped
 
+  # PgAdmin pour gérer la base de données
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: edesigne-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@e-designe.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
 volumes:
   postgres_data:
   n8n_data:
   redis_data:
+  pgadmin_data:
