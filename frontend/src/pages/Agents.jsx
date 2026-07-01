@@ -8,6 +8,7 @@ const agents = [
     icon: '🤖',
     description: 'Assistant conversationnel disponible 24/7 pour répondre aux questions des clients',
     status: 'active',
+    route: '/agents/chatbot',
     technologies: ['Ollama (llama2)', 'OpenAI GPT-3.5'],
     features: [
       'Suivi de commande',
@@ -26,6 +27,7 @@ const agents = [
     icon: '🔍',
     description: 'Moteur de recherche intelligent avec filtrage avancé par critères',
     status: 'active',
+    route: '/recherche-ia',
     technologies: ['Ollama', 'API Interne'],
     features: [
       'Recherche par description',
@@ -44,6 +46,7 @@ const agents = [
     icon: '💡',
     description: 'Système de recommandations produits basé sur le comportement utilisateur',
     status: 'active',
+    route: '/agents/recommendations',
     technologies: ['Filtrage collaboratif', 'Historique utilisateur'],
     features: [
       'Analyse wishlist',
@@ -62,6 +65,7 @@ const agents = [
     icon: '📊',
     description: 'Analyse prédictive des ventes et comportements clients',
     status: 'active',
+    route: '/agents/analytics',
     technologies: ['Statistiques', 'Forecasting'],
     features: [
       'Taux de conversion',
@@ -80,6 +84,7 @@ const agents = [
     icon: '📧',
     description: 'Système d\'envoi automatique d\'emails transactionnels',
     status: 'active',
+    route: '/agents/emails',
     technologies: ['Triggers automatiques', 'Templates'],
     features: [
       'Email bienvenue',
@@ -99,6 +104,7 @@ const agents = [
     icon: '📦',
     description: 'Gestion automatique des stocks et alertes réapprovisionnement',
     status: 'active',
+    route: '/agents/inventory',
     technologies: ['Seuils dynamiques', 'Notifications'],
     features: [
       'Alertes stock critique (< 5)',
@@ -117,6 +123,7 @@ const agents = [
     icon: '🔒',
     description: 'Système de détection de fraude sur les paiements',
     status: 'active',
+    route: '/agents/fraud',
     technologies: ['Score de risque', 'Règles métier'],
     features: [
       'Vérification IP pays',
@@ -135,6 +142,7 @@ const agents = [
     icon: '📱',
     description: 'Automatisation des publications sur les réseaux sociaux',
     status: 'active',
+    route: '/agents/social',
     technologies: ['Planification', 'API réseaux sociaux'],
     features: [
       'Instagram: Nouveautés 10h00',
@@ -451,6 +459,22 @@ export default function Agents() {
                   <p style={{ margin: '0 0 4px', color: '#6B8DD6' }}><strong>Endpoint:</strong> <code style={{ color: '#22c55e' }}>{agent.endpoint}</code></p>
                   <p style={{ margin: 0, color: '#6B8DD6' }}><strong>Fichier:</strong> <code style={{ color: '#f59e0b' }}>{agent.location}</code></p>
                 </div>
+                <Link 
+                  to={agent.route}
+                  style={{ 
+                    display: 'block',
+                    marginTop: '12px',
+                    padding: '10px 16px',
+                    background: 'linear-gradient(135deg, #4B6CB7 0%, #182848 100%)',
+                    color: '#fff',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    textAlign: 'center',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  Accéder →
+                </Link>
               </div>
             )}
           </div>

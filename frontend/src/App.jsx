@@ -32,6 +32,13 @@ import AISearch from './pages/AISearch'
 import BrandsDirectory from './pages/BrandsDirectory'
 import Affiliate from './pages/Affiliate'
 import Agents from './pages/Agents'
+import AgentChatbot from './pages/AgentChatbot'
+import AgentAnalytics from './pages/AgentAnalytics'
+import AgentInventory from './pages/AgentInventory'
+import AgentEmails from './pages/AgentEmails'
+import AgentFraud from './pages/AgentFraud'
+import AgentSocial from './pages/AgentSocial'
+import AgentRecommendations from './pages/AgentRecommendations'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -92,6 +99,13 @@ export default function App() {
             <Route path="/partenaire" element={<Affiliate />} />
             <Route path="/affiliate" element={<Affiliate />} />
             <Route path="/agents" element={<Agents />} />
+            <Route path="/agents/chatbot" element={<AgentChatbot />} />
+            <Route path="/agents/analytics" element={<AgentAnalytics />} />
+            <Route path="/agents/inventory" element={<AgentInventory />} />
+            <Route path="/agents/emails" element={<AgentEmails />} />
+            <Route path="/agents/fraud" element={<AgentFraud />} />
+            <Route path="/agents/social" element={<AgentSocial />} />
+            <Route path="/agents/recommendations" element={<AgentRecommendations />} />
           </Routes>
         </AnimatePresence>
       </main>
