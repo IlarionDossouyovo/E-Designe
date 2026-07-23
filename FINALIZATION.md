@@ -4,7 +4,44 @@
 
 ✅ **Déployé en Production**:
 - Frontend: https://project-6ny5f9mw8-electrons-projects-7ac943c4.vercel.app
-- Base de données: Supabase PostgreSQL (8 produits)
+- Base de données: Supabase PostgreSQL (30 produits)
+
+---
+
+## 📧 Configuration Resend (Emails Transactionnels) - ✅ COMPLÉTÉ
+
+### Ce qui a été configuré:
+
+**API Resend intégrée:**
+- Clé API: `re_Dj8diRCn_CJ1eDHXVtSKWdbYRw5TRz4ok`
+- Email expéditeur: `noreply@e-designe.com`
+- Email support: `support@e-designe.com`
+
+**Templates d'emails créés (5):**
+| Template | Description | Déclencheur |
+|----------|-------------|-------------|
+| `welcome` | Email de bienvenue avec code promo 10% | Inscription utilisateur |
+| `order_confirmation` | Confirmation de commande | Création commande |
+| `shipping_update` | Suivi de livraison | Expédition colis |
+| `password_reset` | Réinitialisation mot de passe | Demande MDP oublié |
+| `contact_confirmation` | Accusé réception contact | Formulaire contact |
+
+**Endpoints API emails:**
+- `POST /api/ai/email/send` - Envoyer un email (avec template ou personnalisé)
+- `POST /api/contact` - Formulaire de contact (envoie email admin + confirmation client)
+- `POST /api/password/reset` - Demande réinitialisation mot de passe
+- `GET /api/ai/email/queue` - Statut de la file d'attente
+
+**Automatisations intégrées:**
+- Email de bienvenue automatique à l'inscription
+- Email de confirmation automatique à chaque commande
+
+### Variables d'environnement (Vercel):
+```
+RESEND_API_KEY=re_Dj8diRCn_CJ1eDHXVtSKWdbYRw5TRz4ok
+FROM_EMAIL=noreply@e-designe.com
+SUPPORT_EMAIL=support@e-designe.com
+```
 
 ---
 

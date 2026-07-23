@@ -8,6 +8,232 @@ const inventoryAlerts = []
 const seoImages = []
 const socialPosts = []
 
+// Resend Configuration - Emails Transactionnels
+const RESEND_API_KEY = process.env.RESEND_API_KEY || 're_Dj8diRCn_CJ1eDHXVtSKWdbYRw5TRz4ok'
+const FROM_EMAIL = 'E-Désigne <noreply@e-designe.com>'
+const SUPPORT_EMAIL = 'support@e-designe.com'
+
+// Fonction pour envoyer des emails via Resend
+async function sendEmail(to, subject, html, text) {
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${RESEND_API_KEY}`
+      },
+      body: JSON.stringify({
+        from: FROM_EMAIL,
+        to: Array.isArray(to) ? to : [to],
+        subject: subject,
+        html: html,
+        text: text
+      })
+    })
+    
+    const data = await response.json()
+    if (!response.ok) {
+      console.error('Resend API Error:', data)
+      return { success: false, error: data }
+    }
+    return { success: true, data }
+  } catch (error) {
+    console.error('Email sending error:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+// Templates d'emails transactionnels
+const emailTemplates = {
+  welcome: (data) => ({
+    subject: 'Bienvenue chez E-Désigne! 🎉',
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bienvenue chez E-Désigne</title>
+      </head>
+      <body style="font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #0a0a0f; margin: 0; padding: 40px 20px;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #16161f; border-radius: 16px; padding: 40px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #4B6CB7; margin: 0; font-size: 32px;">E-DÉSIGNE</h1>
+            <p style="color: #888; margin-top: 8px;">Mode Premium & Africaine</p>
+          </div>
+          <h2 style="color: #fff; margin-bottom: 20px;">Bienvenue ${data.name || 'cher client'}! 👋</h2>
+          <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+            Nous sommes ravis de vous compter parmi nos clients. E-Désigne vous propose une sélection exclusive de mode occidentale et africaine de qualité premium.
+          </p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="https://e-designe.vercel.app/products" style="display: inline-block; background: linear-gradient(135deg, #4B6CB7 0%, #182848 100%); color: #fff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">Découvrir nos produits</a>
+          </div>
+          <p style="color: #666; font-size: 14px; text-align: center; margin-top: 30px;">
+            Utilisez le code <strong style="color: #FFD700;">BIENVENUE10</strong> pour obtenir 10% de réduction sur votre première commande!
+          </p>
+          <hr style="border: none; border-top: 1px solid #333; margin: 30px 0;">
+          <p style="color: #666; font-size: 12px; text-align: center;">
+            Une question? Contactez-nous à <a href="mailto:${SUPPORT_EMAIL}" style="color: #4B6CB7;">${SUPPORT_EMAIL}</a>
+          </p>
+        </div>
+      </body>
+      </html>
+    `,
+    text: `Bienvenue ${data.name || 'cher client'}! Nous sommes ravis de vous compter chez E-Désigne. Utilisez le code BIENVENUE10 pour 10% de réduction.`
+  }),
+  
+  order_confirmation: (data) => ({
+    subject: `Confirmation de votre commande #${data.orderId} ✓`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Confirmation de commande</title>
+      </head>
+      <body style="font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #0a0a0f; margin: 0; padding: 40px 20px;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #16161f; border-radius: 16px; padding: 40px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #4B6CB7; margin: 0; font-size: 32px;">E-DÉSIGNE</h1>
+            <p style="color: #888; margin-top: 8px;">Confirmation de commande</p>
+          </div>
+          <div style="text-align: center; margin: 30px 0;">
+            <div style="width: 80px; height: 80px; background: #4B6CB7; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 40px;">✓</div>
+          </div>
+          <h2 style="color: #fff; text-align: center; margin-bottom: 20px;">Merci pour votre commande!</h2>
+          <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+            Votre commande <strong style="color: #4B6CB7;">#${data.orderId}</strong> a été confirmée et sera traitée sous 24h.
+          </p>
+          <div style="background: #0a0a0f; border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <h3 style="color: #fff; margin-top: 0;">Résumé de la commande</h3>
+            <p style="color: #ccc; margin: 8px 0;"><strong>Total:</strong> <span style="color: #FFD700;">${data.total}€</span></p>
+            <p style="color: #ccc; margin: 8px 0;"><strong>Mode de paiement:</strong> ${data.paymentMethod || 'Carte bancaire'}</p>
+          </div>
+          <p style="color: #666; font-size: 14px;">
+            Un email de suivi vous sera envoyé dès l'expédition de votre colis.
+          </p>
+          <hr style="border: none; border-top: 1px solid #333; margin: 30px 0;">
+          <p style="color: #666; font-size: 12px; text-align: center;">
+            Questions? Contactez <a href="mailto:${SUPPORT_EMAIL}" style="color: #4B6CB7;">${SUPPORT_EMAIL}</a>
+          </p>
+        </div>
+      </body>
+      </html>
+    `,
+    text: `Votre commande #${data.orderId} a été confirmée! Total: ${data.total}€`
+  }),
+  
+  shipping_update: (data) => ({
+    subject: `Votre colis est en route! 🚚 Commande #${data.orderId}`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Expédition de votre commande</title>
+      </head>
+      <body style="font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #0a0a0f; margin: 0; padding: 40px 20px;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #16161f; border-radius: 16px; padding: 40px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #4B6CB7; margin: 0; font-size: 32px;">E-DÉSIGNE</h1>
+            <p style="color: #888; margin-top: 8px;">Suivi de livraison</p>
+          </div>
+          <div style="text-align: center; margin: 30px 0;">
+            <div style="font-size: 60px;">🚚</div>
+          </div>
+          <h2 style="color: #fff; text-align: center; margin-bottom: 20px;">Votre colis est en route!</h2>
+          <p style="color: #ccc; line-height: 1.6;">
+            Votre commande <strong style="color: #4B6CB7;">#${data.orderId}</strong> a été expédiée.
+          </p>
+          <div style="background: #0a0a0f; border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <p style="color: #ccc; margin: 8px 0;"><strong>Transporteur:</strong> ${data.carrier || 'Colissimo'}</p>
+            <p style="color: #ccc; margin: 8px 0;"><strong>Numéro de suivi:</strong> <span style="color: #4B6CB7;">${data.trackingNumber || 'FR' + Date.now()}</span></p>
+            <p style="color: #ccc; margin: 8px 0;"><strong>Livraison estimée:</strong> ${data.estimatedDelivery || '3-5 jours ouvrés'}</p>
+          </div>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${data.trackingUrl || '#'}" style="display: inline-block; background: #4B6CB7; color: #fff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">Suivre mon colis</a>
+          </div>
+        </div>
+      </body>
+      </html>
+    `,
+    text: `Votre commande #${data.orderId} est en route! Livraison estimée: ${data.estimatedDelivery || '3-5 jours'}`
+  }),
+  
+  password_reset: (data) => ({
+    subject: 'Réinitialisation de votre mot de passe 🔐',
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Réinitialisation mot de passe</title>
+      </head>
+      <body style="font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #0a0a0f; margin: 0; padding: 40px 20px;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #16161f; border-radius: 16px; padding: 40px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #4B6CB7; margin: 0; font-size: 32px;">E-DÉSIGNE</h1>
+            <p style="color: #888; margin-top: 8px;">Réinitialisation mot de passe</p>
+          </div>
+          <h2 style="color: #fff; margin-bottom: 20px;">Mot de passe oublié?</h2>
+          <p style="color: #ccc; line-height: 1.6; margin-bottom: 20px;">
+            Vous avez demandé la réinitialisation de votre mot de passe. Cliquez sur le bouton ci-dessous pour créer un nouveau mot de passe.
+          </p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${data.resetUrl}" style="display: inline-block; background: linear-gradient(135deg, #4B6CB7 0%, #182848 100%); color: #fff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">Réinitialiser mon mot de passe</a>
+          </div>
+          <p style="color: #666; font-size: 14px;">
+            Ce lien expire dans <strong style="color: #FFD700;">1 heure</strong>.
+          </p>
+          <p style="color: #666; font-size: 12px; margin-top: 30px;">
+            Si vous n'avez pas demandé cette réinitialisation, ignorez cet email.
+          </p>
+        </div>
+      </body>
+      </html>
+    `,
+    text: `Réinitialisez votre mot de passe en suivant ce lien: ${data.resetUrl}`
+  }),
+  
+  contact_confirmation: (data) => ({
+    subject: 'Nous avons reçu votre message! 📩',
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Confirmation de contact</title>
+      </head>
+      <body style="font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #0a0a0f; margin: 0; padding: 40px 20px;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #16161f; border-radius: 16px; padding: 40px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #4B6CB7; margin: 0; font-size: 32px;">E-DÉSIGNE</h1>
+            <p style="color: #888; margin-top: 8px;">Confirmation</p>
+          </div>
+          <h2 style="color: #fff; text-align: center; margin-bottom: 20px;">Merci pour votre message!</h2>
+          <p style="color: #ccc; line-height: 1.6;">
+            Nous avons bien reçu votre demande et vous répondrons sous <strong style="color: #4B6CB7;">24-48 heures</strong>.
+          </p>
+          <div style="background: #0a0a0f; border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <p style="color: #ccc; margin: 8px 0;"><strong>Sujet:</strong> ${data.subject || 'Demande de contact'}</p>
+            <p style="color: #ccc; margin: 8px 0;"><strong>Message:</strong> ${data.message?.substring(0, 100)}...</p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #333; margin: 30px 0;">
+          <p style="color: #666; font-size: 12px; text-align: center;">
+            Pour toute urgence: <a href="mailto:${SUPPORT_EMAIL}" style="color: #4B6CB7;">${SUPPORT_EMAIL}</a>
+          </p>
+        </div>
+      </body>
+      </html>
+    `,
+    text: `Merci pour votre message! Nous vous répondrons sous 24-48h.`
+  })
+}
+
 const products = [
   { id: 1, name: 'Robe Élégante Noire', price: 89.99, category: 'robes', color: 'noir', size: ['S', 'M', 'L', 'XL'], image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80', hoverImage: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800&q=80', description: 'Robe élégante en mousseline noire.', isNew: true, isSale: false },
   { id: 2, name: 'Chemise Blanche Classique', price: 49.99, category: 'chemises', color: 'blanc', size: ['S', 'M', 'L', 'XL'], image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80', hoverImage: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80', description: 'Chemise blanche en coton.', isNew: false, isSale: false },
@@ -150,6 +376,22 @@ export default function handler(req, res) {
   if (path === '/api/orders' && method === 'POST') {
     const order = { id: 'ORD-' + Date.now(), ...body, status: 'pending', createdAt: new Date().toISOString() };
     orders.push(order);
+    
+    // Envoyer email confirmation commande via Resend
+    if (body.email) {
+      const confirmResult = await sendEmail(
+        body.email,
+        `Confirmation de votre commande #${order.id} ✓`,
+        emailTemplates.order_confirmation({ 
+          orderId: order.id, 
+          total: body.total || 0,
+          paymentMethod: body.paymentMethod || 'Carte bancaire'
+        }).html,
+        emailTemplates.order_confirmation({ orderId: order.id, total: body.total || 0 }).text
+      );
+      order.confirmationEmailSent = confirmResult.success;
+    }
+    
     return res.json(order);
   }
 
@@ -202,7 +444,19 @@ export default function handler(req, res) {
     if (users.find(u => u.email === email)) return res.status(400).json({ error: 'Email déjà utilisé' });
     const user = { id: 'user_' + Date.now(), email, name, createdAt: new Date().toISOString() };
     users.push({ ...user, password });
-    return res.json({ user: { ...user, password: undefined } });
+    
+    // Envoyer email de bienvenue via Resend
+    const welcomeResult = await sendEmail(
+      email, 
+      'Bienvenue chez E-Désigne! 🎉',
+      emailTemplates.welcome({ name }).html,
+      emailTemplates.welcome({ name }).text
+    );
+    
+    return res.json({ 
+      user: { ...user, password: undefined },
+      welcomeEmailSent: welcomeResult.success
+    });
   }
 
   // POST /api/users/login
@@ -222,21 +476,43 @@ export default function handler(req, res) {
   // AI 360° AUTOMATION - ADDITIONAL ENDPOINTS
   // ═══════════════════════════════════════════════════════════════
 
-  // POST /api/ai/email/send - Email Automation
+  // POST /api/ai/email/send - Email Automation avec Resend
   if (path === '/api/ai/email/send' && method === 'POST') {
-    const { to, template, data } = body || {};
+    const { to, template, data, subject, html } = body || {};
+    
+    // Si template fourni, utiliser le template
+    let emailContent;
+    if (template && emailTemplates[template]) {
+      emailContent = emailTemplates[template](data || {});
+    } else if (html && subject) {
+      // Email personnalisé
+      emailContent = { subject, html, text: body.text || '' };
+    } else {
+      return res.status(400).json({ 
+        error: 'Template ou contenu email requis',
+        availableTemplates: Object.keys(emailTemplates)
+      });
+    }
+    
+    // Envoyer via Resend
+    const result = await sendEmail(to, emailContent.subject, emailContent.html, emailContent.text);
+    
     const emailJob = {
       id: 'EMAIL-' + Date.now(),
       to, template, data,
-      status: 'queued',
+      status: result.success ? 'sent' : 'failed',
+      resendId: result.data?.id,
+      error: result.error,
       createdAt: new Date().toISOString()
     };
     emailQueue.push(emailJob);
+    
     return res.json({ 
-      success: true, 
-      message: 'Email queued',
+      success: result.success, 
+      message: result.success ? 'Email envoyé avec succès' : 'Erreur envoi email',
       emailId: emailJob.id,
-      templates: ['welcome', 'abandoned_cart', 'order_confirmation', 'shipping_update', 'review_request', 'reengagement']
+      resendId: result.data?.id,
+      templates: Object.keys(emailTemplates)
     });
   }
 
@@ -459,9 +735,82 @@ export default function handler(req, res) {
         social: 'operational',
         fraud: 'operational'
       },
+      emailProvider: {
+        resend: 'configured',
+        from: FROM_EMAIL,
+        templates: Object.keys(emailTemplates).length
+      },
       uptime: '99.9%',
       lastUpdate: new Date().toISOString()
     });
+  }
+
+  // POST /api/contact - Formulaire de contact
+  if (path === '/api/contact' && method === 'POST') {
+    const { name, email, subject, message } = body || {};
+    
+    if (!email || !message) {
+      return res.status(400).json({ error: 'Email et message requis' });
+    }
+    
+    // Envoyer confirmation au client
+    const confirmResult = await sendEmail(
+      email,
+      'Nous avons reçu votre message! 📩',
+      emailTemplates.contact_confirmation({ subject, message }).html,
+      emailTemplates.contact_confirmation({ subject, message }).text
+    );
+    
+    // Envoyer notification à l'admin
+    const adminNotify = await sendEmail(
+      SUPPORT_EMAIL,
+      `Nouveau message de contact: ${subject}`,
+      `<p><strong>Nom:</strong> ${name || 'Anonyme'}</p>
+       <p><strong>Email:</strong> ${email}</p>
+       <p><strong>Sujet:</strong> ${subject || 'Sans sujet'}</p>
+       <p><strong>Message:</strong></p>
+       <p>${message}</p>`,
+      `Nouveau message de ${name || 'Anonyme'} (${email}): ${subject || 'Sans sujet'} - ${message}`
+    );
+    
+    return res.json({ 
+      success: true,
+      confirmationSent: confirmResult.success,
+      adminNotified: adminNotify.success
+    });
+  }
+
+  // POST /api/password/reset - Demande réinitialisation mot de passe
+  if (path === '/api/password/reset' && method === 'POST') {
+    const { email, action } = body || {};
+    
+    if (!email) {
+      return res.status(400).json({ error: 'Email requis' });
+    }
+    
+    const user = users.find(u => u.email === email);
+    
+    // Pour la sécurité, ne pas révéler si l'email existe
+    if (action === 'request' && user) {
+      const resetToken = 'RESET-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+      const resetUrl = `https://e-designe.vercel.app/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`;
+      
+      // Envoyer email de réinitialisation
+      const resetResult = await sendEmail(
+        email,
+        'Réinitialisation de votre mot de passe 🔐',
+        emailTemplates.password_reset({ resetUrl }).html,
+        emailTemplates.password_reset({ resetUrl }).text
+      );
+      
+      return res.json({ 
+        success: true,
+        emailSent: resetResult.success,
+        message: 'Si cet email existe, vous recevrez un lien de réinitialisation'
+      });
+    }
+    
+    return res.json({ success: true, message: 'Si cet email existe, vous recevrez un lien de réinitialisation' });
   }
 
   res.status(404).json({ error: 'Endpoint not found' });
