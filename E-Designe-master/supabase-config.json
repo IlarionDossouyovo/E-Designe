@@ -1,0 +1,13 @@
+{
+  "projectId": "lmjasjoyqqanphrkbjop",
+  "schemas": ["public", "storage", "graphql_public"],
+  "tables": [
+    "users",
+    "products", 
+    "orders",
+    "wishlists",
+    "reviews",
+    "analytics_visits",
+    "analytics_conversions"
+  ]
+}

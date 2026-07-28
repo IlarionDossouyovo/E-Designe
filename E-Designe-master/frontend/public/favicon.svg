@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- 
+    E-DÉSIGNE - FAVICON
+    32x32 minimal
+  -->
+  
+  <rect width="32" height="32" rx="6" fill="#0a0a0f"/>
+  
+  <!-- E Symbol -->
+  <g transform="translate(6, 6)">
+    <path 
+      d="M2 2H16C17.1046 2 18 2.89543 18 4V6C18 7.10457 17.1046 8 16 8H8V12H16C17.1046 12 18 12.8954 18 14V16C18 17.1046 17.1046 18 16 18H2V2Z" 
+      fill="#4B6CB7"
+    />
+    
+    <!-- Neural Line Accent -->
+    <path d="M6 6L9 8L6 10" stroke="#6B8DD6" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+    
+    <!-- Gold Dot -->
+    <circle cx="13" cy="5" r="1" fill="#FFD700" opacity="0.9"/>
+  </g>
+</svg>

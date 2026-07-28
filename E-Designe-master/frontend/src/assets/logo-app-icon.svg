@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none">
+  <!-- 
+    E-DÉSIGNE - APP ICON (1024x1024)
+    For App Store / Play Store
+    Premium, Futuristic, AI
+  -->
+  
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#19232D"/>
+      <stop offset="100%" stop-color="#2A4A7A"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4B6CB7"/>
+      <stop offset="50%" stop-color="#6B8DD6"/>
+      <stop offset="100%" stop-color="#4B6CB7"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="220" fill="url(#bgGrad)"/>
+  
+  <!-- Glow Effect -->
+  <rect x="100" y="100" width="824" height="824" rx="180" fill="none" stroke="url(#glowGrad)" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Main E Symbol -->
+  <g transform="translate(212, 212)">
+    <!-- E Letterform -->
+    <path 
+      d="M64 64H448C460.255 64 480 83.7451 480 96V160C480 172.255 460.255 192 448 192H256V288H416C428.255 288 448 308.745 448 320V384C448 396.255 428.255 416 416 416H256V512H448C460.255 512 480 532.745 480 544V608C480 620.255 460.255 640 448 640H64V64Z" 
+      fill="#FFFFFF"
+    />
+    
+    <!-- AI Neural Lines -->
+    <path
+      d="M160 224L224 256L160 288"
+      stroke="url(#glowGrad)"
+      stroke-width="24"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    
+    <path
+      d="M160 416L224 448L160 480"
+      stroke="url(#glowGrad)"
+      stroke-width="24"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    
+    <!-- Circuit Nodes -->
+    <circle cx="352" cy="128" r="32" fill="#4B6CB7"/>
+    <circle cx="352" cy="576" r="32" fill="#FFD700"/>
+    <circle cx="256" cy="128" r="16" fill="#6B8DD6"/>
+    <circle cx="256" cy="576" r="16" fill="#6B8DD6"/>
+    
+    <!-- Data Dots -->
+    <circle cx="192" cy="160" r="8" fill="#A0B8E8"/>
+    <circle cx="192" cy="544" r="8" fill="#A0B8E8"/>
+  </g>
+  
+  <!-- AI Text (simplified) -->
+  <text x="512" y="900" font-family="system-ui, sans-serif" font-size="120" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="8">E-DÉSIGNÉ</text>
+</svg>

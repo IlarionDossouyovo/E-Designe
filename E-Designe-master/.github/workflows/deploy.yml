@@ -1,0 +1,22 @@
+name: Deploy to Vercel
+on:
+  push:
+    branches: [master]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Clean install
+        run: |
+          cd frontend && rm -rf node_modules package-lock.json
+          npm install --legacy-peer-deps
+      - name: Build
+        run: cd frontend && npm run build
+      - name: Deploy
+        run: npm install -g vercel@latest && vercel --yes --prod
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
