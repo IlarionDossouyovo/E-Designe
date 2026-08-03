@@ -7,6 +7,15 @@ const analytics = { visits: [], conversions: [] }
 const inventoryAlerts = []
 const seoImages = []
 const socialPosts = []
+const whatsappCampaigns = []
+const marketingAutomations = [
+  { id: '1', name: 'Welcome Email', trigger_event: 'user_registered', actions: { email: { template: 'welcome', delay: 0 } }, is_active: true },
+  { id: '2', name: 'Abandoned Cart Reminder', trigger_event: 'cart_abandoned', actions: { email: { template: 'cart_reminder', delay: 3600 }, whatsapp: { template: 'cart_reminder', delay: 7200 } }, is_active: true },
+  { id: '3', name: 'Order Confirmation', trigger_event: 'order_placed', actions: { email: { template: 'order_confirmation', delay: 0 } }, is_active: true },
+  { id: '4', name: 'Post-Purchase Followup', trigger_event: 'order_delivered', actions: { email: { template: 'review_request', delay: 86400 } }, is_active: true },
+  { id: '5', name: 'VIP Customer Reward', trigger_event: 'vip_reached', actions: { email: { template: 'vip_bonus', delay: 0 } }, is_active: true },
+  { id: '6', name: 'Win-Back Campaign', trigger_event: 'inactive_30_days', actions: { email: { template: 'we_miss_you', delay: 0 } }, is_active: true }
+]
 
 // Resend Configuration - Emails Transactionnels
 const RESEND_API_KEY = process.env.RESEND_API_KEY || 're_Dj8diRCn_CJ1eDHXVtSKWdbYRw5TRz4ok'
@@ -811,6 +820,298 @@ export default function handler(req, res) {
     }
     
     return res.json({ success: true, message: 'Si cet email existe, vous recevrez un lien de réinitialisation' });
+  }
+
+  // =====================================================
+  // SOCIAL MEDIA ENDPOINTS
+  // =====================================================
+
+  // GET /api/social/accounts - Liste des comptes sociaux
+  if (path === '/api/social/accounts' && method === 'GET') {
+    const socialAccounts = [
+      { id: '1', platform: 'whatsapp', account_name: 'E-Désigne Official', is_active: true, followers_count: 1250 },
+      { id: '2', platform: 'facebook', account_name: 'E-Designe', is_active: true, followers_count: 5420 },
+      { id: '3', platform: 'instagram', account_name: '@e_designe_official', is_active: true, followers_count: 8750 },
+      { id: '4', platform: 'tiktok', account_name: '@e_designe', is_active: true, followers_count: 15600 },
+      { id: '5', platform: 'pinterest', account_name: 'e-designe', is_active: true, followers_count: 890 },
+      { id: '6', platform: 'linkedin', account_name: 'E-Désigne Company', is_active: true, followers_count: 1250 }
+    ];
+    return res.json(socialAccounts);
+  }
+
+  // POST /api/social/post - Créer un post social
+  if (path === '/api/social/post' && method === 'POST') {
+    const { platform, content, media_urls, scheduled_at } = body || {};
+    const post = {
+      id: 'POST-' + Date.now(),
+      platform,
+      content,
+      media_urls: media_urls || [],
+      scheduled_at,
+      status: scheduled_at ? 'scheduled' : 'draft',
+      created_at: new Date().toISOString()
+    };
+    socialPosts.push(post);
+    return res.json({ success: true, post });
+  }
+
+  // GET /api/social/posts - Liste des posts
+  if (path === '/api/social/posts' && method === 'GET') {
+    return res.json(socialPosts);
+  }
+
+  // POST /api/social/publish - Publier sur une plateforme
+  if (path === '/api/social/publish' && method === 'POST') {
+    const { platform, content, media_url } = body || {};
+    
+    const results = {
+      whatsapp: { success: true, message_id: 'WA-' + Date.now() },
+      facebook: { success: true, post_id: 'FB-' + Date.now() },
+      instagram: { success: true, media_id: 'IG-' + Date.now() },
+      tiktok: { success: true, video_id: 'TT-' + Date.now() },
+      pinterest: { success: true, pin_id: 'PIN-' + Date.now() },
+      linkedin: { success: true, post_id: 'LI-' + Date.now() }
+    };
+    
+    return res.json(results[platform] || { success: false, error: 'Platform not supported' });
+  }
+
+  // =====================================================
+  // WHATSAPP ENDPOINTS
+  // =====================================================
+
+  // POST /api/whatsapp/send - Envoyer un message WhatsApp
+  if (path === '/api/whatsapp/send' && method === 'POST') {
+    const { phone, message, template_name } = body || {};
+    
+    if (!phone || !message) {
+      return res.status(400).json({ error: 'Téléphone et message requis' });
+    }
+    
+    console.log(`[WhatsApp] Sending to ${phone}: ${message.substring(0, 50)}...`);
+    
+    return res.json({ 
+      success: true, 
+      message_id: 'WA-' + Date.now(),
+      sent_at: new Date().toISOString()
+    });
+  }
+
+  // POST /api/whatsapp/campaign - Créer campagne WhatsApp
+  if (path === '/api/whatsapp/campaign' && method === 'POST') {
+    const { name, message_template, recipients, scheduled_at } = body || {};
+    
+    const campaign = {
+      id: 'WA-CAMP-' + Date.now(),
+      name,
+      message_template,
+      recipients: recipients || [],
+      scheduled_at,
+      status: scheduled_at ? 'scheduled' : 'draft',
+      created_at: new Date().toISOString()
+    };
+    
+    whatsappCampaigns.push(campaign);
+    return res.json({ success: true, campaign });
+  }
+
+  // GET /api/whatsapp/campaigns - Liste des campagnes
+  if (path === '/api/whatsapp/campaigns' && method === 'GET') {
+    return res.json(whatsappCampaigns);
+  }
+
+  // =====================================================
+  // MARKETPLACE ENDPOINTS
+  // =====================================================
+
+  // GET /api/marketplaces - Liste des marketplaces
+  if (path === '/api/marketplaces' && method === 'GET') {
+    const marketplaces = [
+      { id: '1', platform: 'shopify', store_name: 'E-Désigne Shopify', is_active: false, products: 0, orders: 0 },
+      { id: '2', platform: 'amazon', store_name: 'E-Désigne Amazon', is_active: false, products: 0, orders: 0 },
+      { id: '3', platform: 'ebay', store_name: 'E-Designe Store', is_active: false, products: 0, orders: 0 },
+      { id: '4', platform: 'etsy', store_name: 'E-Désigne Etsy', is_active: false, products: 0, orders: 0 },
+      { id: '5', platform: 'woocommerce', store_name: 'E-Désigne WooCommerce', is_active: false, products: 0, orders: 0 }
+    ];
+    return res.json(marketplaces);
+  }
+
+  // POST /api/marketplaces/connect - Connecter une marketplace
+  if (path === '/api/marketplaces/connect' && method === 'POST') {
+    const { platform, store_name, api_key, api_secret } = body || {};
+    
+    return res.json({
+      success: true,
+      marketplace: {
+        id: 'MP-' + Date.now(),
+        platform,
+        store_name,
+        is_active: true,
+        connected_at: new Date().toISOString()
+      }
+    });
+  }
+
+  // POST /api/marketplaces/:platform/sync - Synchroniser un produit
+  if (path.match(/^\/api\/marketplaces\/.+\/sync$/) && method === 'POST') {
+    const platform = path.split('/')[3];
+    const { product_id, product } = body || {};
+    
+    console.log(`[${platform}] Syncing product: ${product?.name || product_id}`);
+    
+    return res.json({
+      success: true,
+      platform,
+      synced_at: new Date().toISOString(),
+      external_id: `${platform.toUpperCase()}-${Date.now()}`
+    });
+  }
+
+  // =====================================================
+  // EMAIL MARKETING ENDPOINTS
+  // =====================================================
+
+  // GET /api/marketing/emails - Liste des campagnes email
+  if (path === '/api/marketing/emails' && method === 'GET') {
+    const emailCampaigns = [
+      { id: 'EMAIL-1', name: 'Summer Sale', subject: '🔥 Soldes d\'été -50%', status: 'sent', sent_count: 5200, open_rate: 35.4 },
+      { id: 'EMAIL-2', name: 'New Collection', subject: '✨ Nouvelle collection disponible', status: 'scheduled', scheduled_at: '2026-08-15' },
+      { id: 'EMAIL-3', name: 'VIP Bonus', subject: '🎁 Bonus exclusif pour vous', status: 'draft' }
+    ];
+    return res.json(emailCampaigns);
+  }
+
+  // POST /api/marketing/emails - Créer campagne email
+  if (path === '/api/marketing/emails' && method === 'POST') {
+    const { name, subject, content, recipients } = body || {};
+    
+    return res.json({
+      success: true,
+      campaign: {
+        id: 'EMAIL-' + Date.now(),
+        name,
+        subject,
+        content,
+        recipients: recipients || [],
+        status: 'draft',
+        created_at: new Date().toISOString()
+      }
+    });
+  }
+
+  // =====================================================
+  // SMS MARKETING ENDPOINTS
+  // =====================================================
+
+  // GET /api/marketing/sms - Liste des campagnes SMS
+  if (path === '/api/marketing/sms' && method === 'GET') {
+    const smsCampaigns = [
+      { id: 'SMS-1', name: 'Flash Sale', message: '🔥 Flash Sale today! -30% sur tout!', status: 'sent', delivered: 4500 },
+      { id: 'SMS-2', name: 'New Arrival', message: '✨ Nouvelle collection disponible!', status: 'draft' }
+    ];
+    return res.json(smsCampaigns);
+  }
+
+  // POST /api/marketing/sms - Créer campagne SMS
+  if (path === '/api/marketing/sms' && method === 'POST') {
+    const { name, message, recipients } = body || {};
+    
+    return res.json({
+      success: true,
+      campaign: {
+        id: 'SMS-' + Date.now(),
+        name,
+        message,
+        recipients: recipients || [],
+        status: 'draft',
+        created_at: new Date().toISOString()
+      }
+    });
+  }
+
+  // =====================================================
+  // MARKETING AUTOMATION ENDPOINTS
+  // =====================================================
+
+  // GET /api/marketing/automations - Liste des automatisations
+  if (path === '/api/marketing/automations' && method === 'GET') {
+    return res.json(marketingAutomations);
+  }
+
+  // POST /api/marketing/automations - Créer une automatisation
+  if (path === '/api/marketing/automations' && method === 'POST') {
+    const { name, trigger_event, actions } = body || {};
+    
+    const automation = {
+      id: 'AUTO-' + Date.now(),
+      name,
+      trigger_event,
+      actions: actions || {},
+      is_active: true,
+      created_at: new Date().toISOString()
+    };
+    
+    marketingAutomations.push(automation);
+    return res.json({ success: true, automation });
+  }
+
+  // POST /api/marketing/automations/:id/toggle - Activer/désactiver
+  if (path.match(/^\/api\/marketing\/automations\/.+\/toggle$/) && method === 'POST') {
+    const id = path.split('/')[4];
+    const automation = marketingAutomations.find(a => a.id === id);
+    
+    if (!automation) {
+      return res.status(404).json({ error: 'Automation non trouvée' });
+    }
+    
+    automation.is_active = !automation.is_active;
+    return res.json({ success: true, is_active: automation.is_active });
+  }
+
+  // =====================================================
+  // ANALYTICS ENDPOINTS
+  // =====================================================
+
+  // GET /api/analytics/revenue - Revenus
+  if (path === '/api/analytics/revenue' && method === 'GET') {
+    const days = 30;
+    const data = [];
+    
+    for (let i = days; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      data.push({
+        date: date.toISOString().split('T')[0],
+        revenue: Math.floor(Math.random() * 5000) + 1000,
+        orders: Math.floor(Math.random() * 50) + 10,
+        average_order_value: Math.floor(Math.random() * 100) + 50
+      });
+    }
+    
+    return res.json(data);
+  }
+
+  // GET /api/analytics/engagement - Engagement social
+  if (path === '/api/analytics/engagement' && method === 'GET') {
+    return res.json({
+      whatsapp: { messages_sent: 1250, delivered: 1200, read: 980 },
+      facebook: { posts: 45, reach: 25000, engagement: 3500, likes: 2800, shares: 420, comments: 280 },
+      instagram: { posts: 89, reach: 45000, engagement: 8900, likes: 7500, saves: 890, comments: 510 },
+      tiktok: { videos: 34, views: 150000, engagement: 25000, likes: 18000, shares: 4500, comments: 2500 },
+      pinterest: { pins: 156, saves: 890, clicks: 450, reach: 1200 },
+      linkedin: { posts: 23, impressions: 12000, engagement: 890, clicks: 450 }
+    });
+  }
+
+  // GET /api/analytics/marketing - Performance marketing
+  if (path === '/api/analytics/marketing' && method === 'GET') {
+    return res.json({
+      email: { campaigns: 12, sent: 45000, opens: 16200, clicks: 4500, revenue: 8500 },
+      sms: { campaigns: 5, sent: 15000, delivered: 14800, revenue: 3200 },
+      whatsapp: { campaigns: 8, sent: 8500, delivered: 8200, revenue: 2800 },
+      total_revenue: 14500,
+      roi: 3.2
+    });
   }
 
   res.status(404).json({ error: 'Endpoint not found' });

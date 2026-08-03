@@ -30,6 +30,7 @@ export default function Header({ cartCount, user }) {
           <Link to="/textile">🧵 TextileHub</Link>
           <Link to="/fournisseurs-textile">🏭 Fournisseurs</Link>
           <Link to="/recherche-ia" style={{ color: '#22c55e' }}>🔍 IA</Link>
+          <Link to="/marketing" style={{ color: '#f59e0b' }}>🎯 Marketing</Link>
           <Link to="/partenaire" style={{ color: '#8b5cf6' }}>💰 Partenaire</Link>
           <Link to="/marques">🏢 Marques</Link>
           <Link to="/admin" style={{ color: '#19232D', fontWeight: 'bold' }}>⚙️ Admin</Link>
