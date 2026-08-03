@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ChatWidget from './components/ChatWidget'
+import Navigation from './components/Navigation'
 import Home from './pages/Home'
 import Products from './pages/Products'
 import ProductDetail from './pages/ProductDetail'
@@ -122,6 +123,7 @@ export default function App() {
       </main>
       <Footer />
       <ChatWidget />
+      <Navigation />
     </div>
   )
 }
