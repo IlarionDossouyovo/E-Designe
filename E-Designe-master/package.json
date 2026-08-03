@@ -1,0 +1,14 @@
+{
+  "name": "e-designe",
+  "version": "1.0.0",
+  "description": "Plateforme e-commerce premium pour la mode occidentale et africaine avec IA",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd api && node index.js",
+    "install:all": "npm install && cd frontend && npm install"
+  },
+  "keywords": ["e-commerce", "fashion", "ai", "react", "nodejs"],
+  "author": "E-Désigne",
+  "license": "MIT"
+}
