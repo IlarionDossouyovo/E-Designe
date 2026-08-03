@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { products, categories, qualityTiers } from '../data/products'
 
 // Flatten products for display
@@ -190,6 +191,93 @@ export default function Products() {
       {filtered.length === 0 && (
         <p style={{ textAlign: 'center', padding: '3rem', color: '#6b7280', background: '#16161f', borderRadius: '12px' }}>Aucun produit trouve</p>
       )}
+
+      {/* Brands Section - Other Products from Top Brands */}
+      <div style={{ marginTop: '4rem' }}>
+        <h2 style={{ color: '#fff', fontSize: '2rem', marginBottom: '1.5rem', textAlign: 'center' }}>
+          🏆 Autres Marques Populaires
+        </h2>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+          {[
+            { name: 'Louis Vuitton', country: 'France', icon: '👜', color: '#C8A97E' },
+            { name: 'Gucci', country: 'Italie', icon: '👢', color: '#E8D5B7' },
+            { name: 'Prada', country: 'Italie', icon: '🕶️', color: '#1A1A1A' },
+            { name: 'Chanel', country: 'France', icon: '💄', color: '#D4AF37' },
+            { name: 'Hermès', country: 'France', icon: '🧣', color: '#F5E6D3' },
+            { name: 'Versace', country: 'Italie', icon: '👗', color: '#FFD700' },
+            { name: 'Dior', country: 'France', icon: '👠', color: '#E8E8E8' },
+            { name: 'Balenciaga', country: 'Espagne', icon: '🛍️', color: '#000000' },
+            { name: 'Burberry', country: 'Royaume-Uni', icon: '🧥', color: '#C4A484' },
+            { name: 'Armani', country: 'Italie', icon: '👔', color: '#2C3E50' },
+            { name: 'Zara', country: 'Espagne', icon: '👚', color: '#000000' },
+            { name: 'H&M', country: 'Suède', icon: '👕', color: '#E70000' },
+          ].map(brand => (
+            <Link 
+              key={brand.name}
+              to={`/marque/${brand.name.toLowerCase().replace(' ', '-')}`}
+              style={{ 
+                textDecoration: 'none',
+                background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+                border: '1px solid #2a2a4a',
+                borderRadius: '12px',
+                padding: '1.5rem',
+                textAlign: 'center',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }}
+            >
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{brand.icon}</div>
+              <h3 style={{ color: '#fff', margin: 0, fontSize: '1rem' }}>{brand.name}</h3>
+              <p style={{ color: '#6B8DD6', margin: '0.25rem 0 0 0', fontSize: '0.8rem' }}>{brand.country}</p>
+            </Link>
+          ))}
+        </div>
+
+        {/* Quick Links to Other Pages */}
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '2rem' }}>
+          <Link to="/marques" style={{ 
+            padding: '12px 24px', 
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
+            color: '#fff', 
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: 'bold'
+          }}>
+            📋 Voir Toutes les Marques
+          </Link>
+          <Link to="/partenaire" style={{ 
+            padding: '12px 24px', 
+            background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)', 
+            color: '#fff', 
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: 'bold'
+          }}>
+            🤝 Devenir Partenaire
+          </Link>
+          <Link to="/revendeurs" style={{ 
+            padding: '12px 24px', 
+            background: 'linear-gradient(135deg, #eb3349 0%, #f45c43 100%)', 
+            color: '#fff', 
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: 'bold'
+          }}>
+            🏪 Revendeurs
+          </Link>
+          <Link to="/fournisseurs-textile" style={{ 
+            padding: '12px 24px', 
+            background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', 
+            color: '#fff', 
+            borderRadius: '8px',
+            textDecoration: 'none',
+            fontWeight: 'bold'
+          }}>
+            🏭 Fournisseurs
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }
