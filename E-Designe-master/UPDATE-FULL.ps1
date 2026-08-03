@@ -14,7 +14,7 @@ Write-Host "`n📥 ÉTAPE 1: Mise à jour depuis GitHub" -ForegroundColor Yellow
 
 Write-Host @"
 
-Commandes PowerShell:
+Commandes PowerShell (ENTREZ CHAQUE LIGNE SÉPARÉMENT):
 -------------------
 cd C:\workspace\E-Designe\E-Designe-master
 git pull origin master
@@ -29,12 +29,12 @@ Write-Host "`n📦 ÉTAPE 2: Installation des dépendances" -ForegroundColor Yel
 
 Write-Host @"
 
+⚠️ IMPORTANT: Entrez ces commandes UNE PAR UNE (pas avec &&):
+
 Commandes PowerShell:
 -------------------
-# À la racine
 npm install
 
-# Dans le frontend
 cd frontend
 npm install
 cd ..
@@ -49,9 +49,10 @@ Write-Host "`n🛑 ÉTAPE 3: Arrêter les conteneurs Docker" -ForegroundColor Ye
 
 Write-Host @"
 
+⚠️ Docker Desktop doit être installé et lancé!
+
 Commandes PowerShell:
 -------------------
-# Si Docker Desktop est ouvert
 docker compose down
 
 "@ -ForegroundColor White
