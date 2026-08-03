@@ -157,3 +157,244 @@ INSERT INTO resellers (name, email, phone, country, commission, verified) VALUES
 ('Fashion Africa Co', 'contact@fashionafrica.com', '+221771234567', 'Sénégal', 15.00, true),
 ('EuroStyle Wholesale', 'contact@eurostyle.fr', '+33123456789', 'France', 12.00, true),
 ('Benin Mode', 'contact@beninmode.bj', '+2290197700347', 'Bénin', 16.00, true);
+
+-- =====================================================
+-- TABLES CANAUX DE VENTE & RÉSEAUX SOCIAUX
+-- =====================================================
+
+-- Social Media Accounts
+CREATE TABLE IF NOT EXISTS social_accounts (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    platform VARCHAR(50) NOT NULL,
+    account_name VARCHAR(255),
+    account_id VARCHAR(255),
+    access_token TEXT,
+    refresh_token TEXT,
+    webhook_url TEXT,
+    is_active BOOLEAN DEFAULT true,
+    followers_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Social Media Posts
+CREATE TABLE IF NOT EXISTS social_posts (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    platform VARCHAR(50) NOT NULL,
+    content TEXT NOT NULL,
+    media_urls TEXT[],
+    scheduled_at TIMESTAMP,
+    posted_at TIMESTAMP,
+    status VARCHAR(50) DEFAULT 'draft',
+    engagement_likes INTEGER DEFAULT 0,
+    engagement_shares INTEGER DEFAULT 0,
+    engagement_comments INTEGER DEFAULT 0,
+    external_post_id VARCHAR(255),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- WhatsApp Campaigns
+CREATE TABLE IF NOT EXISTS whatsapp_campaigns (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(255) NOT NULL,
+    message_template TEXT,
+    media_url TEXT,
+    recipients TEXT[],
+    status VARCHAR(50) DEFAULT 'draft',
+    scheduled_at TIMESTAMP,
+    sent_at TIMESTAMP,
+    delivered_count INTEGER DEFAULT 0,
+    read_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- =====================================================
+-- TABLES MARKETPLACES
+-- =====================================================
+
+-- Marketplace Connections
+CREATE TABLE IF NOT EXISTS marketplace_connections (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    platform VARCHAR(50) NOT NULL,
+    store_name VARCHAR(255),
+    api_key TEXT,
+    api_secret TEXT,
+    access_token TEXT,
+    webhook_url TEXT,
+    is_active BOOLEAN DEFAULT true,
+    last_sync TIMESTAMP,
+    settings JSONB,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Marketplace Products
+CREATE TABLE IF NOT EXISTS marketplace_products (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    local_product_id UUID,
+    marketplace VARCHAR(50) NOT NULL,
+    external_product_id VARCHAR(255),
+    sync_status VARCHAR(50) DEFAULT 'pending',
+    last_sync TIMESTAMP,
+    error_message TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- =====================================================
+-- TABLES MARKETING & AUTOMATION
+-- =====================================================
+
+-- Email Campaigns
+CREATE TABLE IF NOT EXISTS email_campaigns (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(255) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    content TEXT,
+    template_id VARCHAR(100),
+    recipients JSONB,
+    status VARCHAR(50) DEFAULT 'draft',
+    scheduled_at TIMESTAMP,
+    sent_at TIMESTAMP,
+    open_count INTEGER DEFAULT 0,
+    click_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- SMS Campaigns
+CREATE TABLE IF NOT EXISTS sms_campaigns (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    recipients TEXT[],
+    status VARCHAR(50) DEFAULT 'draft',
+    scheduled_at TIMESTAMP,
+    sent_at TIMESTAMP,
+    delivered_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Marketing Automation
+CREATE TABLE IF NOT EXISTS marketing_automations (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(255) NOT NULL,
+    trigger_event VARCHAR(100) NOT NULL,
+    actions JSONB NOT NULL,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Push Notifications
+CREATE TABLE IF NOT EXISTS push_notifications (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    title VARCHAR(255) NOT NULL,
+    body TEXT NOT NULL,
+    icon_url VARCHAR(500),
+    action_url VARCHAR(500),
+    recipients TEXT[],
+    scheduled_at TIMESTAMP,
+    sent_at TIMESTAMP,
+    delivered_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- =====================================================
+-- TABLES CRM & CLIENTS
+-- =====================================================
+
+-- Customers
+CREATE TABLE IF NOT EXISTS customers (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    email VARCHAR(255) UNIQUE,
+    phone VARCHAR(50),
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    total_orders INTEGER DEFAULT 0,
+    total_spent DECIMAL(10,2) DEFAULT 0,
+    segment VARCHAR(50),
+    tags TEXT[],
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Customer Activity
+CREATE TABLE IF NOT EXISTS customer_activities (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    customer_id UUID REFERENCES customers(id),
+    activity_type VARCHAR(100) NOT NULL,
+    metadata JSONB,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- =====================================================
+-- TABLES ANALYTICS
+-- =====================================================
+
+-- Product Views
+CREATE TABLE IF NOT EXISTS product_views (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    product_id UUID,
+    user_id UUID,
+    session_id VARCHAR(255),
+    referrer VARCHAR(500),
+    device_type VARCHAR(50),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Cart Events
+CREATE TABLE IF NOT EXISTS cart_events (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID,
+    session_id VARCHAR(255),
+    product_id UUID,
+    event_type VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Revenue Analytics
+CREATE TABLE IF NOT EXISTS revenue_analytics (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    date DATE NOT NULL,
+    revenue DECIMAL(10,2) DEFAULT 0,
+    orders_count INTEGER DEFAULT 0,
+    average_order_value DECIMAL(10,2) DEFAULT 0,
+    new_customers INTEGER DEFAULT 0,
+    returning_customers INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- =====================================================
+-- INSERT DEFAULT AUTOMATIONS
+-- =====================================================
+
+INSERT INTO marketing_automations (name, trigger_event, actions, is_active) VALUES
+('Welcome Email', 'user_registered', '{"email": {"template": "welcome", "delay": 0}}', true),
+('Abandoned Cart Reminder', 'cart_abandoned', '{"email": {"template": "cart_reminder", "delay": 3600}, "whatsapp": {"template": "cart_reminder", "delay": 7200}}', true),
+('Order Confirmation', 'order_placed', '{"email": {"template": "order_confirmation", "delay": 0}}', true),
+('Post-Purchase Followup', 'order_delivered', '{"email": {"template": "review_request", "delay": 86400}}', true),
+('VIP Customer Reward', 'vip_reached', '{"email": {"template": "vip_bonus", "delay": 0}}', true),
+('Win-Back Campaign', 'inactive_30_days', '{"email": {"template": "we_miss_you", "delay": 0}}', true);
+
+-- =====================================================
+-- INSERT DEFAULT SOCIAL ACCOUNTS
+-- =====================================================
+
+INSERT INTO social_accounts (platform, account_name, is_active, followers_count) VALUES
+('whatsapp', 'E-Désigne Official', true, 1250),
+('facebook', 'E-Designe', true, 5420),
+('instagram', '@e_designe_official', true, 8750),
+('tiktok', '@e_designe', true, 15600),
+('pinterest', 'e-designe', true, 890),
+('linkedin', 'E-Désigne Company', true, 1250);
+
+-- =====================================================
+-- INSERT DEFAULT MARKETPLACE CONNECTIONS
+-- =====================================================
+
+INSERT INTO marketplace_connections (platform, store_name, is_active) VALUES
+('shopify', 'E-Désigne Shopify', false),
+('amazon', 'E-Désigne Amazon', false),
+('ebay', 'E-Designe Store', false),
+('etsy', 'E-Désigne Etsy', false),
+('woocommerce', 'E-Désigne WooCommerce', false);
