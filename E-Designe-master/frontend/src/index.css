@@ -1,3 +1,7 @@
+/* Design System Imports */
+@import './styles/design-tokens.css';
+@import './styles/logo.css';
+
 :root {
   --color-nuit: #19232D;
   --color-bleu: #4B6CB7;

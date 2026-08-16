@@ -1,0 +1,15 @@
+# E-Désigne Robots.txt
+# https://ilariondossouyovo.github.io/E-Designe/
+
+User-agent: *
+Allow: /
+
+# Disallow admin paths
+Disallow: /admin
+Disallow: /api/admin
+
+# Sitemap
+Sitemap: https://ilariondossouyovo.github.io/E-Designe/sitemap.xml
+
+# Crawl-delay (optional)
+Crawl-delay: 1
