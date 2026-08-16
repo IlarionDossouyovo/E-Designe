@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const platforms = [
   { id: 'whatsapp', name: 'WhatsApp', icon: '💬', color: '#25D366', followers: '1.2K' },
@@ -79,14 +80,33 @@ export default function MarketingHub() {
         animate={{ opacity: 1, y: 0 }}
         style={{ maxWidth: '1400px', margin: '0 auto 30px' }}
       >
-        <h1 style={{ 
-          color: '#fff', 
-          fontSize: '2.5rem', 
-          fontFamily: 'Playfair Display, serif',
-          marginBottom: '10px'
-        }}>
-          🎯 Marketing Hub
-        </h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '10px' }}>
+          <Link 
+            to="/"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '40px',
+              height: '40px',
+              background: '#16161f',
+              borderRadius: '10px',
+              color: '#fff',
+              textDecoration: 'none',
+              fontSize: '1.2rem'
+            }}
+          >
+            ←
+          </Link>
+          <h1 style={{ 
+            color: '#fff', 
+            fontSize: '2.5rem', 
+            fontFamily: 'Playfair Display, serif',
+            margin: 0
+          }}>
+            🎯 Marketing Hub
+          </h1>
+        </div>
         <p style={{ color: '#888', fontSize: '1.1rem' }}>
           Gérez vos canaux de vente, réseaux sociaux et automatisations
         </p>
