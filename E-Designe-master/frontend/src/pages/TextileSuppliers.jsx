@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const textileSuppliers = [
   { id: 1, name: 'EuroTissus France', country: 'France', specialties: ['Coton', 'Lin', 'Soie'], leadTime: '7 jours', minOrder: 50, rating: 4.8, certification: 'Oeko-Tex', dropship: true },
@@ -16,6 +17,7 @@ const categories = ['Tous', 'Coton', 'Soie', 'Lin', 'Polyster', 'Laine']
 const countries = ['Tous', 'France', 'Chine', 'Inde', 'Turquie', 'Pakistan', 'Bangladesh', 'Portugal', 'Italie']
 
 export default function TextileSuppliers() {
+  const navigate = useNavigate()
   const [filterCountry, setFilterCountry] = useState('Tous')
   const [filterCategory, setFilterCategory] = useState('Tous')
   
@@ -25,8 +27,48 @@ export default function TextileSuppliers() {
     return true
   })
 
+  const quickLinks = [
+    { name: 'Accueil', icon: '🏠', path: '/', color: '#4B6CB7' },
+    { name: 'Textile', icon: '🧵', path: '/textile', color: '#25D366' },
+    { name: 'Marques', icon: '🏷️', path: '/marques', color: '#E4405F' },
+    { name: 'Partenaires', icon: '🤝', path: '/partenaire', color: '#7C3AED' },
+    { name: 'Marketing', icon: '📊', path: '/marketing', color: '#F59E0B' },
+  ];
+
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+    <div style={{ padding: '100px 20px 40px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+      
+      {/* Quick Links */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{ marginBottom: '20px' }}
+      >
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          {quickLinks.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => navigate(link.path)}
+              style={{
+                padding: '8px 16px',
+                background: '#16161f',
+                border: `1px solid ${link.color}40`,
+                borderRadius: '8px',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '0.85rem'
+              }}
+            >
+              <span>{link.icon}</span>
+              <span>{link.name}</span>
+            </button>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Hero */}
       <div style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #4B6CB7 100%)', borderRadius: '20px', padding: '60px 40px', marginBottom: '40px', color: '#fff', position: 'relative', overflow: 'hidden' }}>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Fournisseurs Textile Internationaux</h1>
@@ -35,7 +77,8 @@ export default function TextileSuppliers() {
         </p>
         <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
           <Link to="/marques" style={{ padding: '12px 24px', background: '#fff', color: '#4B6CB7', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold' }}>Annuaire Marques</Link>
-          <Link to="/affiliate" style={{ padding: '12px 24px', background: 'rgba(255,255,255,0.2)', color: '#fff', borderRadius: '8px', textDecoration: 'none' }}>Programme Affiliation</Link>
+          <Link to="/partenaire" style={{ padding: '12px 24px', background: 'rgba(255,255,255,0.2)', color: '#fff', borderRadius: '8px', textDecoration: 'none' }}>Programme Affiliation</Link>
+          <Link to="/textile" style={{ padding: '12px 24px', background: 'rgba(255,255,255,0.2)', color: '#fff', borderRadius: '8px', textDecoration: 'none' }}>TextileHub</Link>
         </div>
       </div>
 
