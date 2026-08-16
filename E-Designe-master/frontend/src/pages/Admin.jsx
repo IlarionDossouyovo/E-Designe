@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts'
 
 // Configuration des agents IA
@@ -40,10 +41,51 @@ const productsData = [
 ]
 
 export default function Admin() {
+  const navigate = useNavigate()
   const [period, setPeriod] = useState('week')
 
+  const quickLinks = [
+    { name: 'Accueil', icon: '🏠', path: '/', color: '#4B6CB7' },
+    { name: 'Produits', icon: '🛍️', path: '/products', color: '#25D366' },
+    { name: 'Marketing', icon: '📊', path: '/marketing', color: '#E4405F' },
+    { name: 'Textile', icon: '🧵', path: '/textile', color: '#F59E0B' },
+    { name: 'Fondateur', icon: '👤', path: '/fondacteure', color: '#7C3AED' },
+  ];
+
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+    <div style={{ padding: '100px 20px 40px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+      
+      {/* Quick Links */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{ marginBottom: '20px' }}
+      >
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          {quickLinks.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => navigate(link.path)}
+              style={{
+                padding: '8px 16px',
+                background: '#16161f',
+                border: `1px solid ${link.color}40`,
+                borderRadius: '8px',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '0.85rem'
+              }}
+            >
+              <span>{link.icon}</span>
+              <span>{link.name}</span>
+            </button>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h1 style={{ margin: 0, color: '#fff' }}>⚙️ Administration</h1>

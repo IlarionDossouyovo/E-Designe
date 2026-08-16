@@ -45,6 +45,7 @@ import OllamaDiagnostics from './pages/OllamaDiagnostics'
 import BrandPage from './pages/BrandPage'
 import TextileHub from './pages/TextileHub'
 import MarketingHub from './pages/MarketingHub'
+import Fondacteure from './pages/Fondacteure'
 
 export default function App() {
   const [cart, setCart] = useState([])
@@ -118,6 +119,7 @@ export default function App() {
             <Route path="/textile" element={<TextileHub />} />
             <Route path="/textile/:categoryId" element={<TextileHub />} />
             <Route path="/marketing" element={<MarketingHub />} />
+            <Route path="/fondacteure" element={<Fondacteure />} />
           </Routes>
         </AnimatePresence>
       </main>
