@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const blogPosts = {
   1: { 
@@ -174,6 +175,7 @@ Une garde-robe bien organisee commence par des essentiels:
 
 export default function BlogPost() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const post = blogPosts[id] || blogPosts[1]
   
   const getCatColor = (cat) => {
@@ -191,25 +193,75 @@ export default function BlogPost() {
     .filter(([key]) => key !== id)
     .slice(0, 3)
 
+  const quickLinks = [
+    { name: 'Accueil', icon: '🏠', path: '/', color: '#4B6CB7' },
+    { name: 'Blog', icon: '📝', path: '/blog', color: '#25D366' },
+    { name: 'Produits', icon: '🛍️', path: '/products', color: '#E4405F' },
+    { name: 'Textile', icon: '🧵', path: '/textile', color: '#F59E0B' },
+    { name: 'Marketing', icon: '📊', path: '/marketing', color: '#7C3AED' },
+  ];
+
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '900px', margin: '0 auto' }}>
+    <div style={{ padding: '100px 20px 40px', maxWidth: '900px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+      
+      {/* Quick Links */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{ marginBottom: '20px' }}
+      >
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          {quickLinks.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => navigate(link.path)}
+              style={{
+                padding: '8px 16px',
+                background: '#16161f',
+                border: `1px solid ${link.color}40`,
+                borderRadius: '8px',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '0.85rem'
+              }}
+            >
+              <span>{link.icon}</span>
+              <span>{link.name}</span>
+            </button>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Back */}
       <Link to="/blog" style={{ color: '#4B6CB7', textDecoration: 'none', marginBottom: '1.5rem', display: 'inline-block' }}>
         ← Retour au blog
       </Link>
 
       {/* Hero Image */}
-      <div style={{ borderRadius: '16px', overflow: 'hidden', marginBottom: '2rem' }}>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        style={{ borderRadius: '16px', overflow: 'hidden', marginBottom: '2rem' }}
+      >
         <img 
           src={post.image} 
           alt={post.title} 
           style={{ width: '100%', height: '400px', objectFit: 'cover' }} 
           onError={(e) => e.target.style.display = 'none'}
         />
-      </div>
+      </motion.div>
 
       {/* Meta */}
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', alignItems: 'center', flexWrap: 'wrap' }}
+      >
         <span 
           style={{ 
             background: getCatColor(post.category), 
@@ -222,50 +274,63 @@ export default function BlogPost() {
         >
           {post.category}
         </span>
-        <span style={{ color: '#666', fontSize: '14px' }}>{post.date}</span>
-        <span style={{ color: '#999', fontSize: '14px' }}>{post.readTime} de lecture</span>
-      </div>
+        <span style={{ color: '#9ca3af', fontSize: '14px' }}>{post.date}</span>
+        <span style={{ color: '#6B7280', fontSize: '14px' }}>{post.readTime} de lecture</span>
+      </motion.div>
 
       {/* Title */}
-      <h1 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', lineHeight: '1.2' }}>
+      <motion.h1 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        style={{ fontSize: '2.5rem', marginBottom: '1.5rem', lineHeight: '1.2', color: '#fff' }}
+      >
         {post.title}
-      </h1>
+      </motion.h1>
 
       {/* Content */}
-      <div 
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
         style={{ 
           fontSize: '1.1rem', 
           lineHeight: '1.8', 
-          color: '#333',
+          color: '#9ca3af',
           whiteSpace: 'pre-line'
         }}
       >
         {post.content.split('\n').map((para, i) => {
           if (para.startsWith('## ')) {
-            return <h2 key={i} style={{ marginTop: '2rem', marginBottom: '1rem' }}>{para.replace('## ', '')}</h2>
+            return <h2 key={i} style={{ marginTop: '2rem', marginBottom: '1rem', color: '#fff' }}>{para.replace('## ', '')}</h2>
           }
           if (para.startsWith('- ')) {
-            return <li key={i} style={{ marginLeft: '1rem', marginBottom: '0.5rem' }}>{para.replace('- ', '')}</li>
+            return <li key={i} style={{ marginLeft: '1rem', marginBottom: '0.5rem', color: '#9ca3af' }}>{para.replace('- ', '')}</li>
           }
           return para ? <p key={i} style={{ marginBottom: '1rem' }}>{para}</p> : <br key={i} />
         })}
-      </div>
+      </motion.div>
 
       {/* Related */}
-      <div style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #eee' }}>
-        <h3 style={{ marginBottom: '1.5rem' }}>Articles similaires</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #2a2a35' }}
+      >
+        <h3 style={{ marginBottom: '1.5rem', color: '#fff' }}>Articles similaires</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
           {relatedPosts.map(([key, p]) => (
             <Link key={key} to={`/blog/${key}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div style={{ background: '#fff', padding: '1rem', borderRadius: '12px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+              <div style={{ background: '#16161f', padding: '1rem', borderRadius: '12px', border: '1px solid #2a2a35' }}>
                 <span style={{ fontSize: '11px', color: getCatColor(p.category) }}>{p.category}</span>
-                <h4 style={{ marginTop: '0.5rem', fontSize: '1rem' }}>{p.title}</h4>
-                <span style={{ fontSize: '12px', color: '#999' }}>{p.date}</span>
+                <h4 style={{ marginTop: '0.5rem', fontSize: '1rem', color: '#fff' }}>{p.title}</h4>
+                <span style={{ fontSize: '12px', color: '#6B7280' }}>{p.date}</span>
               </div>
             </Link>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
