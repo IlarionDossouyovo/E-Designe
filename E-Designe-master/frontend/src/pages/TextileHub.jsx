@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 // Données complètes des catégories textiles
 const textileCategories = [
@@ -112,8 +113,21 @@ const featuredProducts = [
 ]
 
 export default function TextileHub() {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('coton')
   const [searchTerm, setSearchTerm] = useState('')
+
+  // Quick navigation buttons
+  const quickLinks = [
+    { name: 'Accueil', icon: '🏠', path: '/', color: '#4B6CB7' },
+    { name: 'Produits', icon: '🛍️', path: '/products', color: '#25D366' },
+    { name: 'Marques', icon: '🏷️', path: '/marques', color: '#E4405F' },
+    { name: 'Fournisseurs', icon: '🏭', path: '/fournisseurs-textile', color: '#F59E0B' },
+    { name: 'Partenaires', icon: '🤝', path: '/partenaire', color: '#7C3AED' },
+    { name: 'Blog', icon: '📝', path: '/blog-textile', color: '#10B981' },
+    { name: 'Marketing', icon: '📊', path: '/marketing', color: '#EF4444' },
+    { name: 'IA', icon: '🤖', path: '/recherche-ia', color: '#6366F1' },
+  ];
 
   const currentCategory = textileCategories.find(c => c.id === activeCategory)
   const filteredProducts = featuredProducts.filter(p => 
@@ -121,7 +135,70 @@ export default function TextileHub() {
   )
 
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+    <div style={{ padding: '100px 20px 40px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+      
+      {/* Back Button & Quick Links */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{ marginBottom: '30px' }}
+      >
+        {/* Back Button */}
+        <button
+          onClick={() => navigate('/')}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '10px 20px',
+            background: '#16161f',
+            border: '1px solid #333',
+            borderRadius: '10px',
+            color: '#fff',
+            cursor: 'pointer',
+            marginBottom: '20px',
+            fontSize: '1rem'
+          }}
+        >
+          ← Retour à l'accueil
+        </button>
+
+        {/* Quick Links */}
+        <h3 style={{ color: '#fff', marginBottom: '15px', fontSize: '1.1rem' }}>⚡ Navigation Rapide</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '10px' }}>
+          {quickLinks.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => navigate(link.path)}
+              style={{
+                padding: '12px',
+                background: '#16161f',
+                border: `1px solid ${link.color}40`,
+                borderRadius: '10px',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'all 0.3s'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = link.color;
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = '#16161f';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <span style={{ fontSize: '1.5rem' }}>{link.icon}</span>
+              <span style={{ fontSize: '0.8rem', fontWeight: '600' }}>{link.name}</span>
+            </button>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Hero */}
       <div style={{ 
         background: 'linear-gradient(135deg, #1e3a5f 0%, #4B6CB7 100%)', 
