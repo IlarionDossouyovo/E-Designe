@@ -233,22 +233,22 @@ export default function TextileHub() {
 
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '40px' }}>
-        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', border: '1px solid #2a2a35', textAlign: 'center' }}>
+        <Link to="/products" style={{ background: '#16161f', padding: '24px', borderRadius: '12px', border: '1px solid #2a2a35', textAlign: 'center', textDecoration: 'none', cursor: 'pointer' }}>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#4B6CB7', margin: 0 }}>{textileCategories.length}</p>
           <p style={{ color: '#9ca3af', margin: '8px 0 0' }}>Catégories</p>
-        </div>
-        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', border: '1px solid #2a2a35', textAlign: 'center' }}>
+        </Link>
+        <Link to="/fournisseurs-textile" style={{ background: '#16161f', padding: '24px', borderRadius: '12px', border: '1px solid #2a2a35', textAlign: 'center', textDecoration: 'none', cursor: 'pointer' }}>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#22c55e', margin: 0 }}>12</p>
           <p style={{ color: '#9ca3af', margin: '8px 0 0' }}>Fournisseurs</p>
-        </div>
-        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', border: '1px solid #2a2a35', textAlign: 'center' }}>
+        </Link>
+        <Link to="/products" style={{ background: '#16161f', padding: '24px', borderRadius: '12px', border: '1px solid #2a2a35', textAlign: 'center', textDecoration: 'none', cursor: 'pointer' }}>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#f59e0b', margin: 0 }}>{textileCategories.reduce((a,c) => a + c.products, 0)}</p>
           <p style={{ color: '#9ca3af', margin: '8px 0 0' }}>Produits</p>
-        </div>
-        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', border: '1px solid #2a2a35', textAlign: 'center' }}>
+        </Link>
+        <Link to="/blog-textile" style={{ background: '#16161f', padding: '24px', borderRadius: '12px', border: '1px solid #2a2a35', textAlign: 'center', textDecoration: 'none', cursor: 'pointer' }}>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#8b5cf6', margin: 0 }}>24</p>
           <p style={{ color: '#9ca3af', margin: '8px 0 0' }}>Articles blog</p>
-        </div>
+        </Link>
       </div>
 
       {/* Search */}
@@ -320,9 +320,9 @@ export default function TextileHub() {
               <h3 style={{ color: '#fff', margin: '10px 0' }}>{product.name}</h3>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ color: '#22c55e', fontWeight: 'bold', fontSize: '1.2rem' }}>{product.price}€</span>
-                <button style={{ background: '#4B6CB7', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '8px', cursor: 'pointer' }}>
+                <Link to={`/products/${product.id}`} style={{ background: '#4B6CB7', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none' }}>
                   Voir →
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -344,9 +344,9 @@ export default function TextileHub() {
                   <span style={{ color: '#9ca3af', fontSize: '0.85rem' }}>⏱️ {article.readTime}</span>
                 </div>
               </div>
-              <button style={{ background: '#4B6CB7', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer' }}>
+              <Link to="/blog-textile" style={{ background: '#4B6CB7', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', textDecoration: 'none' }}>
                 Lire →
-              </button>
+              </Link>
             </div>
           ))}
         </div>
@@ -357,14 +357,14 @@ export default function TextileHub() {
         <h2 style={{ color: '#fff', marginBottom: '20px' }}>📚 Tous les Articles Textile</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
           {textileCategories.flatMap(cat => cat.articles.map((art, i) => ({ ...art, categoryName: cat.name }))).map((article, index) => (
-            <div key={index} style={{ background: '#0a0a0f', padding: '16px', borderRadius: '10px' }}>
+            <Link key={index} to="/blog-textile" style={{ background: '#0a0a0f', padding: '16px', borderRadius: '10px', textDecoration: 'none' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                 <span style={{ color: '#4B6CB7', fontSize: '0.85rem' }}>{article.categoryName}</span>
                 <span style={{ color: '#9ca3af', fontSize: '0.75rem' }}>{article.readTime}</span>
               </div>
               <h4 style={{ color: '#fff', margin: 0 }}>{article.title}</h4>
               <span style={{ color: '#6B8DD6', fontSize: '0.85rem' }}>{article.category}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
