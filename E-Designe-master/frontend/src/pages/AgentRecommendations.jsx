@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const recommendationsConfig = {
   name: 'Agent Recommandations',
@@ -41,11 +42,19 @@ const recommendationsConfig = {
 }
 
 export default function AgentRecommendations() {
+  const navigate = useNavigate()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [activeTab, setActiveTab] = useState('overview')
+
+  const quickLinks = [
+    { name: 'Admin', icon: '⚙️', path: '/admin', color: '#4B6CB7' },
+    { name: 'Agents', icon: '🤖', path: '/agents', color: '#25D366' },
+    { name: 'Fondateur', icon: '👤', path: '/fondacteure', color: '#7C3AED' },
+    { name: 'Marketing', icon: '📊', path: '/marketing', color: '#E4405F' },
+  ];
 
   const FOUNDER_EMAIL = 'ilarion@e-designe.com'
   const FOUNDER_PASSWORD = 'electron2024'
@@ -90,7 +99,39 @@ export default function AgentRecommendations() {
   }
 
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+    <div style={{ padding: '100px 20px 40px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+      
+      {/* Quick Links */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{ marginBottom: '20px' }}
+      >
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          {quickLinks.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => navigate(link.path)}
+              style={{
+                padding: '8px 16px',
+                background: '#16161f',
+                border: `1px solid ${link.color}40`,
+                borderRadius: '8px',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '0.85rem'
+              }}
+            >
+              <span>{link.icon}</span>
+              <span>{link.name}</span>
+            </button>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Header */}
       <div style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', borderRadius: '20px', padding: '30px', marginBottom: '30px', color: '#fff' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
