@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const platforms = [
   { id: 'whatsapp', name: 'WhatsApp', icon: '💬', color: '#25D366', followers: '1.2K' },
@@ -29,6 +29,7 @@ const automations = [
 ];
 
 export default function MarketingHub() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [socialData, setSocialData] = useState(platforms);
   const [marketplaceData, setMarketplaceData] = useState(marketplaces);
@@ -37,6 +38,18 @@ export default function MarketingHub() {
   const [showCampaignModal, setShowCampaignModal] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [postContent, setPostContent] = useState('');
+
+  // Quick navigation buttons
+  const quickLinks = [
+    { name: 'Produits', icon: '🛍️', path: '/products', color: '#4B6CB7' },
+    { name: 'Commandes', icon: '📦', path: '/order-tracking', color: '#25D366' },
+    { name: 'Clients', icon: '👥', path: '/account', color: '#E4405F' },
+    { name: 'Analytics', icon: '📊', path: '/agents/analytics', color: '#FFD700' },
+    { name: 'IA Chatbot', icon: '🤖', path: '/agents/chatbot', color: '#7C3AED' },
+    { name: 'Emails', icon: '📧', path: '/agents/emails', color: '#F59E0B' },
+    { name: 'Stocks', icon: '📈', path: '/agents/inventory', color: '#10B981' },
+    { name: 'Fraud', icon: '🛡️', path: '/agents/fraud', color: '#EF4444' },
+  ];
 
   const stats = {
     totalReach: '82.8K',
@@ -110,6 +123,48 @@ export default function MarketingHub() {
         <p style={{ color: '#888', fontSize: '1.1rem' }}>
           Gérez vos canaux de vente, réseaux sociaux et automatisations
         </p>
+      </motion.div>
+
+      {/* Quick Links */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        style={{ maxWidth: '1400px', margin: '0 auto 30px' }}
+      >
+        <h3 style={{ color: '#fff', marginBottom: '15px', fontSize: '1.2rem' }}>⚡ Accès Rapide</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
+          {quickLinks.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => navigate(link.path)}
+              style={{
+                padding: '15px',
+                background: '#16161f',
+                border: `1px solid ${link.color}40`,
+                borderRadius: '12px',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'all 0.3s'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = link.color;
+                e.currentTarget.style.transform = 'translateY(-3px)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = '#16161f';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <span style={{ fontSize: '1.8rem' }}>{link.icon}</span>
+              <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>{link.name}</span>
+            </button>
+          ))}
+        </div>
       </motion.div>
 
       {/* Stats Cards */}
