@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const programs = [
   { 
@@ -88,10 +89,51 @@ const stats = {
 }
 
 export default function Affiliate() {
+  const navigate = useNavigate()
   const [selectedProgram, setSelectedProgram] = useState(null)
 
+  const quickLinks = [
+    { name: 'Accueil', icon: '🏠', path: '/', color: '#4B6CB7' },
+    { name: 'Produits', icon: '🛍️', path: '/products', color: '#25D366' },
+    { name: 'Marques', icon: '🏷️', path: '/marques', color: '#E4405F' },
+    { name: 'Textile', icon: '🧵', path: '/textile', color: '#F59E0B' },
+    { name: 'Marketing', icon: '📊', path: '/marketing', color: '#7C3AED' },
+  ];
+
   return (
-    <div style={{ padding: '2rem 20px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+    <div style={{ padding: '100px 20px 40px', maxWidth: '1400px', margin: '0 auto', background: '#0a0a0f', minHeight: '100vh' }}>
+      
+      {/* Quick Links */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{ marginBottom: '20px' }}
+      >
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          {quickLinks.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => navigate(link.path)}
+              style={{
+                padding: '8px 16px',
+                background: '#16161f',
+                border: `1px solid ${link.color}40`,
+                borderRadius: '8px',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '0.85rem'
+              }}
+            >
+              <span>{link.icon}</span>
+              <span>{link.name}</span>
+            </button>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Hero Banner */}
       <div style={{ 
         background: 'linear-gradient(135deg, #4B6CB7 0%, #182848 100%)', 
@@ -119,53 +161,53 @@ export default function Affiliate() {
 
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '40px' }}>
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
+        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', textAlign: 'center', border: '1px solid #2a2a35' }}>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#4B6CB7', margin: 0 }}>{stats.affiliates}+</p>
-          <p style={{ color: '#666', margin: 0 }}>Affilies actifs</p>
+          <p style={{ color: '#9ca3af', margin: 0 }}>Affilies actifs</p>
         </div>
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
+        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', textAlign: 'center', border: '1px solid #2a2a35' }}>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#22c55e', margin: 0 }}>{stats.totalEarned}€</p>
-          <p style={{ color: '#666', margin: 0 }}>Gains total distribues</p>
+          <p style={{ color: '#9ca3af', margin: 0 }}>Gains total distribues</p>
         </div>
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
+        <div style={{ background: '#16161f', padding: '24px', borderRadius: '12px', textAlign: 'center', border: '1px solid #2a2a35' }}>
           <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#f59e0b', margin: 0 }}>{stats.activePromotions}</p>
-          <p style={{ color: '#666', margin: 0 }}>Promotions actives</p>
+          <p style={{ color: '#9ca3af', margin: 0 }}>Promotions actives</p>
         </div>
       </div>
 
       {/* Programs */}
-      <h2 style={{ marginBottom: '1.5rem' }}>Nos programmes</h2>
+      <h2 style={{ marginBottom: '1.5rem', color: '#fff' }}>Nos programmes</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px', marginBottom: '40px' }}>
         {programs.map(program => (
           <div 
             key={program.id} 
             style={{ 
-              background: '#fff', 
+              background: '#16161f', 
               borderRadius: '16px', 
               padding: '24px', 
-              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-              border: selectedProgram === program.id ? `2px solid ${program.color}` : '2px solid transparent',
-              cursor: 'pointer'
+              border: selectedProgram === program.id ? `2px solid ${program.color}` : '1px solid #2a2a35',
+              cursor: 'pointer',
+              transition: 'all 0.3s'
             }}
             onClick={() => setSelectedProgram(selectedProgram === program.id ? null : program.id)}
           >
-            <h3 style={{ margin: '0 0 8px', color: program.color }}>{program.name}</h3>
-            <p style={{ fontSize: '2rem', fontWeight: 'bold', margin: '0 0 12px' }}>{program.commission}</p>
-            <p style={{ color: '#666', margin: '0 0 12px' }}>{program.description}</p>
-            <p style={{ fontSize: '12px', color: '#666', margin: '0 0 12px' }}>
-              <strong>Exigence:</strong> {program.requirements}
+            <h3 style={{ margin: '0 0 8px', color: '#fff' }}>{program.name}</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 'bold', margin: '0 0 12px', color: program.color }}>{program.commission}</p>
+            <p style={{ color: '#9ca3af', margin: '0 0 12px' }}>{program.description}</p>
+            <p style={{ fontSize: '12px', color: '#6B7280', margin: '0 0 12px' }}>
+              <strong style={{ color: '#9ca3af' }}>Exigence:</strong> {program.requirements}
             </p>
             
             {selectedProgram === program.id && (
-              <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #eee' }}>
+              <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #2a2a35' }}>
                 <p style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '12px', color: program.color }}>✓ Inclus:</p>
                 <ul style={{ paddingLeft: '16px', margin: 0 }}>
                   {program.details.map((detail, i) => (
-                    <li key={i} style={{ marginBottom: '8px', color: '#444' }}>{detail}</li>
+                    <li key={i} style={{ marginBottom: '8px', color: '#9ca3af' }}>{detail}</li>
                   ))}
                 </ul>
-                <div style={{ marginTop: '16px', padding: '12px', background: '#f5f5f5', borderRadius: '8px', textAlign: 'center' }}>
-                  <p style={{ fontSize: '12px', color: '#666', margin: '0 0 4px' }}>Exemple de gain:</p>
+                <div style={{ marginTop: '16px', padding: '12px', background: '#0a0a0f', borderRadius: '8px', textAlign: 'center' }}>
+                  <p style={{ fontSize: '12px', color: '#6B7280', margin: '0 0 4px' }}>Exemple de gain:</p>
                   <p style={{ fontWeight: 'bold', color: program.color, margin: 0 }}>{program.example}</p>
                 </div>
               </div>
@@ -175,12 +217,12 @@ export default function Affiliate() {
       </div>
 
       {/* Benefits */}
-      <h2 style={{ marginBottom: '1.5rem' }}>Pourquoi rejoindre?</h2>
+      <h2 style={{ marginBottom: '1.5rem', color: '#fff' }}>Pourquoi rejoindre?</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px', marginBottom: '40px' }}>
         {benefits.map((benefit, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#fff', padding: '16px', borderRadius: '8px' }}>
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#16161f', padding: '16px', borderRadius: '8px', border: '1px solid #2a2a35' }}>
             <span style={{ color: '#22c55e', fontSize: '1.2rem' }}>✓</span>
-            <span>{benefit}</span>
+            <span style={{ color: '#9ca3af' }}>{benefit}</span>
           </div>
         ))}
       </div>
