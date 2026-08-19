@@ -1,0 +1,374 @@
+{
+  "templates": [
+    {
+      "id": "tpl-001",
+      "name": "Minimalist Portfolio",
+      "category": "portfolio",
+      "subcategory": "personal",
+      "style": "minimalist",
+      "colorScheme": "monochrome",
+      "layout": "grid",
+      "features": ["hero-video", "about-section", "projects-grid", "contact-form"],
+      "technologies": ["Next.js", "Tailwind CSS", "Framer Motion"],
+      "tags": ["minimal", "clean", "professional", "personal"],
+      "premium": true,
+      "popular": true,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Un portfolio minimaliste avec des espaces généreux et une typographie élégante.",
+      "longDescription": "Ce template premium offre une expérience utilisateur exceptionnelle avec des animations fluides et une mise en page épurée qui met en valeur votre travail.",
+      "caseStudy": {
+        "challenge": "Créer une présence en ligne professionnelle et épurée",
+        "solution": "Design minimaliste avec focus sur le contenu",
+        "results": ["Augmentation du temps de visite de 45%", "Taux de conversion hausse de 28%"]
+      }
+    },
+    {
+      "id": "tpl-002",
+      "name": "Creative Agency",
+      "category": "portfolio",
+      "subcategory": "agency",
+      "style": "bold",
+      "colorScheme": "vibrant",
+      "layout": "fullscreen",
+      "features": ["hero-slider", "services-showcase", "team-section", "testimonials"],
+      "technologies": ["React", "GSAP", "Three.js", "WebGL"],
+      "tags": ["creative", "agency", "bold", "dynamic"],
+      "premium": true,
+      "popular": true,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Template idéal pour les agences creatives avec des animations spectaculaires.",
+      "longDescription": "Un design audacieux avec des animations 3D et des transitions fluides qui captivent l'attention dès le premier regard.",
+      "caseStudy": {
+        "challenge": "Attirer des clients premium pour une agence de design",
+        "solution": "Expérience visuelle immersive et mémorable",
+        "results": ["52% de demandes de devis en plus", "Notoriété augmentée de 67%"]
+      }
+    },
+    {
+      "id": "tpl-003",
+      "name": "Developer Portfolio Pro",
+      "category": "portfolio",
+      "subcategory": "developer",
+      "style": "tech",
+      "colorScheme": "dark",
+      "layout": "asymmetric",
+      "features": ["code-samples", "github-integration", "skills-graph", "blog-section"],
+      "technologies": ["Next.js", "TypeScript", "Prism.js", "GitHub API"],
+      "tags": ["developer", "code", "tech", "dark-mode"],
+      "premium": true,
+      "popular": true,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Portfolio spécialisé pour développeurs avec intégration GitHub.",
+      "longDescription": "Affichez votre code, connectez votre GitHub et démontrez vos compétences techniques avec ce template moderne.",
+      "caseStudy": {
+        "challenge": "Mettre en valeur les compétences techniques",
+        "solution": "Intégration GitHub et affichage de code en direct",
+        "results": ["78% d'entretiens obtenus après visite", "3x plus de contacts recruteurs"]
+      }
+    },
+    {
+      "id": "tpl-004",
+      "name": "Elegant Fashion",
+      "category": "portfolio",
+      "subcategory": "fashion",
+      "style": "elegant",
+      "colorScheme": "neutral",
+      "layout": "masonry",
+      "features": ["lookbook", "runway-gallery", "collection-slider", "lookbook-pdf"],
+      "technologies": ["Next.js", "GSAP", "Lenis", "PDF.js"],
+      "tags": ["fashion", "luxury", "elegant", "visual"],
+      "premium": true,
+      "popular": false,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Portfolio élégant pour marques de mode et stylistes.",
+      "longDescription": "Une mise en scène luxueuse pour vos créations avec des galeries masonry et des animations raffinées.",
+      "caseStudy": {
+        "challenge": "Présenter des collections de mode de manière immersive",
+        "solution": "Galerie Masonry avec animations de défilement lentes",
+        "results": ["Engagement multiplié par 4", "Téléchargements de brochures +89%"]
+      }
+    },
+    {
+      "id": "tpl-005",
+      "name": "Architectural Vision",
+      "category": "portfolio",
+      "subcategory": "architecture",
+      "style": "clean",
+      "colorScheme": "monochrome",
+      "layout": "horizontal-scroll",
+      "features": ["3d-tour", "blueprints", "project-slider", "vr-preview"],
+      "technologies": ["Three.js", "React Three Fiber", "WebXR", "Panolens"],
+      "tags": ["architecture", "3d", "immersive", "professional"],
+      "premium": true,
+      "popular": true,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Portfolio immersif pour architectes avec visites 3D.",
+      "longDescription": "Faites découvrir vos projets architecturaux avec des visites virtuelles 3D et des galeries horizontales spectaculaires.",
+      "caseStudy": {
+        "challenge": "Présenter des projets architecturaux complexes",
+        "solution": "Visites virtuelles 3D interactives",
+        "results": ["100% de satisfaction client", "Décisions de commande 2x plus rapides"]
+      }
+    },
+    {
+      "id": "tpl-006",
+      "name": "Photographer Pro",
+      "category": "portfolio",
+      "subcategory": "photography",
+      "style": "visual",
+      "colorScheme": "dark",
+      "layout": "lightbox",
+      "features": ["photo-grid", "lightbox-viewer", "exif-data", "print-shop"],
+      "technologies": ["Next.js", "Lightbox.js", "Exifr", "Stripe"],
+      "tags": ["photography", "gallery", "visual", "professional"],
+      "premium": true,
+      "popular": true,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Portfolio dédié aux photographes avec galerie lightbox.",
+      "longDescription": "Une plateforme visuelle optimale pour les photographes avec visualisation EXIF et boutique de tirages.",
+      "caseStudy": {
+        "challenge": "Vendre des tirages photo directement",
+        "solution": "Boutique intégrée avec EXIF et选项 de achat",
+        "results": ["Ventes directes de 4500€/mois", "Taux de conversion 8.5%"]
+      }
+    },
+    {
+      "id": "tpl-007",
+      "name": "Restaurant Culinary",
+      "category": "portfolio",
+      "subcategory": "restaurant",
+      "style": "warm",
+      "colorScheme": "warm",
+      "layout": "split",
+      "features": ["menu-display", "reservation-form", "chef-profile", "gallery-food"],
+      "technologies": ["Next.js", "Tailwind", "Resmio API", "OpenTable"],
+      "tags": ["restaurant", "food", "elegant", "booking"],
+      "premium": true,
+      "popular": false,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Site web élégant pour restaurants avec réservation.",
+      "longDescription": "Présentez votre menu, votre chef et recevez des réservations directement sur votre site.",
+      "caseStudy": {
+        "challenge": "Augmenter les réservations en ligne",
+        "solution": "Système de réservation intégré",
+        "results": ["+156% réservations", "ROI en 3 mois"]
+      }
+    },
+    {
+      "id": "tpl-008",
+      "name": "Startup Launch",
+      "category": "portfolio",
+      "subcategory": "startup",
+      "style": "modern",
+      "colorScheme": "gradient",
+      "layout": "hero-focused",
+      "features": ["hero-animation", "features-grid", "pricing-table", "waitlist-form"],
+      "technologies": ["Next.js", "Framer Motion", "Stripe", "Mailchimp"],
+      "tags": ["startup", "saas", "modern", "product"],
+      "premium": true,
+      "popular": true,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Landing page parfaite pour startup tech.",
+      "longDescription": "Lancez votre produit avec style grâce à ce template performant avec funnel de conversion intégré.",
+      "caseStudy": {
+        "challenge": "Convertir les visiteurs en utilisateurs",
+        "solution": "Funnel optimisé avec animations d'engagement",
+        "results": ["Conv. rate 12.4%", "Waitlist 2000+ en 30 jours"]
+      }
+    },
+    {
+      "id": "tpl-009",
+      "name": "Music Artist",
+      "category": "portfolio",
+      "subcategory": "music",
+      "style": "bold",
+      "colorScheme": "dark-vibrant",
+      "layout": "full-media",
+      "features": ["music-player", "tour-dates", "merch-shop", "video-embed"],
+      "technologies": ["Next.js", "Howler.js", "Spotify API", "Stripe"],
+      "tags": ["music", "artist", "entertainment", "merch"],
+      "premium": true,
+      "popular": false,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Site complet pour artistes musicians.",
+      "longDescription": "Player de musique intégré, dates de tournée, boutique merchandise - tout ce dont un artiste besoin.",
+      "caseStudy": {
+        "challenge": "Vendre merchandise et billets",
+        "solution": "Boutique et billetterie intégrées",
+        "results": ["Ventes merch +234%", "Billets vendus via le site"]
+      }
+    },
+    {
+      "id": "tpl-010",
+      "name": "Real Estate Premium",
+      "category": "portfolio",
+      "subcategory": "real-estate",
+      "style": "luxury",
+      "colorScheme": "gold-dark",
+      "layout": "property-grid",
+      "features": ["property-cards", "map-search", "virtual-tours", "contact-agent"],
+      "technologies": ["Next.js", "Mapbox", "Three.js", "Contact Form"],
+      "tags": ["real-estate", "luxury", "property", "premium"],
+      "premium": true,
+      "popular": true,
+      "image": "https://placehold.co/800x600/2d2d44/FFD700?text=Template",
+      "mockup": "https://placehold.co/1200x800/1a1a2e/eaeaea?text=Mockup",
+      "description": "Portfolio luxueux pour agences immobilières.",
+      "longDescription": "Présentez vos propriétés avec des visites virtuelles et un design premium qui inspire confiance.",
+      "caseStudy": {
+        "challenge": "Vendre des propriétés de luxe",
+        "solution": "Visites virtuelles et design premium",
+        "results": ["Vente moyenne 2.4M€", "Temps de décision réduit de 60%"]
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "portfolio",
+      "name": "Portfolio",
+      "icon": "Briefcase",
+      "subcategories": ["personal", "agency", "developer", "freelance", "studio"]
+    },
+    {
+      "id": "ecommerce",
+      "name": "E-commerce",
+      "icon": "ShoppingBag",
+      "subcategories": ["fashion", "electronics", "food", "jewelry", "furniture"]
+    },
+    {
+      "id": "business",
+      "name": "Business",
+      "icon": "Building",
+      "subcategories": ["corporate", "startup", "consulting", "finance", "legal"]
+    },
+    {
+      "id": "creative",
+      "name": "Creative",
+      "icon": "Palette",
+      "subcategories": ["design", "photography", "video", "music", "art"]
+    },
+    {
+      "id": "restaurant",
+      "name": "Restauration",
+      "icon": "Utensils",
+      "subcategories": ["restaurant", "cafe", "bar", "food-truck", "bakery"]
+    },
+    {
+      "id": "real-estate",
+      "name": "Immobilier",
+      "icon": "Home",
+      "subcategories": ["agency", "developer", "architect", "interior"]
+    },
+    {
+      "id": "education",
+      "name": "Éducation",
+      "icon": "GraduationCap",
+      "subcategories": ["school", "university", "course", "training", "tutor"]
+    },
+    {
+      "id": "health",
+      "name": "Santé",
+      "icon": "Heart",
+      "subcategories": ["medical", "dental", "wellness", "fitness", "pharmacy"]
+    },
+    {
+      "id": "travel",
+      "name": "Voyage",
+      "icon": "Plane",
+      "subcategories": ["hotel", "tourism", "booking", "travel-agency"]
+    },
+    {
+      "id": "tech",
+      "name": "Tech & SaaS",
+      "icon": "Code",
+      "subcategories": ["saas", "app", "developer", "tech-company", "product"]
+    }
+  ],
+  "styles": [
+    { "id": "minimalist", "name": "Minimaliste", "description": "Design épuré avec espaces généreux" },
+    { "id": "bold", "name": "Audacieux", "description": "Design impactant avec typographies fortes" },
+    { "id": "elegant", "name": "Élégant", "description": "Style raffiné et sophistiqué" },
+    { "id": "modern", "name": "Moderne", "description": "Tendances actuelles et animations" },
+    { "id": "classic", "name": "Classique", "description": "Intemporel et professionnel" },
+    { "id": "creative", "name": "Créatif", "description": "Liberté artistique et originalité" },
+    { "id": "tech", "name": "Tech", "description": "Style développeur et code" },
+    { "id": "luxury", "name": "Luxe", "description": "Premium et exclusif" },
+    { "id": "warm", "name": "Accueillant", "description": "Chaleureux et invitation" },
+    { "id": "playful", "name": "Ludique", "description": "Fun et interactif" }
+  ],
+  "colorSchemes": [
+    { "id": "monochrome", "name": "Monochrome", "colors": ["#000000", "#FFFFFF", "#333333"] },
+    { "id": "dark", "name": "Sombre", "colors": ["#1a1a1a", "#2d2d2d", "#ffffff"] },
+    { "id": "light", "name": "Clair", "colors": ["#ffffff", "#f5f5f5", "#333333"] },
+    { "id": "vibrant", "name": "Vibrant", "colors": ["#FF6B6B", "#4ECDC4", "#45B7D1"] },
+    { "id": "warm", "name": "Chaud", "colors": ["#FF9F43", "#F8B739", "#E17055"] },
+    { "id": "cool", "name": "Froid", "colors": ["#74B9FF", "#0984E3", "#636E72"] },
+    { "id": "gold-dark", "name": "Or Noir", "colors": ["#FFD700", "#1a1a1a", "#ffffff"] },
+    { "id": "gradient", "name": "Dégradé", "colors": ["#667EEA", "#764BA2", "#F093FB"] },
+    { "id": "pastel", "name": "Pastel", "colors": ["#FFEAA7", "#DFE6E9", "#74B9FF"] },
+    { "id": "neutral", "name": "Neutre", "colors": ["#F5F6FA", "#2D3436", "#636E72"] }
+  ],
+  "layouts": [
+    { "id": "grid", "name": "Grille", "description": "Disposition en grille classique" },
+    { "id": "masonry", "name": "Masonry", "description": "Graille with cards of varying heights" },
+    { "id": "horizontal-scroll", "name": "Défilement Horizontal", "description": "Scroll sideways instead of down" },
+    { "id": "fullscreen", "name": "Plein Écran", "description": "Full-screen sections" },
+    { "id": "split", "name": "Divisé", "description": "Split-screen layout" },
+    { "id": "hero-focused", "name": "Hero Principal", "description": "Hero section takes most of the space" },
+    { "id": "asymmetric", "name": "Asymétrique", "description": "Unconventional asymmetric layout" },
+    { "id": "lightbox", "name": "Lightbox", "description": "Images open in lightbox" },
+    { "id": "carousel", "name": "Carrousel", "description": "Content in carousel format" },
+    { "id": "full-media", "name": "Média Plein", "description": "Full-bleed media throughout" }
+  ],
+  "features": [
+    { "id": "hero-video", "name": "Vidéo Hero", "description": "Background video in hero section" },
+    { "id": "hero-slider", "name": "Slider Hero", "description": "Carousel in hero section" },
+    { "id": "lightbox-viewer", "name": "Visionneuse Lightbox", "description": "Full-screen image viewer" },
+    { "id": "3d-tour", "name": "Tour 3D", "description": "Interactive 3D tour" },
+    { "id": "vr-preview", "name": "Prévisualisation VR", "description": "Virtual reality preview" },
+    { "id": "code-samples", "name": "Échantillons de Code", "description": "Display code snippets" },
+    { "id": "github-integration", "name": "Intégration GitHub", "description": "Connect GitHub repositories" },
+    { "id": "skills-graph", "name": "Graphique de Compétences", "description": "Visual skills representation" },
+    { "id": "blog-section", "name": "Section Blog", "description": "Blog posts section" },
+    { "id": "projects-grid", "name": "Grille de Projets", "description": "Projects in grid layout" },
+    { "id": "contact-form", "name": "Formulaire de Contact", "description": "Contact form with validation" },
+    { "id": "reservation-form", "name": "Formulaire de Réservation", "description": "Booking/reservation system" },
+    { "id": "menu-display", "name": "Affichage Menu", "description": "Restaurant menu display" },
+    { "id": "tour-dates", "name": "Dates de Tournée", "description": "Tour dates for artists" },
+    { "id": "music-player", "name": "Lecteur Audio", "description": "Integrated music player" },
+    { "id": "merch-shop", "name": "Boutique Merch", "description": "Merchandise store" },
+    { "id": "virtual-tours", "name": "Visites Virtuelles", "description": "360-degree virtual tours" },
+    { "id": "map-search", "name": "Recherche Carte", "description": "Map-based search" },
+    { "id": "property-cards", "name": "Cartes de Propriété", "description": "Property listing cards" },
+    { "id": "waitlist-form", "name": "Formulaire Waitlist", "description": "Pre-launch waitlist" },
+    { "id": "pricing-table", "name": "Grille de Tarifs", "description": "Pricing comparison table" },
+    { "id": "testimonials", "name": "Témoignages", "description": "Client testimonials section" },
+    { "id": "team-section", "name": "Section Équipe", "description": "Team members display" },
+    { "id": "services-showcase", "name": "Vitrine Services", "description": "Services showcase" },
+    { "id": "lookbook", "name": "Lookbook", "description": "Fashion lookbook" },
+    { "id": "exif-data", "name": "Données EXIF", "description": "Photo EXIF information" },
+    { "id": "print-shop", "name": "Boutique d'Impressions", "description": "Print-on-demand shop" },
+    { "id": "qr-share", "name": "Partage QR Code", "description": "QR code for sharing" },
+    { "id": "pdf-download", "name": "Téléchargement PDF", "description": "Download PDF brochures" },
+    { "id": "ai-quote", "name": "Devis IA", "description": "AI-powered quote generation" }
+  ],
+  "technologies": [
+    "Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", 
+    "GSAP", "Three.js", "React Three Fiber", "WebGL", "Lenis",
+    "Prism.js", "Highlight.js", "Stripe", "Resend", "Mailchimp",
+    "Mapbox", "Google Maps", "OpenStreetMap", "Panorama", "Pannellum",
+    "Lightbox.js", "Yet Another Lightbox", "PDF.js", "jsPDF",
+    "QRCode.js", "html5-qrcode", "Howler.js", "Waveform",
+    "Spotify API", "GitHub API", "Instagram API", "YouTube API",
+    "OpenTable API", "Resmio API", "Calendly", "Typeform"
+  ]
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "agent": "Commercial",
+    "messages": [
+      {
+        "role": "assistant",
+        "content": "Bonjour! Je suis le service commercial de Graphisme by ELECTRON.\n\nJe vous aide a trouver le service adapte a vos besoins et etablis les devis.\n\nParlez-moi de votre projet."
+      },
+      {
+        "role": "user",
+        "content": "comment va tu"
+      },
+      {
+        "role": "assistant",
+        "content": "C'est bien ! Je vais bien, merci de demander. Et vous, comment allez-vous ? Avez-vous une idée de ce que vous cherchez en termes de graphisme ou de services liés ?\n\nNous avons une variété de services pour répondre à vos besoins, notamment :\n\n* La création d'un site web\n* Le développement d'une boutique en ligne (e-commerce)\n* La conception d'un logo\n* L'optimisation du référencement des sites web (SEO)\n\nPouvez-vous me donner plus de détails sur votre projet ?"
+      }
+    ],
+    "status": "active",
+    "id": "mrthgor93unxleua1gi",
+    "createdAt": "2026-07-20T17:13:04.341Z",
+    "updatedAt": "2026-07-20T17:13:04.341Z"
+  }
+]

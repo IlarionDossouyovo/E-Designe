@@ -1,0 +1,12 @@
+# Robots.txt for Graphisme by ELECTRON
+
+User-agent: *
+Allow: /
+
+# Disallow admin paths
+Disallow: /admin
+Disallow: /api
+Disallow: /_next
+
+# Sitemap
+Sitemap: https://graphisme.electron/sitemap.xml

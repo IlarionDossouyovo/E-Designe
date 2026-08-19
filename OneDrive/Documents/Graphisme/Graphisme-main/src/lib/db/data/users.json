@@ -1,0 +1,36 @@
+[
+  {
+    "id": "admin001",
+    "email": "admin@graphisme.electron",
+    "name": "Administrateur",
+    "password": "$2a$10$ph18igyJEipegrzqIzX4TuJfgwkodIuMJCVl0uYPCC.R2nfC4NjLi",
+    "role": "admin",
+    "avatar": null,
+    "phone": "+229 01 97 70 03 47",
+    "company": "Graphisme by ELECTRON",
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "updatedAt": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "client001",
+    "email": "client@exemple.com",
+    "name": "Jean Dupont",
+    "password": "$2a$10$dnm4Fgd2C5C7nuif8zb6RekJ3F0dgHlrBhzCDuPJyc0U8iI7WORD2",
+    "role": "client",
+    "avatar": null,
+    "phone": "+229 01 23 45 67 89",
+    "company": "TechCorp Benin",
+    "createdAt": "2026-01-15T00:00:00.000Z",
+    "updatedAt": "2026-01-15T00:00:00.000Z"
+  },
+  {
+    "id": "user-1783782691143",
+    "name": "ELECTRON",
+    "email": "dossouyovoauguste@gmail.com",
+    "password": "$2a$10$IZjx/NCY98cw1DVYJUNPVOkFiMQL2OjumhCsrq5nTCU3eqvWG5YLe",
+    "role": "client",
+    "avatar": null,
+    "createdAt": "2026-07-11T15:11:31.144Z",
+    "updatedAt": "2026-07-11T15:11:31.144Z"
+  }
+]
